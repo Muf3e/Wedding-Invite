@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Mustafa &amp; Tasneem — Wedding Invitation</title>
+  <meta name="description" content="Official Wedding Invitation of Mustafa &amp; Tasneem. An interactive Dawoodi Bohra storytelling wedding experience in royal lavender and gold." />
+  
+  <!-- Favicon & Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+  <!-- enhancements: video-parity animations (seal glow waves, arch reveal, birds & butterflies) -->
+  <link rel="stylesheet" href="enhancements.css" />
+</head>
+<body>
+  <!-- Ambient Wedding Audio Player -->
+  <audio id="bg-audio" loop preload="auto">
+    <source src="assets/music.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- Floating Audio Equalizer Control (Matching Circular Gold Button in Reference Video) -->
+  <button id="music-toggle" class="floating-music-btn" aria-label="Toggle Background Music" title="Play / Pause Music">
+    <span class="music-icon-state" id="music-icon-state">⏸</span>
+    <div class="eq-bars">
+      <span class="bar bar-1"></span>
+      <span class="bar bar-2"></span>
+      <span class="bar bar-3"></span>
+      <span class="bar bar-4"></span>
+    </div>
+  </button>
+
+  <!-- Steady Ambient Canvas for Floating Lavender Petals, Bokeh Orbs & Golden Stardust -->
+  <canvas id="petal-canvas"></canvas>
+
+  <!-- Side Storyteller Chapter Navigation (Parallax Book) -->
+  <nav class="story-nav" id="story-nav" aria-label="Invitation Chapters">
+    <div class="story-nav-track">
+      <a href="#chapter-union" class="story-nav-dot active" data-chapter="I" title="The Royal Union"></a>
+      <a href="#chapter-invitation" class="story-nav-dot" data-chapter="II" title="The Invitation"></a>
+      <a href="#chapter-date" class="story-nav-dot" data-chapter="III" title="Auspicious Date"></a>
+      <a href="#chapter-rusumat" class="story-nav-dot" data-chapter="IV" title="Wedding Timeline"></a>
+      <a href="#chapter-rsvp" class="story-nav-dot" data-chapter="V" title="RSVP &amp; Mubaraki"></a>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="app-viewport">
+
+    <!-- ==============================================
+         PROLOGUE: FULLSCREEN ENVELOPE CLOSE-UP SCREEN
+         ============================================== -->
+    <!-- ==============================================
+         PROLOGUE: FULLSCREEN ENVELOPE CLOSE-UP SCREEN
+         ============================================== -->
+    <section id="envelope-screen" class="envelope-screen fullscreen-envelope-view">
+      <div class="fullscreen-envelope-container" id="envelope-box">
+        
+        <!-- Embossed Texture & Gilded Flaps Base -->
+        <div class="envelope-full-bg"></div>
+
+        <!-- Inner Shimmering Gold Pocket Lining -->
+        <div class="envelope-pocket-liner"></div>
+
+        <!-- Emerging Card Peek (Slides gracefully up when flap opens, matching reference video) -->
+        <div class="envelope-card-peek" id="envelope-card-peek">
+          <div class="peek-inner-card">
+            <img src="assets/calligraphy/Asset 12.png" alt="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" class="peek-bismillah-img" />
+            <img src="assets/rosette_logo.png" alt="Mustafa &amp; Tasneem Calligraphy Rosette Medallion" class="peek-logo-img" />
+            <span class="peek-cursive-prefix">Together with their families</span>
+            <div class="peek-couple-title">Mustafa &amp; Tasneem</div>
+            <div class="peek-thuluth-title">مُصْطَفَى وَ تَسْنِيم</div>
+            <div class="peek-scroll-indicator">
+              <span class="peek-scroll-text">Scroll down</span>
+              <span class="peek-scroll-chevron">⌄</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Envelope Flap Layers: 4 Authentic 3D Flaps Meeting at Center -->
+        <div class="envelope-panel panel-bottom" id="panel-bottom">
+          <div class="flap-embossed-flourish bouquet-bottom"></div>
+        </div>
+        <div class="envelope-panel panel-left" id="panel-left">
+          <div class="flap-embossed-flourish vine-left"></div>
+        </div>
+        <div class="envelope-panel panel-right" id="panel-right">
+          <div class="flap-embossed-flourish vine-right"></div>
+        </div>
+        <div class="envelope-panel panel-top" id="top-flap">
+          <div class="flap-embossed-flourish bouquet-top"></div>
+        </div>
+
+        <!-- Expanding Golden Wave / Ripple Effect from behind Seal on Tap -->
+        <div class="seal-wave-container" id="seal-waves">
+          <div class="seal-wave-ring wave-1"></div>
+          <div class="seal-wave-ring wave-2"></div>
+          <div class="seal-wave-ring wave-3"></div>
+          <div class="seal-wave-ring wave-4"></div>
+        </div>
+
+        <!-- Radiant Golden Light Burst from behind Seal on Tap -->
+        <div class="seal-light-burst" id="seal-light-burst"></div>
+
+        <!-- Prominent Pure Gold Wax Seal (Direct Authentic Frontal Cutout) -->
+        <div class="wax-seal-macro-wrap" id="wax-seal" role="button" tabindex="0" aria-label="Open wedding invitation">
+          <div class="seal-soft-aura"></div>
+          <div class="seal-sunbeam-rays" id="seal-rays"></div>
+          <img src="assets/seal.png" alt="Mustafa &amp; Tasneem Bilingual Gold Wax Seal (MT / م ت)" class="seal-macro-img" id="seal-img" />
+        </div>
+
+        <!-- Elegant Tap Prompt (Separate from seal so it never overlaps the gold rim) -->
+        <div class="seal-tap-indicator" id="seal-indicator">
+          <div class="seal-callout-pill">
+            <span class="callout-sparkle">✨</span>
+            <span class="callout-text">TAP TO UNVEIL</span>
+            <span class="callout-sparkle">✨</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Soft Ethereal Champagne Light Bloom Portal Overlay -->
+    <div class="soft-light-portal" id="light-portal">
+      <div class="portal-sunburst"></div>
+      <div class="portal-warm-glow"></div>
+    </div>
+
+    <!-- ==============================================
+         STORYTELLER PARALLAX BOOK INVITATION
+         ============================================== -->
+    <section id="invitation-screen" class="invitation-screen hidden">
+
+      <!-- CHAPTER I: THE ROYAL PROCESSION & UNION (Living Archway & Walking Couple) -->
+      <article class="story-chapter hero-arch-chapter" id="chapter-union">
+
+        <div class="chapter-header">
+          <span class="chapter-roman">Chapter I</span>
+          <h2 class="chapter-title">The Royal Union</h2>
+          <div class="ornate-separator">
+            <span class="sep-line"></span>
+            <span class="sep-gem">✦</span>
+            <span class="sep-line"></span>
+          </div>
+        </div>
+
+        <div class="bismillah-block">
+          <img src="assets/calligraphy/Asset 12.png" alt="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" class="bismillah-calligraphy-img" />
+          <p class="bismillah-trans">In the name of Allah, the Most Beneficent, the Most Merciful</p>
+        </div>
+
+        <!-- Grand Mughal Archway Stage with Living Motion, Swaying Lanterns & Walking Couple (Matching Reference Video) -->
+        <div class="hero-archway-container" id="hero-archway-stage">
+          
+          <!-- Hanging Ornate Lanterns (Fanoos) with Physics Sway & Amber Flame Glow -->
+          <div class="hanging-lantern lantern-left" id="lantern-left">
+            <div class="lantern-chain"></div>
+            <div class="lantern-body">
+              <div class="lantern-flame-glow"></div>
+              <svg viewBox="0 0 60 105" class="lantern-svg" aria-hidden="true">
+                <defs>
+                  <linearGradient id="lanternGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#FFF4D0"/>
+                    <stop offset="30%" stop-color="#E5C368"/>
+                    <stop offset="70%" stop-color="#B88A28"/>
+                    <stop offset="100%" stop-color="#735212"/>
+                  </linearGradient>
+                  <radialGradient id="lanternGlassGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#FFFDF2" stop-opacity="1"/>
+                    <stop offset="40%" stop-color="#FFE082" stop-opacity="0.95"/>
+                    <stop offset="80%" stop-color="#FFB300" stop-opacity="0.8"/>
+                    <stop offset="100%" stop-color="#E65100" stop-opacity="0.5"/>
+                  </radialGradient>
+                </defs>
+                <circle cx="30" cy="6" r="4" fill="none" stroke="url(#lanternGoldGrad)" stroke-width="2"/>
+                <path d="M28 10 L32 10 L30 16 Z" fill="url(#lanternGoldGrad)"/>
+                <path d="M16 28 C16 18, 24 16, 30 16 C36 16, 44 18, 44 28 Z" fill="url(#lanternGoldGrad)" stroke="#523908" stroke-width="0.8"/>
+                <rect x="14" y="28" width="32" height="4" rx="2" fill="url(#lanternGoldGrad)" stroke="#523908" stroke-width="0.8"/>
+                <path d="M17 32 L43 32 L40 76 L20 76 Z" fill="url(#lanternGlassGlow)"/>
+                <path d="M17 32 L43 32 L40 76 L20 76 Z" fill="none" stroke="url(#lanternGoldGrad)" stroke-width="1.2"/>
+                <path d="M30 32 L30 76 M20 46 L40 46 M18 60 L42 60" stroke="#7A5612" stroke-width="0.9" opacity="0.75"/>
+                <path d="M22 32 L38 76 M38 32 L22 76" stroke="#946B18" stroke-width="0.8" opacity="0.6"/>
+                <path d="M20 76 L40 76 L34 90 L26 90 Z" fill="url(#lanternGoldGrad)" stroke="#523908" stroke-width="0.8"/>
+                <circle cx="30" cy="95" r="3" fill="url(#lanternGoldGrad)" stroke="#523908" stroke-width="0.8"/>
+                <path d="M30 98 L30 104" stroke="url(#lanternGoldGrad)" stroke-width="1.5"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="hanging-lantern lantern-right" id="lantern-right">
+            <div class="lantern-chain"></div>
+            <div class="lantern-body">
+              <div class="lantern-flame-glow"></div>
+              <svg viewBox="0 0 60 105" class="lantern-svg" aria-hidden="true">
+                <circle cx="30" cy="6" r="4" fill="none" stroke="url(#lanternGoldGrad)" stroke-width="2"/>
+                <path d="M28 10 L32 10 L30 16 Z" fill="url(#lanternGoldGrad)"/>
+                <path d="M16 28 C16 18, 24 16, 30 16 C36 16, 44 18, 44 28 Z" fill="url(#lanternGoldGrad)" stroke="#523908" stroke-width="0.8"/>
+                <rect x="14" y="28" width="32" height="4" rx="2" fill="url(#lanternGoldGrad)" stroke="#523908" stroke-width="0.8"/>
+                <path d="M17 32 L43 32 L40 76 L20 76 Z" fill="url(#lanternGlassGlow)"/>
+                <path d="M17 32 L43 32 L40 76 L20 76 Z" fill="none" stroke="url(#lanternGoldGrad)" stroke-width="1.2"/>
+                <path d="M30 32 L30 76 M20 46 L40 46 M18 60 L42 60" stroke="#7A5612" stroke-width="0.9" opacity="0.75"/>
+                <path d="M22 32 L38 76 M38 32 L22 76" stroke="#946B18" stroke-width="0.8" opacity="0.6"/>
+                <path d="M20 76 L40 76 L34 90 L26 90 Z" fill="url(#lanternGoldGrad)" stroke="#523908" stroke-width="0.8"/>
+                <circle cx="30" cy="95" r="3" fill="url(#lanternGoldGrad)" stroke="#523908" stroke-width="0.8"/>
+                <path d="M30 98 L30 104" stroke="url(#lanternGoldGrad)" stroke-width="1.5"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Archway Frame Card with Floral Bouquets & Scenic Window -->
+          <div class="archway-frame-card" id="archway-card">
+            <!-- enhancements: static soft shadow under the ogee arch -->
+            <svg class="arch-ogee-shadow" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M0 100V40C0 26 8 18 20 11C33 5 45 3 50 0C55 3 67 5 80 11C92 18 100 26 100 40V100Z"/>
+            </svg>
+            <!-- Arch Floral Corner Bouquets -->
+            <div class="arch-floral-corner arch-corner-left" aria-hidden="true">
+              <img src="assets/floral_corner.png" alt="" class="arch-corner-img" />
+            </div>
+            <div class="arch-floral-corner arch-corner-right" aria-hidden="true">
+              <img src="assets/floral_corner.png" alt="" class="arch-corner-img" />
+            </div>
+
+            <!-- Arch Invitation Heading Matching Video -->
+            <div class="arch-invitation-heading">
+              <span class="arch-script-welcome">Welcome to the</span>
+              <h2 class="arch-ceremony-title">Wedding Celebration</h2>
+              <span class="arch-of-script">of</span>
+              <h3 class="arch-couple-title">Mustafa <span>&amp;</span> Tasneem</h3>
+            </div>
+
+            <!-- Scenic Walking Couple Stage (Continuous Video Loop & Image Fallback) -->
+            <div class="arch-scenic-window" id="arch-scenic-window">
+              <div class="walking-video-wrap" id="walking-video-wrap">
+                <video class="couple-walk-video" id="couple-walk-video" autoplay loop muted playsinline poster="assets/couple_walking.jpg">
+                  <source src="assets/couple_walking.mp4" type="video/mp4" />
+                </video>
+                <img src="assets/couple_walking.jpg" alt="Mustafa &amp; Tasneem Walking" class="couple-walk-fallback" />
+              </div>
+              <div class="arch-sunbeam-glow"></div>
+              <div class="arch-sweep" aria-hidden="true"></div><!-- enhancements -->
+            </div>
+
+            <!-- enhancements: ogee outline, foot-of-arch florals and scroll cue -->
+            <div class="arch-floral-corner arch-corner-bl" aria-hidden="true">
+              <img src="assets/floral_corner.png" alt="" class="arch-corner-img" />
+            </div>
+            <div class="arch-floral-corner arch-corner-br" aria-hidden="true">
+              <img src="assets/floral_corner.png" alt="" class="arch-corner-img" />
+            </div>
+            <svg class="arch-ogee-border" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <path class="ogee-outer" d="M0 100V40C0 26 8 18 20 11C33 5 45 3 50 0C55 3 67 5 80 11C92 18 100 26 100 40V100"/>
+              <path class="ogee-inner" d="M2.4 100V41C2.4 28 9.6 20 21 13.4C33.5 8 44.5 6 50 3.2C55.5 6 66.5 8 79 13.4C90.4 20 97.6 28 97.6 41V100"/>
+            </svg>
+            <div class="hero-scroll-cue" aria-hidden="true">Scroll down<span class="chev">&#8964;</span></div>
+          </div>
+        </div>
+
+        <!-- Chapter I Ornate Monogram Presentation -->
+        <div class="calligraphy-monogram-block">
+          <div class="hero-logo-frame">
+            <div class="logo-glow-halo"></div>
+            <div class="logo-inner-wrapper">
+              <img src="assets/rosette_logo.png" alt="Mustafa &amp; Tasneem Arabic Calligraphy Rosette Medallion" class="couple-arabic-logo" />
+            </div>
+          </div>
+          <div class="couple-names-header">
+            <span class="cursive-prefix">Together with their families</span>
+            <h1 class="couple-primary-names">Mustafa &amp; Tasneem</h1>
+            <div class="couple-thuluth-title">مُصْطَفَى وَ تَسْنِيم</div>
+            <p class="couple-tagline">Celebrate with us as we embark on this sacred journey of companionship and barakat.</p>
+          </div>
+        </div>
+
+        <!-- Scroll Down Motion Prompt (Matching Video Frame 280) -->
+        <div class="chapter-scroll-prompt">
+          <span class="scroll-prompt-text">Scroll down</span>
+          <span class="scroll-prompt-chevron">⌄</span>
+        </div>
+      </article>
+
+      <!-- Royal Section Separator -->
+      <div class="royal-section-divider">
+        <span class="div-line"></span>
+        <span class="div-ornament"><span class="div-gem">✦</span><span class="div-rosette">❖</span><span class="div-gem">✦</span></span>
+        <span class="div-line rev"></span>
+      </div>
+
+      <!-- CHAPTER II: THE INVITATION (Traditional Bohra Invitation Card) -->
+      <article class="story-chapter" id="chapter-invitation">
+        <div class="chapter-header">
+          <span class="chapter-roman">Chapter II</span>
+          <h2 class="chapter-title">The Invitation</h2>
+          <div class="ornate-separator">
+            <span class="sep-line"></span>
+            <span class="sep-gem">✦</span>
+            <span class="sep-line"></span>
+          </div>
+        </div>
+
+        <!-- Live Invitation Customizer Toolbar -->
+        <div class="card-customizer-bar" id="card-customizer-bar">
+          <button id="toggle-editor-btn" class="btn-customizer-toggle" title="Customize Invitation Text &amp; Styling">
+            <span class="btn-icon">✏️</span>
+            <span class="btn-text">Customize Card Content</span>
+          </button>
+
+          <!-- Drawer that expands when toggle is clicked -->
+          <div class="card-editor-panel hidden" id="card-editor-panel">
+            <div class="editor-header">
+              <div class="editor-header-text">
+                <span class="editor-title">🖋️ Live Card Customizer</span>
+                <span class="editor-subtext">Click any text directly on the card to edit, or adjust layout below</span>
+              </div>
+              <button id="close-editor-x" class="editor-close-x" title="Close editor">✕</button>
+            </div>
+
+            <div class="editor-controls-row">
+              <div class="control-unit">
+                <label for="card-width-slider">Card Frame Width:</label>
+                <div class="slider-with-val">
+                  <input type="range" id="card-width-slider" min="540" max="950" value="780" step="10">
+                  <span id="card-width-val">780px</span>
+                </div>
+              </div>
+
+              <div class="control-unit">
+                <label for="text-box-width-slider">Text Box Length / Width:</label>
+                <div class="slider-with-val">
+                  <input type="range" id="text-box-width-slider" min="200" max="900" value="720" step="10">
+                  <span id="text-box-width-val">Full</span>
+                </div>
+              </div>
+
+              <div class="control-unit">
+                <label>Text Size (Selected Text):</label>
+                <div class="btn-font-group">
+                  <button id="font-dec-btn" class="btn-mini-tool" title="Decrease Font Size">A-</button>
+                  <span id="font-size-indicator">Standard</span>
+                  <button id="font-inc-btn" class="btn-mini-tool" title="Increase Font Size">A+</button>
+                </div>
+              </div>
+
+              <div class="control-unit">
+                <label for="card-padding-slider">Card Padding:</label>
+                <div class="slider-with-val">
+                  <input type="range" id="card-padding-slider" min="15" max="60" value="35" step="5">
+                  <span id="card-padding-val">35px</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="editor-actions-row">
+              <button id="save-card-btn" class="btn-editor-action save-btn">
+                <span>💾 Save Customization</span>
+              </button>
+              <button id="reset-card-btn" class="btn-editor-action reset-btn">
+                <span>↺ Reset to Default</span>
+              </button>
+              <button id="close-editor-btn" class="btn-editor-action done-btn">
+                <span>✓ Done Preview</span>
+              </button>
+            </div>
+            <p class="editor-tip">💡 Tip: Changes are saved to your browser and reflected live on the invitation!</p>
+          </div>
+        </div>
+
+        <div class="bohra-invitation-stage" id="invitation-card-stage">
+          <div class="parchment-body" id="card-parchment-body">
+              <!-- Top Ornate Calligraphy Bar -->
+              <div class="card-calligraphy-topbar">
+                <div class="top-medallion-box left-med">
+                  <img src="assets/calligraphy/Asset 7.png" alt="الحمد لله شكرا لله" class="alhamdolillah-medallion-img" />
+                </div>
+                <div class="top-bismillah-box">
+                  <img src="assets/calligraphy/Asset 12.png" alt="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" class="bismillah-card-header-img" />
+                </div>
+                <div class="top-medallion-box right-med">
+                  <img src="assets/calligraphy/Asset 7.png" alt="الحمد لله شكرا لله" class="alhamdolillah-medallion-img" />
+                </div>
+              </div>
+
+              <!-- Sacred Stanzas & Dawat Mubarak Texts -->
+              <div class="dawat-poetry-section">
+                <div class="arabic-poetry-callig-wrap">
+                  <img src="assets/calligraphy/Asset 10.png" alt="وَاللهِ ذَنْبِي حُبُّكُمْ فَأُحِبُّكُمْ" class="arabic-poetry-callig-img" />
+                </div>
+                
+                <p class="lisan-stanza-line">خدا نا قسم ! مارو دين آپ سگلا ني محبّة چھے ، تو پچهي ميں آپ سگلا ني محبّة كروں چھوں</p>
+                <p class="lisan-stanza-line">مارا هرايك ذرّة نا هرايك حصّة ما - ماري محبّة آپ سگلا نا واسطے</p>
+                
+                <p class="lisan-stanza-line">الله سبحانه وتعالى نا فضل سي پنجتن پاك انے</p>
+                <p class="lisan-stanza-line">ائمّة طاهرين ني محبّة پر ، لاسيما الداعي الأجل الفاطمي</p>
+                
+                <!-- Holy Syedna Mufaddal Saifuddin Calligraphy Block -->
+                <div class="syedna-calligraphy-wrap">
+                  <img src="assets/calligraphy/Asset 13.png" alt="سيدنا أبو جعفر الصادق عالي قدر مفضل سيف الدين ط ع" class="syedna-calligraphy-img" />
+                </div>
+
+                <p class="lisan-stanza-line">ني محبّة نا سبب دين انے دنيا ني سعادات نصيب تھائي چھے ،</p>
+                <p class="lisan-stanza-line">مولانا المنعم ط ع ني محبّة انے آپ ني دعاء مبارك سي همارو دين كامل چھے ، يه دعاء مبارك نا طفيل</p>
+              </div>
+
+              <!-- Groom & Bride Section (Exact Layout from Uploaded Card) -->
+              <div class="bohra-card-couple-grid">
+                <!-- Groom Side (Right Column in RTL) -->
+                <div class="couple-side-col groom-side">
+                  <span class="kinship-label">الأَبْنُ الْعَزِيز</span>
+                  <h3 class="thuluth-calligraphy-name">مُصْطَفَى</h3>
+                  <div class="family-parent-lines">
+                    <p class="parent-line-bold">طاهره بائي</p>
+                    <p class="parent-line-sub">جوهربھائي سيفي</p>
+                  </div>
+                </div>
+
+                <!-- Center Knot & Announcement -->
+                <div class="couple-center-knot">
+                  <span class="knot-wedding-script">ني شَادِي مَع</span>
+                  <span class="knot-sub-script">فِي مَسَرَّة نَصِيب تَھئِي چھے</span>
+                </div>
+
+                <!-- Bride Side (Left Column in RTL) -->
+                <div class="couple-side-col bride-side">
+                  <span class="kinship-label">البِنْتُ العَزِيزَة</span>
+                  <h3 class="thuluth-calligraphy-name">تَسْنِيم</h3>
+                  <div class="family-parent-lines">
+                    <p class="parent-line-bold">بنت بتول بائي</p>
+                    <p class="parent-line-sub">ملا قائد جوهر بھائی وجھي</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sacred Raza Mubarak Announcement -->
+              <div class="card-raza-ceremony-box">
+                <p class="nikah-raza-callout">(مولانا المفضل ط ع نا دست مبارك پر عقد النكاح نوشرف حاصل تھيو چھے)</p>
+                <p class="invitation-request-line">يه خوش موقع پر اظهار مسرة ما آپنے مع الاكرام اذن عرض كريئے چھے ،</p>
+                <p class="invitation-request-line">يه قبول كري هماري خوشي ما شامل تھئیئے ،</p>
+              </div>
+
+              <!-- Golden Event Details Box -->
+              <div class="card-event-details-box">
+                <div class="event-details-inner">
+                  <div class="event-detail-row">
+                    <span class="event-detail-eng">26th January 2026 - Monday</span>
+                    <span class="event-detail-sep">|</span>
+                    <span class="event-detail-arabic">يَوْمُ الإِثْنَيْن - ۸ مِي شَعْبَانِ الكَرِيم ١٤٤٧ هـ</span>
+                  </div>
+                  <div class="event-detail-row">
+                    <span class="event-detail-eng">Time: 12:00 PM</span>
+                    <span class="event-detail-sep">|</span>
+                    <span class="event-detail-arabic">وَقْت - قَبْلَ زَوَال - پَٹِيرُو مَجْلِس ، مَرْدُو دَرِيس</span>
+                  </div>
+                  <div class="event-detail-row">
+                    <span class="event-detail-eng">Pulgaon, Maharashtra</span>
+                    <span class="event-detail-sep">|</span>
+                    <span class="event-detail-arabic">جَگَہ - پُلْگَام مَوَائِد ، مَهَارَاشْٹرَا</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Family Signatures Section -->
+              <div class="card-family-signatures-wrap">
+                <span class="dawat-ubaid-title">عَبْدُ سَيِّدِنَا المُنْعَام وَامَانَتُه ط ع</span>
+                
+                <div class="family-signatures-columns">
+                  <div class="signature-col right-sign-col">
+                    <p class="sign-name">مرحوم غلام عباس بھائی</p>
+                    <p class="sign-name">جوهر بھائی غلام عباس بھائی</p>
+                    <p class="sign-name">حاتم بھائی کانچوالا</p>
+                  </div>
+
+                  <div class="signature-col left-sign-col">
+                    <p class="sign-name">مرحومہ محفوظہ بائی</p>
+                    <p class="sign-name">طاہرہ بائی جوہر بھائی</p>
+                    <p class="sign-name">سکینہ بائی کانچوالا</p>
+                  </div>
+                </div>
+
+                <p class="final-salutations">بھائیو، بھابیو، بہنو، انے بہنوئی ناسلام</p>
+              </div>
+            </div>
+          </div>
+      </article>
+
+      <!-- Royal Section Separator -->
+      <div class="royal-section-divider">
+        <span class="div-line"></span>
+        <span class="div-ornament"><span class="div-gem">✦</span><span class="div-rosette">❖</span><span class="div-gem">✦</span></span>
+        <span class="div-line rev"></span>
+      </div>
+
+      <!-- CHAPTER III: THE AUSPICIOUS DATE & COUNTDOWN -->
+      <article class="story-chapter" id="chapter-date">
+        <div class="chapter-header">
+          <span class="chapter-roman">Chapter III</span>
+          <h2 class="chapter-title">Auspicious Date &amp; Countdown</h2>
+          <div class="ornate-separator">
+            <span class="sep-line"></span>
+            <span class="sep-gem">✦</span>
+            <span class="sep-line"></span>
+          </div>
+        </div>
+
+        <!-- Interactive 3-Block Scratch-to-Reveal Grid -->
+        <div class="luxury-card-box scratch-container">
+          <div class="card-ornament top-center">❖</div>
+          <span class="section-eyebrow">Interactive Milestone</span>
+          <h3 class="card-title">Scratch to Reveal Date</h3>
+          <p class="scratch-instructions">Rub the golden shimmering foil across the 3 blocks below to unveil the celebration date!</p>
+
+          <div class="scratch-grid-3">
+            <!-- Block 1: Date -->
+            <div class="scratch-tile-block" data-block="1">
+              <div class="tile-reveal-content">
+                <span class="tile-val-huge">26</span>
+                <span class="tile-category-tag">Date</span>
+              </div>
+              <canvas id="scratch-canvas-1" class="tile-scratch-canvas" width="220" height="140"></canvas>
+            </div>
+
+            <!-- Block 2: Month -->
+            <div class="scratch-tile-block" data-block="2">
+              <div class="tile-reveal-content">
+                <span class="tile-val-huge">JAN</span>
+                <span class="tile-category-tag">Month</span>
+              </div>
+              <canvas id="scratch-canvas-2" class="tile-scratch-canvas" width="220" height="140"></canvas>
+            </div>
+
+            <!-- Block 3: Year -->
+            <div class="scratch-tile-block" data-block="3">
+              <div class="tile-reveal-content">
+                <span class="tile-val-huge">2026</span>
+                <span class="tile-category-tag">Year</span>
+              </div>
+              <canvas id="scratch-canvas-3" class="tile-scratch-canvas" width="220" height="140"></canvas>
+            </div>
+          </div>
+
+          <div class="scratch-progress-wrap">
+            <div class="scratch-progress-bar" id="scratch-progress"></div>
+            <span class="scratch-hint" id="scratch-hint">Scratch all 3 blocks to unveil! (0 of 3 Revealed)</span>
+          </div>
+
+          <!-- Revealed Complete Summary & Calendar Action -->
+          <div class="scratch-revealed-summary" id="scratch-revealed-summary">
+            <div class="revealed-badge">
+              <span class="badge-sparkle">✨</span>
+              <span class="badge-tag">SAVE THE DATE</span>
+              <span class="badge-sparkle">✨</span>
+            </div>
+            <p class="revealed-full-detail">
+              <strong>26th January 2026, Monday</strong> • <strong>Pulgaon, Maharashtra</strong>
+            </p>
+            <p class="revealed-hijri-date">8 Shaban al-Karim 1447 H (۸ مي شعبان الكريم ١٤٤٧ هـ)</p>
+            <div class="add-cal-btn-wrap">
+              <button id="add-to-cal-btn" class="btn-gold-action">
+                <span class="btn-icon">📅</span> Add to Calendar
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Real-Time Countdown Timer -->
+        <div class="luxury-card-box countdown-box">
+          <span class="section-eyebrow">Ticking Down</span>
+          <h3 class="card-title">Counting Down to Forever</h3>
+          
+          <div class="timer-grid" id="countdown-timer">
+            <div class="timer-item">
+              <span class="time-digit" id="cd-days">00</span>
+              <span class="time-label">DAYS</span>
+            </div>
+            <div class="timer-colon">:</div>
+            <div class="timer-item">
+              <span class="time-digit" id="cd-hours">00</span>
+              <span class="time-label">HOURS</span>
+            </div>
+            <div class="timer-colon">:</div>
+            <div class="timer-item">
+              <span class="time-digit" id="cd-minutes">00</span>
+              <span class="time-label">MINUTES</span>
+            </div>
+            <div class="timer-colon">:</div>
+            <div class="timer-item">
+              <span class="time-digit" id="cd-seconds">00</span>
+              <span class="time-label">SECONDS</span>
+            </div>
+          </div>
+
+          <p class="timer-subtext">Until we celebrate this joyous union and festive Shaadi moments together ✨</p>
+        </div>
+      </article>
+
+      <!-- Royal Section Separator -->
+      <div class="royal-section-divider">
+        <span class="div-line"></span>
+        <span class="div-ornament"><span class="div-gem">✦</span><span class="div-rosette">❖</span><span class="div-gem">✦</span></span>
+        <span class="div-line rev"></span>
+      </div>
+
+      <!-- CHAPTER IV: WEDDING TIMELINE (Sacred Rusumat) -->
+      <article class="story-chapter" id="chapter-rusumat">
+        <div class="chapter-header">
+          <span class="chapter-roman">Chapter IV</span>
+          <h2 class="chapter-title script-timeline-title">Wedding Timeline</h2>
+          <div class="ornate-separator">
+            <span class="sep-line"></span>
+            <span class="sep-gem">✦</span>
+            <span class="sep-line"></span>
+          </div>
+          <p class="chapter-subtitle">Join us across the cherished Dawoodi Bohra wedding customs</p>
+        </div>
+
+        <div class="serpentine-timeline-container">
+          <!-- Background Curved Winding Dashed Path -->
+          <svg class="timeline-winding-svg" viewBox="0 0 400 960" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="pathGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#C0392B" stop-opacity="0.75" />
+                <stop offset="50%" stop-color="#D4AF37" stop-opacity="0.85" />
+                <stop offset="100%" stop-color="#C0392B" stop-opacity="0.75" />
+              </linearGradient>
+            </defs>
+            <path class="winding-dashed-line" d="M 290 120 C 230 170, 110 200, 110 330 C 110 460, 290 460, 290 590 C 290 710, 110 720, 110 840" fill="none" stroke="url(#pathGradient)" stroke-width="2.5" stroke-dasharray="6,8" />
+          </svg>
+
+          <!-- 1. Khushi ni Darees (Right) -->
+          <div class="timeline-node node-right" data-node="1">
+            <div class="node-badge-wrap">
+              <div class="circular-badge-frame">
+                <img src="assets/rusumat_darees.png" alt="Khushi ni Darees" class="badge-round-img" />
+              </div>
+            </div>
+            <div class="node-content">
+              <h3 class="node-script-title">Khushi ni Darees</h3>
+              <p class="node-desc">Recitation of the Holy Quran, zikr, praises, and prayers seeking divine blessings prior to the Shaadi.</p>
+              <div class="node-meta">
+                <span class="node-meta-item"><i class="meta-icon">🗓️</i> Friday, 23rd January 2026</span>
+                <span class="node-meta-item"><i class="meta-icon">⏰</i> 10:00 AM onwards</span>
+                <span class="node-meta-item"><i class="meta-icon">📍</i> Saifee Villa, Pulgaon, Maharashtra</span>
+              </div>
+              <a href="https://maps.google.com/?q=Pulgaon+Maharashtra" target="_blank" class="btn-mini-map">📍 View on Google Maps</a>
+            </div>
+          </div>
+
+          <!-- 2. Mithi Shitabi & Mandvo (Left) -->
+          <div class="timeline-node node-left" data-node="2">
+            <div class="node-badge-wrap">
+              <div class="circular-badge-frame">
+                <img src="assets/rusumat_shitabi.png" alt="Mithi Shitabi &amp; Mandvo" class="badge-round-img" />
+              </div>
+            </div>
+            <div class="node-content">
+              <h3 class="node-script-title">Mithi Shitabi</h3>
+              <p class="node-desc">Auspicious canopy blessings, traditional sweets, and family prayers celebrating the wedding threshold.</p>
+              <div class="node-meta">
+                <span class="node-meta-item"><i class="meta-icon">🗓️</i> Friday, 23rd January 2026</span>
+                <span class="node-meta-item"><i class="meta-icon">⏰</i> 04:30 PM</span>
+                <span class="node-meta-item"><i class="meta-icon">📍</i> Courtyard, Pulgaon, Maharashtra</span>
+              </div>
+              <a href="https://maps.google.com/?q=Pulgaon+Maharashtra" target="_blank" class="btn-mini-map">📍 View on Google Maps</a>
+            </div>
+          </div>
+
+          <!-- 3. Aqd al-Nikah & Zafaf (Right) -->
+          <div class="timeline-node node-right" data-node="3">
+            <div class="node-badge-wrap">
+              <div class="circular-badge-frame">
+                <img src="assets/rusumat_nikah.png" alt="Nikah &amp; Zafaf" class="badge-round-img" />
+              </div>
+            </div>
+            <div class="node-content">
+              <h3 class="node-script-title">Nikah &amp; Zafaf</h3>
+              <p class="node-desc">Sacred blessings under the pious Raza Mubarak of His Holiness Syedna Mufaddal Saifuddin (TUS), followed by joyful wedding festivities.</p>
+              <div class="node-meta">
+                <span class="node-meta-item"><i class="meta-icon">🗓️</i> Monday, 26th January 2026</span>
+                <span class="node-meta-item"><i class="meta-icon">⏰</i> 12:00 PM Sharp</span>
+                <span class="node-meta-item"><i class="meta-icon">📍</i> Pulgaon Mawaid, Maharashtra</span>
+              </div>
+              <a href="https://maps.google.com/?q=Pulgaon+Maharashtra" target="_blank" class="btn-mini-map">📍 View on Google Maps</a>
+            </div>
+          </div>
+
+          <!-- 4. Valima Celebration (Left) -->
+          <div class="timeline-node node-left" data-node="4">
+            <div class="node-badge-wrap">
+              <div class="circular-badge-frame">
+                <img src="assets/rusumat_valima.png" alt="Valima Celebration" class="badge-round-img" />
+              </div>
+            </div>
+            <div class="node-content">
+              <h3 class="node-script-title">Valima</h3>
+              <p class="node-desc">Traditional Bohra wedding feast served in the Thaal followed by an enchanting evening of congratulations and joy celebrating the newlyweds.</p>
+              <div class="node-meta">
+                <span class="node-meta-item"><i class="meta-icon">🗓️</i> Monday, 26th January 2026</span>
+                <span class="node-meta-item"><i class="meta-icon">⏰</i> 07:30 PM onwards</span>
+                <span class="node-meta-item"><i class="meta-icon">📍</i> Grand Hall, Pulgaon, Maharashtra</span>
+              </div>
+              <a href="https://maps.google.com/?q=Pulgaon+Maharashtra" target="_blank" class="btn-mini-map">📍 View on Google Maps</a>
+            </div>
+          </div>
+
+        </div>
+      </article>
+
+      <!-- Royal Section Separator -->
+      <div class="royal-section-divider">
+        <span class="div-line"></span>
+        <span class="div-ornament"><span class="div-gem">✦</span><span class="div-rosette">❖</span><span class="div-gem">✦</span></span>
+        <span class="div-line rev"></span>
+      </div>
+
+      <!-- CHAPTER V: RSVP & MUBARAKI DUA -->
+      <article class="story-chapter" id="chapter-rsvp">
+        <div class="chapter-header">
+          <span class="chapter-roman">Chapter V</span>
+          <h2 class="chapter-title">RSVP &amp; Mubaraki Dua</h2>
+          <div class="ornate-separator">
+            <span class="sep-line"></span>
+            <span class="sep-gem">✦</span>
+            <span class="sep-line"></span>
+          </div>
+        </div>
+
+        <div class="luxury-card-box rsvp-box">
+          <span class="section-eyebrow">Respond &amp; Bless</span>
+          <h3 class="card-title">Confirm Attendance</h3>
+          <p class="rsvp-subtext">Your presence and prayers will illuminate our celebration. Please kindly let us know your plans below:</p>
+
+          <form id="rsvp-form" class="rsvp-form">
+            <div class="form-group">
+              <label for="guest-name">Full Name *</label>
+              <input type="text" id="guest-name" required placeholder="e.g. Mufaddal Bhai / Fatema Ben" />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group half">
+                <label for="guest-phone">Phone / WhatsApp *</label>
+                <input type="tel" id="guest-phone" required placeholder="+91 98765 43210" />
+              </div>
+              <div class="form-group half">
+                <label for="guest-count">Number of Guests</label>
+                <select id="guest-count">
+                  <option value="1">1 Person</option>
+                  <option value="2" selected>2 Persons</option>
+                  <option value="3">3 Persons</option>
+                  <option value="4">4 Persons</option>
+                  <option value="5+">Family (5+ Persons)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Will you be attending?</label>
+              <div class="radio-pill-group">
+                <label class="radio-pill">
+                  <input type="radio" name="attendance" value="Joyfully Attending" checked />
+                  <span>🎉 Joyfully Attending</span>
+                </label>
+                <label class="radio-pill">
+                  <input type="radio" name="attendance" value="Regretfully Cannot" />
+                  <span>🕊️ Sending Dua From Afar</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="guest-message">Mubaraki Wish / Dua for the Couple</label>
+              <textarea id="guest-message" rows="3" placeholder="Write your heartfelt congratulations, dua, or warm wishes here..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-rsvp" id="submit-rsvp-btn">
+              <span class="btn-text">Send RSVP &amp; Mubaraki</span>
+              <span class="btn-sparkle">✨</span>
+            </button>
+          </form>
+
+          <div id="rsvp-feedback" class="rsvp-feedback hidden">
+            <div class="feedback-icon">💐</div>
+            <h4>Mubarak! Your RSVP has been received!</h4>
+            <p>Shukran for your warm prayers and response. We look forward to celebrating together!</p>
+          </div>
+
+          <!-- Live Mubaraki & Wishes Wall -->
+          <div class="wishes-board" id="wishes-board">
+            <div class="wishes-title-bar">
+              <span class="wishes-crown">👑</span>
+              <h4>Warm Wishes &amp; Dua Board</h4>
+            </div>
+            <div class="wishes-list" id="wishes-list">
+              <!-- Dynamically populated only when real wishes exist -->
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Royal Section Separator -->
+      <div class="royal-section-divider">
+        <span class="div-line"></span>
+        <span class="div-ornament"><span class="div-gem">✦</span><span class="div-rosette">❖</span><span class="div-gem">✦</span></span>
+        <span class="div-line rev"></span>
+      </div>
+
+      <!-- EPILOGUE: IN DIVINE GRATITUDE -->
+      <footer class="invite-footer">
+        <div class="footer-seal-emblem">
+          <img src="assets/seal.png" alt="Royal Gold Wax Seal" class="footer-mini-seal" />
+        </div>
+
+        <div class="footer-family-gratitude">
+          <h3 class="footer-gratitude-title">With Deepest Gratitude</h3>
+          <p class="footer-gratitude-text">
+            With profound gratitude in our hearts, we thank the Almighty for this joyous occasion.<br>
+            Your esteemed presence, warmth, and heartfelt prayers will illuminate our celebration and deeply honor our families as we unite Mustafa &amp; Tasneem in love and barakat.<br>
+            We would be truly blessed to have you celebrate with us.
+          </p>
+          <div class="footer-family-signatures">
+            <p class="family-sign-line">Saifee &amp; Vajhi Families</p>
+            <p class="footer-year">26th January 2026 • Pulgaon, Maharashtra</p>
+          </div>
+        </div>
+
+        <div class="footer-back-to-top">
+          <button id="back-to-top-btn" class="back-to-top-link">↑ Back to Top</button>
+        </div>
+      </footer>
+
+    </section>
+  </main>
+
+  <!-- enhancements: ogee arch shape used to clip the walking-couple window -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <clipPath id="ogeeClip" clipPathUnits="objectBoundingBox">
+        <path d="M0 1V0.4C0 0.26 0.08 0.18 0.2 0.11C0.33 0.05 0.45 0.03 0.5 0C0.55 0.03 0.67 0.05 0.8 0.11C0.92 0.18 1 0.26 1 0.4V1Z"/>
+      </clipPath>
+    </defs>
+  </svg>
+
+  <script src="app.js"></script>
+  <script src="enhancements.js" defer></script>
+</body>
+</html>

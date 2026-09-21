@@ -1,0 +1,3173 @@
+@font-face {
+  font-family: 'Kanz al Marjaan';
+  src: url('assets/fonts/kanz-al-marjaan-webfont.woff2') format('woff2'),
+       url('assets/fonts/kanz-al-marjaan-webfont.woff') format('woff'),
+       url('assets/fonts/kanz-al-marjaan-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thuluth';
+  src: url('assets/fonts/thuluth.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   ROYAL LAVENDER & GOLD: DAWOODI BOHRA PARALLAX STORYTELLER INVITATION
+   Mustafa & Tasneem — Interactive Wedding Experience
+   ========================================================================== */
+
+:root {
+  /* Lavender & Pearl Palette (Bright, Luminous, Clear) */
+  --lavender-mist: #FAF8FE;
+  --lavender-light: #F3EEFB;
+  --lavender-soft: #E2D7F5;
+  --lavender-medium: #A48ED4;
+  --lavender-deep: #5E3D8E;
+  --lavender-royal: #3E2469;
+  --plum-dark: #22123B;
+
+  /* Liquid Metallic Gold Palette */
+  --gold-highlight: #FFF9E6;
+  --gold-light: #F7E4AD;
+  --gold-primary: #C58B1B;
+  --gold-dark: #8C5E14;
+  --gold-shadow: #5E4306;
+  --gold-gradient: linear-gradient(135deg, #FFE8A3 0%, #E5B85C 30%, #D4AF37 60%, #9D741A 100%);
+  --gold-foil-text: linear-gradient(135deg, #7A4E0A 0%, #B88218 30%, #E8C167 55%, #A67314 80%, #6E4405 100%);
+  --gold-soft-glow: rgba(235, 195, 85, 0.4);
+
+  /* High-Contrast Clear Neutrals */
+  --parchment-bg: #FCFAF6;
+  --ivory-white: #FFFFFF;
+  --text-dark: #261633;
+  --text-body: #3B234F;
+  --text-muted: #644E7A;
+
+  /* Typography */
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-arabic: 'Kanz al Marjaan', 'Amiri', 'Traditional Arabic', serif;
+  --font-dawat: 'Kanz al Marjaan', serif;
+  --font-thuluth: 'Thuluth', 'Amiri', serif;
+  --font-script: 'Great Vibes', cursive;
+  --font-sans: 'Montserrat', sans-serif;
+  --font-display: 'Cinzel Decorative', Georgia, serif;
+
+  /* Transitions & Shadows */
+  --smooth-ease: cubic-bezier(0.25, 1, 0.5, 1);
+  --bounce-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --shadow-luxury: 0 16px 40px rgba(55, 30, 80, 0.08), 0 0 25px rgba(212, 175, 55, 0.15);
+  --shadow-card: 0 12px 32px rgba(50, 25, 75, 0.06);
+}
+
+/* Reset */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #FAF7F2;
+  background-image: 
+    radial-gradient(circle at 14% 16%, rgba(224, 212, 246, 0.5) 0%, transparent 45%),
+    radial-gradient(circle at 86% 20%, rgba(255, 240, 200, 0.55) 0%, transparent 45%),
+    radial-gradient(circle at 50% 55%, rgba(253, 250, 245, 0.9) 0%, #EDE4D3 100%);
+  background-attachment: fixed;
+  background-size: cover;
+  color: var(--text-dark);
+  font-family: 'Kanz al Marjaan', var(--font-serif);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+/* Steady Ambient Petal & Soft Bokeh Canvas */
+#petal-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Fullscreen Storyteller Viewport (Full Bleed, No Boxed Card Layout) */
+.app-viewport {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  background: transparent;
+  position: relative;
+  z-index: 2;
+  overflow-x: hidden;
+  margin: 0;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+}
+
+@media (min-width: 768px) {
+  .app-viewport {
+    margin: 0;
+    border-radius: 0;
+    min-height: 100vh;
+    border: none;
+    box-shadow: none;
+  }
+}
+
+/* Floating Audio Equalizer (Matching Circular Gold Button in Reference Video) */
+.floating-music-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 100;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #FFF2CC 0%, #D4AF37 55%, #A67C1E 100%);
+  border: 1.5px solid rgba(255, 245, 200, 0.9);
+  box-shadow: 0 6px 20px rgba(70, 30, 90, 0.25), 0 0 16px rgba(212, 175, 55, 0.4);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: transform 0.3s var(--smooth-ease), box-shadow 0.3s ease;
+}
+
+.floating-music-btn:hover {
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 10px 26px rgba(70, 30, 90, 0.32), 0 0 22px rgba(212, 175, 55, 0.55);
+}
+
+.music-icon-state {
+  font-size: 1.05rem;
+  color: #2F1703;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.4);
+}
+
+.eq-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2.5px;
+  height: 16px;
+}
+
+.eq-bars .bar {
+  width: 3px;
+  background: var(--gold-gradient);
+  border-radius: 2px;
+  height: 4px;
+  transition: height 0.2s ease;
+}
+
+.floating-music-btn.playing .bar-1 { animation: eqAnim 0.7s infinite alternate ease-in-out; }
+.floating-music-btn.playing .bar-2 { animation: eqAnim 0.5s infinite alternate ease-in-out 0.2s; }
+.floating-music-btn.playing .bar-3 { animation: eqAnim 0.9s infinite alternate ease-in-out 0.1s; }
+.floating-music-btn.playing .bar-4 { animation: eqAnim 0.6s infinite alternate ease-in-out 0.3s; }
+
+@keyframes eqAnim {
+  0% { height: 3px; }
+  100% { height: 16px; }
+}
+
+.music-label {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #8C5E14;
+}
+
+/* Side Storyteller Chapter Navigation */
+.story-nav {
+  position: fixed;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 90;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.story-nav.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (max-width: 580px) {
+  .story-nav {
+    display: none; /* Keep mobile clean */
+  }
+  .floating-music-btn {
+    bottom: 16px;
+    right: 16px;
+    padding: 0;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(50, 20, 75, 0.25), 0 0 12px rgba(212, 175, 55, 0.3);
+  }
+  .floating-music-btn .music-label {
+    display: none;
+  }
+}
+
+.story-nav-track {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  box-shadow: 0 8px 24px rgba(70, 30, 90, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 12px 7px;
+  border-radius: 24px;
+}
+
+.story-nav-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  transition: all 0.3s var(--smooth-ease);
+  position: relative;
+}
+
+.story-nav-dot:hover,
+.story-nav-dot.active {
+  background: var(--gold-primary);
+  transform: scale(1.4);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+}
+
+/* ==========================================================================
+   PROLOGUE: FULLSCREEN ENVELOPE CLOSE-UP VIEW
+   ========================================================================== */
+.fullscreen-envelope-view {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 50;
+  background: #170E24;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.fullscreen-envelope-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1400px;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 45%, #FAF7F2 0%, #EFE8DB 50%, #E2D7C5 100%);
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s ease;
+}
+
+@media (min-width: 768px) {
+  .fullscreen-envelope-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+  }
+}
+
+/* Embossed luxury paper */
+.envelope-full-bg {
+  position: absolute;
+  inset: 0;
+  background-color: #FAF8F2;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.6) 0%, transparent 60%),
+    radial-gradient(rgba(212, 175, 55, 0.15) 1px, transparent 1px);
+  background-size: 100% 100%, 18px 18px;
+  opacity: 0.95;
+}
+
+/* Authentic Envelope Seam Lines & Golden Burst Rays (Mathematically Exact Across All Screens) */
+.envelope-seams-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 6;
+}
+
+.seam-crease-line {
+  stroke: rgba(212, 175, 55, 0.45);
+  stroke-width: 1.4;
+  filter: drop-shadow(0 1px 3px rgba(45, 20, 70, 0.25));
+  transition: opacity 0.5s ease;
+}
+
+.seam-burst-ray {
+  stroke-width: 4;
+  stroke-linecap: round;
+  filter: url(#seamGlowFilter);
+  opacity: 0;
+  transition: opacity 0.45s ease, stroke-width 0.45s ease;
+}
+
+.fullscreen-envelope-container.light-active .seam-burst-ray {
+  opacity: 1;
+  stroke-width: 5;
+}
+
+.fullscreen-envelope-container.open .seam-crease-line,
+.fullscreen-envelope-container.open .seam-burst-ray {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* Center Seam Light Beam (Gentle champagne glow) */
+.soft-center-beam {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 250, 230, 0.95) 45%, 
+    #FFF4C4 50%, 
+    rgba(229, 192, 123, 0.9) 55%, 
+    transparent 100%
+  );
+  box-shadow: 0 0 40px rgba(255, 230, 130, 0.8), 0 0 80px rgba(212, 175, 55, 0.5);
+  opacity: 0;
+  z-index: 5;
+  filter: blur(1.5px);
+  transition: width 0.85s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.65s ease;
+}
+
+.fullscreen-envelope-container.light-active .soft-center-beam {
+  width: 90px;
+  opacity: 1;
+}
+
+/* Golden Wave / Ripple Effect on Envelope Tap (Soft & Slow Animation) */
+.seal-wave-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seal-wave-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(212, 175, 55, 0.85);
+  box-shadow: 0 0 30px rgba(255, 235, 150, 0.7), inset 0 0 15px rgba(212, 175, 55, 0.4);
+  width: 190px;
+  height: 190px;
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
+}
+
+.fullscreen-envelope-container.light-active .seal-wave-ring.wave-1 {
+  animation: sealWavePulse 2.4s cubic-bezier(0.12, 0.8, 0.25, 1) forwards;
+}
+
+.fullscreen-envelope-container.light-active .seal-wave-ring.wave-2 {
+  animation: sealWavePulse 2.4s cubic-bezier(0.12, 0.8, 0.25, 1) 0.35s forwards;
+}
+
+.fullscreen-envelope-container.light-active .seal-wave-ring.wave-3 {
+  animation: sealWavePulse 2.4s cubic-bezier(0.12, 0.8, 0.25, 1) 0.7s forwards;
+}
+
+@keyframes sealWavePulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.95;
+    border-color: rgba(255, 245, 190, 0.95);
+  }
+  45% {
+    opacity: 0.75;
+    border-color: rgba(212, 175, 55, 0.7);
+    box-shadow: 0 0 50px rgba(255, 230, 130, 0.6), inset 0 0 25px rgba(212, 175, 55, 0.35);
+  }
+  100% {
+    transform: scale(7.5);
+    opacity: 0;
+    border-color: rgba(212, 175, 55, 0);
+  }
+}
+
+/* Radiant Golden Light Burst behind Seal on Tap (Soft & Slow, positioned behind card) */
+.seal-light-burst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.2);
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 240, 0.9) 0%, rgba(255, 235, 160, 0.75) 30%, rgba(212, 175, 55, 0.35) 60%, transparent 80%);
+  box-shadow: 0 0 70px rgba(255, 240, 170, 0.8), 0 0 120px rgba(212, 175, 55, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: screen;
+  transition: transform 2.2s cubic-bezier(0.15, 0.85, 0.25, 1), opacity 1.8s ease;
+}
+
+.seal-light-burst.active {
+  transform: translate(-50%, -50%) scale(2.6);
+  opacity: 0.88;
+}
+
+.fullscreen-envelope-container.light-active .flap-embossed-flourish {
+  filter: drop-shadow(0 0 20px rgba(255, 240, 160, 0.9)) brightness(1.3) !important;
+}
+
+/* Authentic Blind-Embossed 3D Paper Relief Flourishes on Envelope Flaps (Matching Reference Video) */
+.flap-embossed-flourish {
+  position: absolute;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  opacity: 0.96;
+  position: relative;
+  transition: filter 0.8s ease, transform 0.8s ease;
+}
+
+/* Traveling Liquid Gold Foil Shimmer Wave across embossed flowers (matching video 2.5s - 6.0s) */
+.flap-embossed-flourish::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(255, 245, 200, 0.4) 30%,
+    rgba(255, 255, 255, 0.95) 50%,
+    rgba(212, 175, 55, 0.85) 60%,
+    transparent 85%
+  );
+  background-size: 300% 300%;
+  mix-blend-mode: color-dodge;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+.fullscreen-envelope-container.light-active .flap-embossed-flourish {
+  filter: drop-shadow(0 0 16px rgba(255, 235, 140, 0.95)) brightness(1.25) !important;
+  animation: foilPulseGlow 3.5s ease-in-out infinite alternate;
+}
+
+.fullscreen-envelope-container.light-active .flap-embossed-flourish::before {
+  opacity: 1;
+  animation: foilShimmerSweep 3.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes foilShimmerSweep {
+  0% {
+    background-position: 0% 0%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    background-position: 100% 100%;
+    opacity: 0.4;
+  }
+}
+
+@keyframes foilPulseGlow {
+  0% { filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.6)) brightness(1.1); }
+  100% { filter: drop-shadow(0 0 24px rgba(255, 235, 140, 1)) brightness(1.35); }
+}
+
+/* Top Flap Embossed Floral Bouquet */
+.bouquet-top {
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(82%, 360px);
+  height: 200px;
+  background-image: url('assets/embossed_bouquet.png');
+  background-position: top center;
+  background-size: contain;
+  filter: drop-shadow(0 4px 10px rgba(70, 50, 30, 0.16));
+}
+
+/* Bottom Flap Embossed Floral Bouquet (Pointed Upwards) */
+.bouquet-bottom {
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(180deg);
+  width: min(82%, 360px);
+  height: 200px;
+  background-image: url('assets/embossed_bouquet.png');
+  background-position: top center;
+  background-size: contain;
+  filter: drop-shadow(0 -4px 10px rgba(70, 50, 30, 0.16));
+}
+
+/* Left & Right Flap Embossed Trailing Rose Vines */
+.vine-left {
+  top: 50%;
+  left: 6px;
+  transform: translateY(-50%);
+  width: min(32%, 140px);
+  height: 82%;
+  background-image: url('assets/embossed_vine.png');
+  background-position: center left;
+  background-size: contain;
+  filter: drop-shadow(2px 0 8px rgba(70, 50, 30, 0.14));
+}
+
+.vine-right {
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%) scaleX(-1);
+  width: min(32%, 140px);
+  height: 82%;
+  background-image: url('assets/embossed_vine.png');
+  background-position: center left;
+  background-size: contain;
+  filter: drop-shadow(2px 0 8px rgba(70, 50, 30, 0.14));
+}
+
+/* Flap Panels filling the full screen with authentic 3D unfolding & gold satin lining */
+.envelope-panel {
+  position: absolute;
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.panel-top {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  background: linear-gradient(180deg, #FAF7F2 0%, #EDE5D8 100%);
+  border-bottom: 1.5px solid rgba(212, 175, 55, 0.55);
+  transform-origin: top center;
+  z-index: 7;
+  filter: drop-shadow(0 10px 25px rgba(40, 20, 60, 0.25));
+  transition: transform 2.2s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.8s ease;
+}
+
+.panel-top::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #C6922C 0%, #F5DE98 45%, #D4AF37 75%, #AA7C11 100%);
+  transform: rotateX(180deg);
+  backface-visibility: hidden;
+  box-shadow: inset 0 0 30px rgba(170, 124, 17, 0.5);
+}
+
+.panel-bottom {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  background: linear-gradient(0deg, #EDE5D8 0%, #FAF6EE 100%);
+  border-top: 1.5px solid rgba(212, 175, 55, 0.5);
+  transform-origin: bottom center;
+  z-index: 5;
+  filter: drop-shadow(0 -8px 24px rgba(45, 20, 70, 0.2));
+  transition: transform 2.2s cubic-bezier(0.22, 1, 0.36, 1) 0.1s, opacity 1.8s ease 0.1s;
+}
+
+.panel-bottom::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, #C6922C 0%, #F5DE98 45%, #D4AF37 75%, #AA7C11 100%);
+  transform: rotateX(180deg);
+  backface-visibility: hidden;
+  box-shadow: inset 0 0 30px rgba(170, 124, 17, 0.5);
+}
+
+.panel-left {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  background: linear-gradient(135deg, #F9F5EC 0%, #E8DFCE 100%);
+  border-right: 1.5px solid rgba(212, 175, 55, 0.45);
+  box-shadow: 8px 0 28px rgba(45, 20, 70, 0.18);
+  transform-origin: left center;
+  z-index: 6;
+  transition: transform 2.1s cubic-bezier(0.22, 1, 0.36, 1) 0.05s, opacity 1.7s ease 0.05s;
+}
+
+.panel-right {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 50%;
+  clip-path: polygon(100% 0, 0 50%, 100% 100%);
+  background: linear-gradient(225deg, #F9F5EC 0%, #E8DFCE 100%);
+  border-left: 1.5px solid rgba(212, 175, 55, 0.45);
+  box-shadow: -8px 0 28px rgba(45, 20, 70, 0.18);
+  transform-origin: right center;
+  z-index: 6;
+  transition: transform 2.1s cubic-bezier(0.22, 1, 0.36, 1) 0.05s, opacity 1.7s ease 0.05s;
+}
+
+/* State when envelope opens (Exact mechanics matching reference video) */
+.fullscreen-envelope-container.open .panel-top {
+  transform: perspective(1400px) rotateX(175deg);
+  opacity: 0;
+  transition: transform 2.2s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.4s ease 0.3s;
+}
+
+.fullscreen-envelope-container.open .panel-left {
+  transform: perspective(1400px) rotateY(-170deg);
+  opacity: 0;
+  transition: transform 2.1s cubic-bezier(0.22, 1, 0.36, 1) 0.05s, opacity 1.4s ease 0.3s;
+}
+
+.fullscreen-envelope-container.open .panel-right {
+  transform: perspective(1400px) rotateY(170deg);
+  opacity: 0;
+  transition: transform 2.1s cubic-bezier(0.22, 1, 0.36, 1) 0.05s, opacity 1.4s ease 0.3s;
+}
+
+.fullscreen-envelope-container.open .panel-bottom {
+  transform: perspective(1400px) rotateX(-175deg);
+  opacity: 0;
+  transition: transform 2.2s cubic-bezier(0.22, 1, 0.36, 1) 0.1s, opacity 1.4s ease 0.3s;
+}
+
+.fullscreen-envelope-container.open .wax-seal-macro-wrap {
+  transform: translate(-50%, -190%) scale(0.88) rotate(-4deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fullscreen-envelope-container.open .seal-tap-indicator {
+  opacity: 0;
+  transform: translateX(-50%) translateY(20px);
+  pointer-events: none;
+}
+
+/* Inner Pocket Gold Liner */
+.envelope-pocket-liner {
+  position: absolute;
+  top: 15%;
+  bottom: 0;
+  left: 8%;
+  right: 8%;
+  background: linear-gradient(180deg, #9C7215 0%, #D4AF37 35%, #F0D488 65%, #AA7C11 100%);
+  border-radius: 12px 12px 0 0;
+  box-shadow: inset 0 10px 30px rgba(0, 0, 0, 0.35);
+  z-index: 1;
+}
+
+/* Emerging Card Peek behind Flaps (Rises smoothly on unseal as in reference video) */
+.envelope-card-peek {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -46%) scale(0.88);
+  width: min(90%, 390px);
+  height: 560px;
+  background-color: #FFFDF8;
+  background-image: url('assets/arch_bg.jpg');
+  background-size: cover;
+  background-position: center top;
+  border: 1.5px solid rgba(212, 175, 55, 0.65);
+  border-radius: 20px;
+  box-shadow: 0 14px 40px rgba(45, 20, 70, 0.25), 0 0 30px rgba(255, 235, 140, 0.45);
+  z-index: 3;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 2.2s cubic-bezier(0.18, 0.9, 0.25, 1) 0.25s, opacity 1.4s ease 0.2s, box-shadow 1.8s ease;
+}
+
+.fullscreen-envelope-container.light-active .envelope-card-peek,
+.fullscreen-envelope-container.open .envelope-card-peek {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.fullscreen-envelope-container.open .envelope-card-peek {
+  transform: translate(-50%, -64%) scale(1.02);
+  box-shadow: 0 20px 60px rgba(45, 20, 70, 0.35), 0 0 50px rgba(255, 235, 140, 0.7);
+  opacity: 1;
+}
+
+.peek-inner-card {
+  position: relative;
+  height: 100%;
+  padding: 36px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  background: radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.82) 0%, rgba(253, 250, 245, 0.88) 60%, rgba(245, 238, 226, 0.92) 100%);
+}
+
+.peek-bismillah-img {
+  width: 130px;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 2px 4px rgba(184, 126, 24, 0.3));
+}
+
+.peek-rosette-logo,
+.peek-logo-img {
+  width: 95px;
+  height: 95px;
+  object-fit: contain;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 4px 14px rgba(184, 126, 24, 0.45));
+}
+
+.peek-cursive-prefix {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.25rem;
+  color: #7A5813;
+  margin-bottom: 2px;
+}
+
+.peek-couple-title {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  color: #3E2469;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.peek-thuluth-title {
+  font-family: 'Thuluth', serif;
+  font-size: 1.35rem;
+  color: #A06815;
+  margin-bottom: 16px;
+  direction: rtl;
+}
+
+.peek-scroll-indicator {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  animation: peekBounce 2s infinite ease-in-out;
+}
+
+.peek-scroll-text {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.15rem;
+  color: #8C5E14;
+}
+
+.peek-scroll-chevron {
+  font-size: 1.1rem;
+  color: #C58B1B;
+  line-height: 1;
+}
+
+@keyframes peekBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* Pure Authentic Gold Wax Seal (Direct Cutout, No Paper Circle) */
+.wax-seal-macro-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 195px;
+  height: 195px;
+  z-index: 10;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 2.0s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.6s ease;
+}
+
+@media (max-width: 480px) {
+  .wax-seal-macro-wrap {
+    width: 165px;
+    height: 165px;
+  }
+}
+
+.wax-seal-macro-wrap:hover {
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+.wax-seal-macro-wrap.lifting {
+  transform: translate(-50%, -50%) scale(1.12) translateZ(50px);
+  filter: drop-shadow(0 24px 40px rgba(35, 15, 55, 0.45));
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), filter 1.2s ease;
+}
+
+/* Pure Wax Seal Cutout Image: No border, no circular paper crop, pure organic drop shadow */
+.seal-macro-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: relative;
+  z-index: 4;
+  border-radius: 0;
+  border: none;
+  filter: drop-shadow(0 18px 30px rgba(35, 18, 5, 0.65))
+          drop-shadow(0 4px 10px rgba(212, 175, 55, 0.45));
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.wax-seal-macro-wrap:hover .seal-macro-img {
+  filter: drop-shadow(0 22px 36px rgba(35, 18, 5, 0.75))
+          drop-shadow(0 0 20px rgba(255, 235, 140, 0.7));
+}
+
+.seal-soft-aura {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.5) 0%, rgba(215, 203, 240, 0.28) 50%, transparent 70%);
+  animation: breatheAura 3s infinite ease-in-out;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes breatheAura {
+  0%, 100% { transform: scale(0.95); opacity: 0.45; }
+  50% { transform: scale(1.18); opacity: 0.85; }
+}
+
+/* Soft Ethereal Rotating Rays (Subtle champagne) */
+.seal-sunbeam-rays {
+  position: absolute;
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(255, 235, 140, 0.35) 15deg,
+    transparent 30deg,
+    rgba(212, 175, 55, 0.25) 45deg,
+    transparent 60deg,
+    rgba(255, 235, 140, 0.35) 75deg,
+    transparent 90deg,
+    rgba(212, 175, 55, 0.25) 105deg,
+    transparent 120deg,
+    rgba(255, 235, 140, 0.35) 135deg,
+    transparent 150deg,
+    rgba(212, 175, 55, 0.25) 165deg,
+    transparent 180deg,
+    rgba(255, 235, 140, 0.35) 195deg,
+    transparent 210deg,
+    rgba(212, 175, 55, 0.25) 225deg,
+    transparent 240deg,
+    rgba(255, 235, 140, 0.35) 255deg,
+    transparent 270deg,
+    rgba(212, 175, 55, 0.25) 285deg,
+    transparent 300deg,
+    rgba(255, 235, 140, 0.35) 315deg,
+    transparent 330deg,
+    rgba(212, 175, 55, 0.25) 345deg,
+    transparent 360deg
+  );
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.8s ease, transform 0.8s var(--bounce-ease);
+  pointer-events: none;
+  z-index: 2;
+  filter: blur(2px);
+}
+
+.wax-seal-macro-wrap.glowing .seal-sunbeam-rays {
+  opacity: 1;
+  transform: scale(1.15);
+  animation: rotateRays 12s linear infinite;
+}
+
+@keyframes rotateRays {
+  0% { transform: scale(1.15) rotate(0deg); }
+  100% { transform: scale(1.15) rotate(360deg); }
+}
+
+/* Seal Tap Prompt Indicator */
+.seal-tap-indicator {
+  position: absolute;
+  top: calc(50% + 128px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 11;
+  cursor: pointer;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+@media (max-width: 480px) {
+  .seal-tap-indicator {
+    top: calc(50% + 110px);
+  }
+}
+
+.seal-callout-pill {
+  white-space: nowrap;
+  background: rgba(35, 20, 56, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--gold-light);
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 2.2px;
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: 20px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35), 0 0 10px rgba(212, 175, 55, 0.3);
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: floatCallout 2.4s infinite ease-in-out;
+}
+
+@media (max-width: 480px) {
+  .seal-callout-pill {
+    top: 185px;
+  }
+}
+
+@keyframes floatCallout {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.envelope-macro-footer {
+  position: absolute;
+  bottom: 80px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 10;
+  pointer-events: none;
+  padding: 0 24px;
+}
+
+@media (min-width: 768px) {
+  .envelope-macro-footer {
+    bottom: 36px;
+  }
+}
+
+.macro-sub-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--lavender-royal);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.macro-hint {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* Soft Ethereal Light Bloom Portal */
+.soft-light-portal {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+  mix-blend-mode: screen;
+}
+
+.soft-light-portal.active {
+  opacity: 1;
+}
+
+.portal-sunburst {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, 
+    rgba(255, 252, 240, 0.95) 0%, 
+    rgba(255, 235, 170, 0.85) 30%, 
+    rgba(220, 185, 100, 0.6) 60%, 
+    rgba(178, 159, 224, 0.3) 85%, 
+    transparent 100%
+  );
+  filter: blur(10px);
+}
+
+.portal-warm-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(255, 245, 210, 0.9) 0%, transparent 70%);
+}
+
+/* ==========================================================================
+   STORYTELLER PARALLAX BOOK SECTIONS
+   ========================================================================== */
+.invitation-screen {
+  padding: 0 0 80px 0;
+  background: transparent;
+  animation: fadeInStory 1.2s var(--smooth-ease) forwards;
+}
+
+@keyframes fadeInStory {
+  0% { opacity: 0; transform: translateY(35px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Story Chapter Wrapper */
+.story-chapter {
+  padding: 40px 18px 24px;
+  position: relative;
+}
+
+/* ==========================================================================
+   CHAPTER I: THE ROYAL UNION — STEADY LUXURY STAGE
+   ========================================================================== */
+.hero-arch-chapter {
+  position: relative;
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px 40px;
+  background: transparent;
+  overflow: visible;
+  border-bottom: 1.5px solid rgba(212, 175, 55, 0.25);
+}
+
+.couple-thuluth-title {
+  font-family: 'Thuluth', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: #A06815;
+  margin: 4px auto 14px;
+  text-align: center;
+  direction: rtl;
+  filter: drop-shadow(0 2px 5px rgba(160, 104, 21, 0.28));
+  letter-spacing: 1px;
+}
+
+/* Royal Vector Arch Frame from PDF Asset 25 for Chapter II */
+.royal-arch-frame-svg-wrap {
+  position: absolute;
+  inset: -10px;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 30px;
+}
+
+.royal-arch-border-img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  opacity: 0.85;
+  filter: drop-shadow(0 2px 8px rgba(209, 139, 55, 0.35));
+}
+
+.card-ornate-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 18px auto;
+  max-width: 320px;
+  width: 80%;
+}
+
+.ornate-divider-svg {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 1px 4px rgba(209, 139, 55, 0.4));
+}
+
+.chapter-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.chapter-roman {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: #8C5E14;
+  font-weight: 700;
+  display: block;
+}
+
+.chapter-title {
+  font-family: var(--font-display);
+  font-size: 1.95rem;
+  background: linear-gradient(135deg, #6E4405 0%, #A67314 35%, #8C5E14 65%, #5E3D8E 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 4px 0 8px;
+  letter-spacing: 1.2px;
+  filter: drop-shadow(0 1px 2px rgba(110, 68, 5, 0.15));
+}
+
+.chapter-subtitle {
+  font-size: 0.98rem;
+  color: #5E3D8E;
+  font-style: italic;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.ornate-separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.sep-line {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.6), transparent);
+}
+
+.sep-gem {
+  color: var(--gold-primary);
+  font-size: 0.75rem;
+}
+
+/* CHAPTER I: Bismillah & Monogram Styles defined below in Chapter I section */
+
+/* ==========================================================================
+   GRAND MUGHAL ARCHWAY HERO STAGE (Living Procession & Walking Couple)
+   ========================================================================== */
+.hero-archway-container {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  margin: 10px auto 35px;
+  perspective: 1200px;
+}
+
+/* Hanging Ornate Lanterns (Left & Right) with physics sway */
+.hanging-lantern {
+  position: absolute;
+  top: -12px;
+  width: 38px;
+  z-index: 12;
+  pointer-events: none;
+}
+
+.hanging-lantern.lantern-left {
+  left: 8px;
+}
+
+.hanging-lantern.lantern-right {
+  right: 8px;
+}
+
+.lantern-chain {
+  width: 2px;
+  height: 38px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #D4AF37 0%, #A6822B 100%);
+  box-shadow: 0 0 4px rgba(212, 175, 55, 0.4);
+}
+
+.lantern-body {
+  position: relative;
+  transform-origin: top center;
+  animation: lanternSwing 3.8s ease-in-out infinite alternate;
+}
+
+.lantern-right .lantern-body {
+  animation-duration: 4.2s;
+  animation-delay: -1.8s;
+}
+
+@keyframes lanternSwing {
+  0% { transform: rotate(-4.5deg); }
+  100% { transform: rotate(4.5deg); }
+}
+
+.lantern-flame-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 238, 140, 0.95) 0%, rgba(255, 190, 60, 0.45) 50%, transparent 75%);
+  filter: blur(6px);
+  animation: flameFlicker 2.2s infinite ease-in-out;
+}
+
+@keyframes flameFlicker {
+  0%, 100% { opacity: 0.85; transform: translate(-50%, -50%) scale(0.92); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.12); }
+}
+
+.lantern-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 4px 10px rgba(45, 20, 70, 0.35));
+}
+
+/* Archway Frame Card (Mughal Scalloped Arch with Living Motion Window) */
+.archway-frame-card {
+  position: relative;
+  width: 100%;
+  background: radial-gradient(circle at 50% 25%, #FFFDF9 0%, #FAF5EB 60%, #F3EBDC 100%);
+  border-radius: 180px 180px 24px 24px;
+  border: 1.5px solid rgba(212, 175, 55, 0.55);
+  box-shadow: 0 16px 45px rgba(50, 25, 75, 0.12), inset 0 0 35px rgba(255, 255, 255, 0.8);
+  padding: 36px 16px 20px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.arch-floral-corner {
+  position: absolute;
+  top: 10px;
+  width: 110px;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.95;
+}
+
+.arch-corner-left {
+  left: 10px;
+}
+
+.arch-corner-right {
+  right: 10px;
+  transform: scaleX(-1);
+}
+
+.arch-corner-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.arch-invitation-heading {
+  padding: 8px 20px 14px;
+}
+
+.arch-script-welcome {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #8C5E14;
+  font-weight: 600;
+  display: block;
+}
+
+.arch-ceremony-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.6rem;
+  background: linear-gradient(135deg, #B83B5E 0%, #D4AF37 50%, #B83B5E 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 2px 0;
+  line-height: 1.2;
+}
+
+.arch-of-script {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #5E3D8E;
+  display: block;
+}
+
+.arch-couple-title {
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  letter-spacing: 1px;
+  color: #3E2469;
+  margin-top: 4px;
+}
+
+.arch-couple-title span {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.9rem;
+  color: #C58B1B;
+}
+
+/* Archway Scenic Window with Living Walking Couple Video */
+.arch-scenic-window {
+  position: relative;
+  width: 100%;
+  height: 460px;
+  border-radius: 155px 155px 14px 14px;
+  overflow: hidden;
+  border: 1.5px solid rgba(212, 175, 55, 0.45);
+  box-shadow: inset 0 0 30px rgba(45, 20, 70, 0.25), 0 10px 25px rgba(40, 20, 60, 0.12);
+  background: #FDF9F3;
+  margin-top: 12px;
+}
+
+@media (max-width: 480px) {
+  .arch-scenic-window {
+    height: 390px;
+    border-radius: 135px 135px 12px 12px;
+  }
+}
+
+.walking-video-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.couple-walk-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  display: block;
+}
+
+.couple-walk-fallback {
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+}
+
+.arch-sunbeam-glow {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 235, 140, 0.5) 0%, rgba(255, 200, 80, 0.2) 45%, transparent 70%);
+  filter: blur(20px);
+  pointer-events: none;
+  mix-blend-mode: screen;
+  animation: sunbeamPulse 4s infinite ease-in-out;
+}
+
+@keyframes sunbeamPulse {
+  0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(0.95); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+}
+
+/* Chapter I Floral Archway Living Motion Stage */
+.hero-arch-chapter {
+  position: relative;
+  background-image: url('assets/arch_bg.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  border-radius: 32px;
+  padding: 45px 24px 55px;
+  margin: 15px auto 45px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(50, 25, 75, 0.12), inset 0 0 60px rgba(250, 245, 235, 0.45);
+  border: 1.5px solid rgba(212, 175, 55, 0.45);
+}
+
+.hero-arch-chapter::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.85) 0%, rgba(253, 250, 245, 0.88) 55%, rgba(245, 238, 226, 0.94) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-arch-chapter > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Chapter I Monogram Presentation */
+.calligraphy-monogram-block {
+  text-align: center;
+  position: relative;
+  margin: 15px auto 40px;
+  max-width: 960px;
+  padding: 20px 14px;
+}
+
+/* Custom Couple Calligraphy Logo Showcase with Enhanced Luxury Hover */
+.hero-logo-frame {
+  width: 250px;
+  height: 250px;
+  margin: 0 auto 24px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+.logo-glow-halo {
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.45) 0%, rgba(195, 160, 230, 0.35) 45%, transparent 75%);
+  filter: blur(18px);
+  animation: pulseLogoHalo 4s infinite ease-in-out;
+  transition: all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  pointer-events: none;
+}
+
+.hero-logo-frame:hover .logo-glow-halo {
+  inset: -28px;
+  background: radial-gradient(circle, rgba(255, 220, 110, 0.85) 0%, rgba(212, 175, 55, 0.6) 40%, rgba(190, 150, 235, 0.45) 60%, transparent 80%);
+  filter: blur(28px);
+  transform: scale(1.18);
+}
+
+.logo-inner-wrapper {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  border: 3px solid rgba(212, 175, 55, 0.75);
+  box-shadow: 0 12px 35px rgba(50, 25, 75, 0.2), 0 0 25px rgba(212, 175, 55, 0.35);
+  background: #FAF8F5;
+  transition: all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  animation: logoBreathe 6s ease-in-out infinite;
+}
+
+.hero-logo-frame:hover .logo-inner-wrapper {
+  transform: scale(1.06);
+  border-color: #F7E7B4;
+  box-shadow: 0 20px 50px rgba(60, 20, 80, 0.3), 0 0 45px rgba(212, 175, 55, 0.8), inset 0 0 25px rgba(255, 238, 170, 0.6);
+}
+
+.couple-arabic-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.hero-logo-frame:hover .couple-arabic-logo {
+  transform: scale(1.06);
+}
+
+/* Elegant diagonal gold light sheen sweep across logo */
+.logo-inner-wrapper::after {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -60%;
+  width: 220%;
+  height: 220%;
+  background: linear-gradient(
+    60deg,
+    transparent 35%,
+    rgba(255, 245, 200, 0.3) 45%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 245, 200, 0.3) 55%,
+    transparent 65%
+  );
+  transform: rotate(25deg) translateY(-120%);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.hero-logo-frame:hover .logo-inner-wrapper::after {
+  transform: rotate(25deg) translateY(120%);
+}
+
+@keyframes logoBreathe {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-4px) scale(1.015); }
+}
+
+@keyframes pulseLogoHalo {
+  0%, 100% { opacity: 0.6; transform: scale(0.96); }
+  50% { opacity: 0.95; transform: scale(1.06); }
+}
+
+.bismillah-block {
+  text-align: center;
+  margin: 10px auto 20px;
+}
+
+.bismillah-calligraphy-img {
+  max-width: min(85%, 380px);
+  height: auto;
+  display: block;
+  margin: 0 auto 10px;
+  filter: drop-shadow(0 2px 6px rgba(184, 126, 24, 0.35));
+}
+
+.bismillah-trans {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-style: italic;
+  color: #5E3D8E;
+  letter-spacing: 0.5px;
+}
+
+.cursive-prefix {
+  font-family: var(--font-script);
+  font-size: 1.85rem;
+  color: #8C5E14;
+  display: block;
+}
+
+.couple-primary-names {
+  font-family: var(--font-display);
+  font-size: 2.35rem;
+  letter-spacing: 1.5px;
+  background: linear-gradient(135deg, #5A2A04 0%, #8C5E14 30%, #B88218 60%, #6E4405 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1.3;
+  margin: 4px 0 8px;
+  filter: drop-shadow(0 1px 2px rgba(90, 42, 4, 0.2));
+}
+
+.couple-tagline {
+  font-size: 1.05rem;
+  color: #2F1E4A;
+  max-width: 460px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Chapter I Scroll Down Prompt (Matching Video Frame 280) */
+.chapter-scroll-prompt {
+  margin: 32px auto 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  animation: promptFloat 2.2s infinite ease-in-out;
+  cursor: pointer;
+}
+
+.scroll-prompt-text {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.45rem;
+  color: #8C5E14;
+  letter-spacing: 0.5px;
+}
+
+.scroll-prompt-chevron {
+  font-size: 1.3rem;
+  color: #C58B1B;
+  line-height: 0.9;
+}
+
+@keyframes promptFloat {
+  0%, 100% { transform: translateY(0); opacity: 0.85; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+
+/* CHAPTER II: Traditional Bohra Sacred Invitation Stage (Seamless Full-Bleed) */
+.bohra-invitation-stage {
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 30px 20px;
+  background: transparent;
+}
+
+/* Royal Section Dividers between Chapters */
+.royal-section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 90%;
+  max-width: 580px;
+  margin: 60px auto;
+  position: relative;
+  z-index: 10;
+}
+
+.royal-section-divider .div-line {
+  flex: 1;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.75) 50%, rgba(197, 139, 27, 0.9) 100%);
+  border-radius: 2px;
+}
+
+.royal-section-divider .div-line.rev {
+  background: linear-gradient(90deg, rgba(197, 139, 27, 0.9) 0%, rgba(212, 175, 55, 0.75) 50%, transparent 100%);
+}
+
+.royal-section-divider .div-ornament {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--gold-primary);
+  text-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+  user-select: none;
+}
+
+.royal-section-divider .div-gem {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.royal-section-divider .div-rosette {
+  font-size: 1.4rem;
+  color: #C58B1B;
+  filter: drop-shadow(0 2px 6px rgba(197, 139, 27, 0.4));
+}
+
+/* Card Customizer Toolbar & Live Editing System */
+.card-customizer-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto 24px;
+  max-width: 780px;
+  width: 100%;
+  z-index: 20;
+  position: relative;
+}
+
+.btn-customizer-toggle {
+  background: linear-gradient(135deg, #FAF4E6 0%, #F5E8C8 100%);
+  border: 1.5px solid rgba(212, 175, 55, 0.8);
+  border-radius: 30px;
+  padding: 10px 24px;
+  color: #5A3508;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 16px rgba(184, 126, 24, 0.18);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.btn-customizer-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(184, 126, 24, 0.3);
+  background: linear-gradient(135deg, #FFFDF8 0%, #FAE9C4 100%);
+}
+
+.card-editor-panel {
+  width: 100%;
+  background: rgba(255, 253, 248, 0.98);
+  border: 1.5px solid rgba(212, 175, 55, 0.7);
+  border-radius: 20px;
+  padding: 22px 24px;
+  box-shadow: 0 14px 40px rgba(70, 35, 90, 0.12), 0 0 20px rgba(212, 175, 55, 0.2);
+  margin-top: 14px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.4s ease;
+  animation: slideDownEditor 0.35s ease;
+}
+
+@keyframes slideDownEditor {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card-editor-panel.hidden {
+  display: none;
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  border-bottom: 1px dashed rgba(212, 175, 55, 0.4);
+  padding-bottom: 10px;
+}
+
+.editor-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: #3E2469;
+  font-weight: 700;
+  display: block;
+}
+
+.editor-subtext {
+  font-size: 0.82rem;
+  color: #6A4E80;
+  display: block;
+  margin-top: 2px;
+}
+
+.editor-close-x {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: #8C5E14;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+}
+
+.editor-controls-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.control-unit {
+  flex: 1;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.control-unit label {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #5A3508;
+  letter-spacing: 0.5px;
+}
+
+.slider-with-val {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.slider-with-val input[type="range"] {
+  flex: 1;
+  accent-color: var(--gold-primary);
+  cursor: pointer;
+}
+
+.slider-with-val span {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #3E2469;
+  min-width: 45px;
+}
+
+.btn-font-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-mini-tool {
+  background: #FFFFFF;
+  border: 1px solid rgba(212, 175, 55, 0.6);
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #5A3508;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-mini-tool:hover {
+  background: rgba(212, 175, 55, 0.2);
+  transform: translateY(-1px);
+}
+
+#font-size-indicator {
+  font-size: 0.8rem;
+  color: #6A4E80;
+  font-weight: 600;
+}
+
+.editor-actions-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-editor-action {
+  padding: 8px 18px;
+  border-radius: 12px;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.btn-editor-action.save-btn {
+  background: var(--gold-gradient);
+  color: #351C05;
+  box-shadow: 0 4px 12px rgba(184, 126, 24, 0.25);
+}
+
+.btn-editor-action.reset-btn {
+  background: rgba(164, 142, 212, 0.18);
+  color: #4A3560;
+  border: 1px solid rgba(164, 142, 212, 0.4);
+}
+
+.btn-editor-action.done-btn {
+  background: #2D1A3E;
+  color: #FFFFFF;
+  margin-left: auto;
+}
+
+.editor-tip {
+  font-size: 0.76rem;
+  color: #7A5E95;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* Editing active visual indicators on parchment */
+.editing-card-active [contenteditable="true"] {
+  outline: 1.5px dashed rgba(212, 175, 55, 0.6) !important;
+  outline-offset: 4px;
+  cursor: text;
+  transition: outline 0.2s ease, background 0.2s ease;
+}
+
+.editing-card-active [contenteditable="true"]:hover {
+  outline-color: var(--gold-primary) !important;
+  background: rgba(255, 250, 235, 0.5);
+}
+
+.editing-card-active [contenteditable="true"]:focus,
+.editing-card-active .active-editing-target {
+  outline: 2px solid #C58B1B !important;
+  outline-offset: 4px !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  box-shadow: 0 0 16px rgba(212, 175, 55, 0.45) !important;
+  border-radius: 6px;
+}
+
+.parchment-body {
+  text-align: center;
+  background: radial-gradient(circle at 50% 25%, #FFFDF9 0%, #FAF6EE 65%, #F4ECE0 100%);
+  border-radius: 36px 36px 24px 24px;
+  border: 1.5px solid rgba(212, 175, 55, 0.55);
+  box-shadow: 0 18px 50px rgba(55, 25, 80, 0.09), inset 0 0 45px rgba(255, 255, 255, 0.85), 0 0 25px rgba(212, 175, 55, 0.18);
+  padding: 40px 30px;
+  position: relative;
+}
+
+/* Top Calligraphy Header with Medallions & Bismillah */
+.card-calligraphy-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+  gap: 12px;
+}
+
+.top-bismillah-box {
+  flex: 2;
+  text-align: center;
+}
+
+.bismillah-card-header-img {
+  max-width: min(100%, 380px);
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 2px 6px rgba(184, 126, 24, 0.35));
+}
+
+.top-medallion-box {
+  flex: 1;
+  text-align: center;
+}
+
+.alhamdolillah-medallion-img {
+  max-width: 95px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 2px 4px rgba(184, 126, 24, 0.3));
+}
+
+.shukranlillah-text {
+  font-family: 'Thuluth', serif;
+  font-size: 1.85rem;
+  color: var(--gold-primary);
+  font-weight: bold;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(184, 126, 24, 0.3));
+}
+
+/* Sacred Dawat Poetry & Verses */
+.dawat-poetry-section {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.arabic-poetry-callig-wrap {
+  margin: 10px auto 16px;
+  max-width: min(92%, 520px);
+}
+
+.arabic-poetry-callig-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 2px 6px rgba(184, 126, 24, 0.35));
+}
+
+.arabic-poetry-line {
+  font-family: 'Kanz al Marjaan', 'Amiri', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #A06815;
+  line-height: 2.3;
+  direction: rtl;
+  margin: 2px 0;
+  filter: drop-shadow(0 1px 2px rgba(160, 104, 21, 0.25));
+}
+
+.lisan-stanza-line {
+  font-family: 'Kanz al Marjaan', serif;
+  font-size: 1.45rem;
+  color: #2D1A3E;
+  line-height: 2.35;
+  direction: rtl;
+  margin: 4px 0;
+}
+
+.syedna-calligraphy-wrap {
+  margin: 14px auto;
+  text-align: center;
+  max-width: 720px;
+}
+
+.syedna-calligraphy-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 2px 6px rgba(184, 126, 24, 0.35));
+}
+
+/* Bohra Card Couple Grid (Exact Layout from Uploaded Image) */
+.bohra-card-couple-grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 32px 0 24px;
+  direction: rtl;
+}
+
+.couple-side-col {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1.5px solid rgba(212, 175, 55, 0.45);
+  border-radius: 18px;
+  padding: 20px 14px;
+  box-shadow: 0 8px 24px rgba(70, 35, 90, 0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  text-align: center;
+}
+
+.kinship-label {
+  font-family: 'Kanz al Marjaan', serif;
+  font-size: 1.35rem;
+  color: #8C5E14;
+  font-weight: bold;
+  display: block;
+}
+
+.thuluth-calligraphy-name {
+  font-family: 'Thuluth', serif;
+  font-size: 3.6rem;
+  color: #C58B1B;
+  line-height: 1.15;
+  margin: 6px 0;
+  filter: drop-shadow(0 2px 8px rgba(197, 139, 27, 0.4));
+}
+
+.family-parent-lines {
+  font-family: 'Kanz al Marjaan', serif;
+  direction: rtl;
+  margin-top: 4px;
+}
+
+.parent-line-bold {
+  font-size: 1.35rem;
+  color: #2D1A3E;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.parent-line-sub {
+  font-size: 1.25rem;
+  color: #4E3666;
+  line-height: 1.6;
+}
+
+.couple-center-knot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+}
+
+.knot-wedding-script {
+  font-family: 'Kanz al Marjaan', serif;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #C58B1B;
+  line-height: 1.4;
+}
+
+.knot-sub-script {
+  font-family: 'Kanz al Marjaan', serif;
+  font-size: 1.25rem;
+  color: #6E4D88;
+  margin-top: 2px;
+}
+
+/* Sacred Raza Mubarak Ceremony Box */
+.card-raza-ceremony-box {
+  margin: 22px 0;
+  text-align: center;
+}
+
+.nikah-raza-callout {
+  font-family: 'Kanz al Marjaan', serif;
+  font-size: 1.4rem;
+  color: #2D1A3E;
+  font-weight: bold;
+  line-height: 2.1;
+  direction: rtl;
+}
+
+.invitation-request-line {
+  font-family: 'Kanz al Marjaan', serif;
+  font-size: 1.38rem;
+  color: #3B234F;
+  line-height: 2.2;
+  direction: rtl;
+}
+
+/* Golden Event Details Box (Date, Time, Venue) */
+.card-event-details-box {
+  background: rgba(255, 250, 240, 0.95);
+  border: 2px solid rgba(212, 175, 55, 0.7);
+  border-radius: 16px;
+  padding: 16px 22px;
+  margin: 26px auto;
+  max-width: 800px;
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15);
+}
+
+.event-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(212, 175, 55, 0.4);
+}
+
+.event-detail-row:last-child {
+  border-bottom: none;
+}
+
+.event-detail-eng {
+  font-family: 'Cinzel Decorative', var(--font-serif);
+  font-size: 1.15rem;
+  color: #2D1A3E;
+  font-weight: 600;
+}
+
+.event-detail-sep {
+  color: #C58B1B;
+  font-weight: bold;
+  margin: 0 10px;
+}
+
+.event-detail-arabic {
+  font-family: 'Kanz al Marjaan', serif;
+  font-size: 1.35rem;
+  color: #2D1A3E;
+  direction: rtl;
+}
+
+/* Family Signatures Section */
+.card-family-signatures-wrap {
+  margin-top: 26px;
+  padding-top: 18px;
+  border-top: 1.5px solid rgba(212, 175, 55, 0.45);
+  text-align: center;
+}
+
+.dawat-ubaid-title {
+  font-family: 'Kanz al Marjaan', serif;
+  font-size: 1.35rem;
+  color: #8C5E14;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.family-signatures-columns {
+  display: flex;
+  justify-content: space-around;
+  gap: 24px;
+  direction: rtl;
+  margin-top: 8px;
+}
+
+.sign-name {
+  font-family: 'Kanz al Marjaan', serif;
+  font-size: 1.32rem;
+  color: #2D1A3E;
+  line-height: 2.1;
+}
+
+.final-salutations {
+  font-family: 'Kanz al Marjaan', serif;
+  font-size: 1.35rem;
+  color: #5E3D8E;
+  font-weight: bold;
+  margin-top: 16px;
+}
+
+/* CHAPTER III: Scratch Card & Countdown (Seamless Luxury Layout) */
+.luxury-card-box {
+  background: transparent;
+  border-radius: 0;
+  padding: 24px 16px;
+  position: relative;
+  border: none;
+  box-shadow: none;
+  text-align: center;
+  margin-bottom: 32px;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card-ornament {
+  color: var(--gold-primary);
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.section-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold-primary);
+  font-weight: 600;
+  display: block;
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  color: #3E2469;
+  margin: 6px 0 10px;
+  letter-spacing: 0.5px;
+}
+
+.scratch-instructions {
+  font-size: 0.95rem;
+  color: #4A3560;
+  margin-bottom: 18px;
+}
+
+/* 3-Block Scratch Grid Styling (Date, Month, Year) */
+.scratch-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 780px;
+  margin: 24px auto 18px;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .scratch-grid-3 {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 10px !important;
+  }
+  .scratch-tile-block {
+    height: 125px !important;
+  }
+  .tile-val-huge {
+    font-size: 1.7rem !important;
+  }
+  .tile-category-tag {
+    font-size: 0.75rem !important;
+  }
+}
+
+.scratch-tile-block {
+  position: relative;
+  height: 155px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1.5px solid rgba(212, 175, 55, 0.55);
+  box-shadow: 0 8px 22px rgba(70, 35, 90, 0.08);
+  background: #FFFFFF;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.scratch-tile-block:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(70, 35, 90, 0.12), 0 0 15px rgba(212, 175, 55, 0.2);
+}
+
+.tile-reveal-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  background: radial-gradient(circle at center, #FFFDF8 0%, #FAF3E6 100%);
+  z-index: 1;
+}
+
+.tile-val-huge {
+  font-family: var(--font-display);
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: #C58B1B;
+  line-height: 1.1;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.tile-category-tag {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #8C5E14;
+  font-weight: 700;
+  text-align: center;
+}
+
+.tile-scratch-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  cursor: grab;
+  touch-action: none;
+  transition: opacity 0.5s ease;
+}
+
+.revealed-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 2px;
+  color: #8C5E14;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.scratch-revealed-summary {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px dashed rgba(212, 175, 55, 0.45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: fadeInSummary 0.6s ease;
+}
+
+@keyframes fadeInSummary {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.revealed-full-detail {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: #3E2469;
+  letter-spacing: 0.5px;
+  text-align: center;
+  margin: 4px 0;
+}
+
+.revealed-hijri-date {
+  font-family: 'Kanz al Marjaan', var(--font-serif);
+  font-size: 1.25rem;
+  color: #8C5E14;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.btn-gold-action {
+  background: var(--gold-gradient);
+  color: #351C05;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 8px 20px;
+  border-radius: 24px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(180, 140, 30, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 4px;
+}
+
+.btn-gold-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(180, 140, 30, 0.45);
+}
+
+.scratch-progress-wrap {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.scratch-progress-bar {
+  width: 180px;
+  height: 6px;
+  background: rgba(164, 142, 212, 0.25);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.scratch-progress-bar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--progress, 0%);
+  background: var(--gold-gradient);
+  border-radius: 4px;
+  transition: width 0.25s ease;
+}
+
+.scratch-hint {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  color: #644E7A;
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* Countdown Grid */
+.timer-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 22px 0 14px;
+}
+
+.timer-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1.5px solid rgba(212, 175, 55, 0.5);
+  box-shadow: 0 6px 18px rgba(70, 30, 90, 0.08);
+  border-radius: 14px;
+  width: 76px;
+  padding: 12px 6px;
+}
+
+.time-digit {
+  font-family: var(--font-display);
+  font-size: 1.95rem;
+  font-weight: 700;
+  color: #C58B1B;
+  line-height: 1;
+}
+
+.time-label {
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #5E3D8E;
+  margin-top: 5px;
+}
+
+.timer-colon {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: #C58B1B;
+  font-weight: 700;
+}
+
+.timer-subtext {
+  font-size: 0.98rem;
+  color: #4A3560;
+  font-style: italic;
+}
+
+/* ==========================================================================
+   SERPENTINE WEDDING TIMELINE (RUSUMAT)
+   Matching Reference: Winding dashed path, circular photo badges, script typography
+   ========================================================================== */
+.script-timeline-title {
+  font-family: 'Great Vibes', cursive !important;
+  font-size: 3.4rem !important;
+  background: linear-gradient(135deg, #B83B5E 0%, #D4AF37 50%, #B83B5E 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  filter: drop-shadow(0 2px 8px rgba(184, 59, 94, 0.25));
+}
+
+.serpentine-timeline-container {
+  position: relative;
+  max-width: 780px;
+  margin: 30px auto;
+  padding: 40px 18px;
+  min-height: 880px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  background: radial-gradient(circle at 50% 40%, rgba(255, 245, 248, 0.75) 0%, rgba(254, 236, 243, 0.88) 60%, rgba(255, 246, 250, 0.6) 100%);
+  border-radius: 28px;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 0 12px 36px rgba(184, 59, 94, 0.08), inset 0 0 40px rgba(255, 255, 255, 0.6);
+}
+
+.timeline-winding-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.winding-dashed-line {
+  animation: dashMarch 30s linear infinite;
+}
+
+@keyframes dashMarch {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+.timeline-node {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  max-width: 600px;
+  width: 100%;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.timeline-node:hover {
+  transform: scale(1.02);
+}
+
+.timeline-node.node-right {
+  margin-left: auto;
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.timeline-node.node-left {
+  margin-right: auto;
+  flex-direction: row;
+  text-align: left;
+}
+
+.node-badge-wrap {
+  flex-shrink: 0;
+  position: relative;
+}
+
+.circular-badge-frame {
+  width: 135px;
+  height: 135px;
+  border-radius: 50%;
+  border: 3px dashed #B83B5E;
+  padding: 5px;
+  background: radial-gradient(circle, #FFFDF8 0%, #FAF0E6 100%);
+  box-shadow: 0 10px 28px rgba(184, 59, 94, 0.2), 0 0 20px rgba(212, 175, 55, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.timeline-node:hover .circular-badge-frame {
+  transform: rotate(4deg) scale(1.06);
+  box-shadow: 0 14px 36px rgba(184, 59, 94, 0.3), 0 0 26px rgba(212, 175, 55, 0.55);
+  border-color: #D4AF37;
+}
+
+.badge-round-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.node-content {
+  flex: 1;
+  background: rgba(255, 253, 248, 0.72);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 18px;
+  padding: 16px 22px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 6px 20px rgba(70, 35, 90, 0.05);
+}
+
+.node-script-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.3rem;
+  color: #992847;
+  margin-bottom: 6px;
+  line-height: 1.2;
+  filter: drop-shadow(0 1px 4px rgba(153, 40, 71, 0.2));
+}
+
+.node-desc {
+  font-size: 0.94rem;
+  color: #4A3560;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.node-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.node-meta-item {
+  font-size: 0.88rem;
+  color: #5E3D8E;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.node-right .node-meta-item {
+  justify-content: flex-end;
+}
+
+.node-left .node-meta-item {
+  justify-content: flex-start;
+}
+
+.btn-mini-map {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #8C5E14;
+  text-decoration: none;
+  background: rgba(212, 175, 55, 0.12);
+  padding: 5px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.btn-mini-map:hover {
+  background: rgba(212, 175, 55, 0.25);
+  transform: translateX(2px);
+}
+
+@media (max-width: 640px) {
+  .serpentine-timeline-container {
+    gap: 36px;
+    padding: 20px 6px;
+  }
+  .timeline-node {
+    max-width: 100%;
+    gap: 14px;
+  }
+  .circular-badge-frame {
+    width: 100px;
+    height: 100px;
+  }
+  .node-script-title {
+    font-size: 1.8rem;
+  }
+  .node-content {
+    padding: 12px 14px;
+  }
+}
+
+/* CHAPTER VI: RSVP & Form (Ultra-Readable Luxury Inputs) */
+.rsvp-subtext {
+  font-size: 0.95rem;
+  color: #4A3560;
+  margin-bottom: 20px;
+}
+
+.rsvp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+}
+
+.form-group.half {
+  flex: 1;
+}
+
+.form-group label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #3E2469;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1.5px solid #D8C7EC;
+  font-family: 'Kanz al Marjaan', var(--font-serif);
+  font-size: 1.05rem;
+  background: #FFFFFF;
+  color: #261633;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--gold-primary);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
+}
+
+.radio-pill-group {
+  display: flex;
+  gap: 10px;
+}
+
+.radio-pill {
+  flex: 1;
+  position: relative;
+  cursor: pointer;
+}
+
+.radio-pill input {
+  position: absolute;
+  opacity: 0;
+}
+
+.radio-pill span {
+  display: block;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 11px 8px;
+  border-radius: 12px;
+  background: #FCFAFF;
+  border: 1.5px solid #D8C7EC;
+  color: #4A3560;
+  transition: all 0.2s ease;
+}
+
+.radio-pill input:checked + span {
+  background: var(--gold-gradient);
+  color: #351C05;
+  border-color: var(--gold-dark);
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.35);
+}
+
+.btn-submit-rsvp {
+  background: var(--gold-gradient);
+  color: #351C05;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 15px 24px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 6px 20px rgba(180, 140, 30, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 10px;
+}
+
+.btn-submit-rsvp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(180, 140, 30, 0.5);
+}
+
+.rsvp-feedback {
+  background: rgba(255, 255, 255, 0.98);
+  border: 1.5px solid var(--gold-primary);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  margin-top: 20px;
+  animation: fadeInFeedback 0.5s ease;
+  box-shadow: 0 10px 30px rgba(60, 30, 80, 0.1);
+}
+
+@keyframes fadeInFeedback {
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.feedback-icon {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+}
+
+.rsvp-feedback h4 {
+  font-family: var(--font-display);
+  color: #C58B1B;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.rsvp-feedback p {
+  font-size: 0.95rem;
+  color: #3E2469;
+  margin-top: 6px;
+}
+
+.wishes-board {
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(212, 175, 55, 0.35);
+  text-align: left;
+}
+
+.wishes-board.hidden {
+  display: none !important;
+}
+
+.wishes-title-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.wishes-title-bar h4 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: #3E2469;
+}
+
+.wishes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.wish-card {
+  background: #FFFFFF;
+  border-radius: 14px;
+  padding: 14px 16px;
+  border-left: 4px solid #C58B1B;
+  border-top: 1px solid rgba(212, 175, 55, 0.35);
+  border-right: 1px solid rgba(212, 175, 55, 0.35);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 0 4px 14px rgba(70, 35, 90, 0.05);
+}
+
+.wish-author {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #8C5E14;
+  display: flex;
+  justify-content: space-between;
+}
+
+.wish-time {
+  font-size: 0.72rem;
+  color: #7B6590;
+  font-weight: normal;
+}
+
+.wish-text {
+  font-size: 0.95rem;
+  color: #2D1A3E;
+  margin-top: 6px;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.empty-wishes-prompt {
+  text-align: center;
+  padding: 24px 16px;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px dashed rgba(212, 175, 55, 0.45);
+  border-radius: 14px;
+}
+
+.empty-wishes-text {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  color: #6E5388;
+  font-style: italic;
+}
+
+/* EPILOGUE FOOTER */
+.invite-footer {
+  text-align: center;
+  padding: 70px 20px 45px;
+  background: linear-gradient(180deg, transparent 0%, rgba(248, 243, 235, 0.95) 100%);
+}
+
+.footer-mini-seal {
+  width: 115px;
+  height: 115px;
+  border-radius: 50%;
+  box-shadow: 0 8px 28px rgba(184, 126, 24, 0.3), 0 0 25px rgba(212, 175, 55, 0.4);
+  margin-bottom: 20px;
+  border: 2px solid rgba(212, 175, 55, 0.75);
+  transition: transform 0.4s ease;
+}
+
+.footer-mini-seal:hover {
+  transform: scale(1.08) rotate(3deg);
+}
+
+.footer-family-gratitude {
+  max-width: 660px;
+  margin: 0 auto 24px;
+  padding: 0 16px;
+}
+
+.footer-gratitude-title {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  color: #C58B1B;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.footer-gratitude-text {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: #3E2469;
+  line-height: 1.75;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.footer-family-signatures {
+  padding-top: 14px;
+  border-top: 1px dashed rgba(212, 175, 55, 0.45);
+}
+
+.family-sign-line {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: #5E3D8E;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.footer-year {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #6C5485;
+}
+
+.footer-back-to-top {
+  margin-top: 24px;
+}
+
+.back-to-top-link {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(212, 175, 55, 0.5);
+  padding: 9px 22px;
+  border-radius: 20px;
+  color: #8C5E14;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(70, 35, 90, 0.06);
+  transition: all 0.2s ease;
+}
+
+.back-to-top-link:hover {
+  background: rgba(212, 175, 55, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(184, 126, 24, 0.2);
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVENESS & REFINED VIEWPORTS (<= 640px)
+   ========================================================================== */
+@media (max-width: 640px) {
+  .bohra-invitation-stage {
+    padding: 20px 8px;
+  }
+
+  .card-calligraphy-topbar {
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .bismillah-card-header-img {
+    max-width: 170px;
+  }
+
+  .shukranlillah-text {
+    font-size: 1.3rem;
+  }
+
+  .alhamdolillah-medallion-img {
+    max-width: 65px;
+  }
+
+  .arabic-poetry-line {
+    font-size: 1.35rem;
+    line-height: 2.1;
+  }
+
+  .lisan-stanza-line {
+    font-size: 1.25rem;
+    line-height: 2.1;
+  }
+
+  .syedna-calligraphy-wrap {
+    margin: 10px auto;
+  }
+
+  /* Bohra Couple Grid Mobile Refinement */
+  .bohra-card-couple-grid {
+    gap: 8px;
+    margin: 20px 0 18px;
+  }
+
+  .couple-side-col {
+    padding: 14px 6px;
+    border-radius: 14px;
+  }
+
+  .kinship-label {
+    font-size: 1.15rem;
+  }
+
+  .thuluth-calligraphy-name {
+    font-size: 2.3rem;
+    margin: 2px 0;
+    line-height: 1.25;
+  }
+
+  .parent-line-bold {
+    font-size: 1.15rem;
+    line-height: 1.45;
+  }
+
+  .parent-line-sub {
+    font-size: 1.05rem;
+    line-height: 1.45;
+  }
+
+  .knot-wedding-script {
+    font-size: 1.25rem;
+  }
+
+  .knot-sub-script {
+    font-size: 1.05rem;
+  }
+
+  .nikah-raza-callout {
+    font-size: 1.22rem;
+    line-height: 1.9;
+  }
+
+  .invitation-request-line {
+    font-size: 1.2rem;
+    line-height: 1.9;
+  }
+
+  /* Event Details Box Mobile */
+  .card-event-details-box {
+    padding: 14px 14px;
+    margin: 20px auto;
+  }
+
+  .event-detail-row {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  .event-detail-sep {
+    display: none;
+  }
+
+  .event-detail-eng {
+    font-size: 0.98rem;
+  }
+
+  .event-detail-arabic {
+    font-size: 1.2rem;
+  }
+
+  /* Family Signatures Mobile */
+  .dawat-ubaid-title {
+    font-size: 1.2rem;
+  }
+
+  .family-signatures-columns {
+    gap: 12px;
+  }
+
+  .sign-name {
+    font-size: 1.15rem;
+    line-height: 1.9;
+  }
+
+  .final-salutations {
+    font-size: 1.2rem;
+  }
+}
+

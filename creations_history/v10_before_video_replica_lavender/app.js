@@ -4,8 +4,8 @@
  * Google Sheets Live RSVP Target: https://docs.google.com/spreadsheets/d/1tygrKTnyoGsdj4KtKI4ogeCblV7MA8zkt8AwEICrxrM/edit?usp=sharing
  */
 
-// Google Sheets Webhook URL: set it in rsvp-config.js (the Apps Script Web app URL, ending in /exec)
-const GOOGLE_SHEET_WEBHOOK_URL = window.GOOGLE_SHEET_WEBHOOK_URL || '';
+// Google Sheets Webhook URL (configured from Google Apps Script deployment)
+const GOOGLE_SHEET_WEBHOOK_URL = window.GOOGLE_SHEET_WEBHOOK_URL || 'https://script.google.com/macros/s/AKfycbz_wedding_rsvp_mustafa_tasneem/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
   initFloatingParticles();
@@ -65,7 +65,7 @@ function initFloatingParticles() {
         life: 1.0,
         decay: Math.random() * 0.03 + 0.02,
         size: Math.random() * 3 + 1.5,
-        color: Math.random() > 0.5 ? '201, 162, 78' : '176, 148, 235'
+        color: Math.random() > 0.3 ? '212, 175, 55' : '255, 235, 170'
       });
     }
   };
@@ -150,7 +150,7 @@ function initFloatingParticles() {
       const alpha = b.baseOpacity * (0.8 + 0.2 * Math.sin(b.phase));
       const grad = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.radius);
       if (b.isGold) {
-        grad.addColorStop(0, `rgba(235, 205, 120, ${alpha * 1.2})`);
+        grad.addColorStop(0, `rgba(235, 195, 90, ${alpha * 1.2})`);
         grad.addColorStop(0.6, `rgba(212, 175, 55, ${alpha * 0.6})`);
         grad.addColorStop(1, 'rgba(212, 175, 55, 0)');
       } else {
@@ -177,14 +177,14 @@ function initFloatingParticles() {
       s.twinklePhase += s.twinkleSpeed;
       const alpha = Math.max(0.1, s.baseAlpha + Math.sin(s.twinklePhase) * 0.35);
 
-      ctx.fillStyle = `rgba(244, 236, 255, ${alpha})`;
+      ctx.fillStyle = `rgba(255, 240, 180, ${alpha})`;
       ctx.beginPath();
       ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
       ctx.fill();
 
       // Subtle cross glimmer
       if (alpha > 0.65) {
-        ctx.strokeStyle = `rgba(255, 255, 255, ${(alpha - 0.65) * 1.5})`;
+        ctx.strokeStyle = `rgba(255, 255, 220, ${(alpha - 0.65) * 1.5})`;
         ctx.lineWidth = 0.8;
         ctx.beginPath();
         ctx.moveTo(s.x - s.size * 2, s.y);
@@ -230,8 +230,8 @@ function initFloatingParticles() {
         ctx.lineWidth = 0.6;
         ctx.stroke();
       } else if (p.type === 'jasmine') {
-        ctx.fillStyle = `rgba(250, 246, 255, ${p.opacity * 0.9})`;
-        ctx.strokeStyle = `rgba(226, 214, 246, ${p.opacity * 0.5})`;
+        ctx.fillStyle = `rgba(255, 250, 240, ${p.opacity * 0.9})`;
+        ctx.strokeStyle = `rgba(240, 225, 200, ${p.opacity * 0.5})`;
         ctx.lineWidth = 0.5;
         ctx.stroke();
       } else {
@@ -441,8 +441,8 @@ function createSealBurst(element) {
     spark.style.width = '6px';
     spark.style.height = '6px';
     spark.style.borderRadius = '50%';
-    spark.style.background = 'linear-gradient(135deg, #FFFFFF, #B49CE6)';
-    spark.style.boxShadow = '0 0 10px rgba(180, 156, 230, 0.8)';
+    spark.style.background = 'linear-gradient(135deg, #FFF0C2, #D4AF37)';
+    spark.style.boxShadow = '0 0 10px rgba(212, 175, 55, 0.8)';
     spark.style.pointerEvents = 'none';
     spark.style.zIndex = '9999';
 
@@ -726,50 +726,37 @@ function initScratchCard() {
       const w = canvas.width;
       const h = canvas.height;
 
-      // Lavender & gold foil with a soft sunburst sheen (matches the reference video's scratch cards)
+      // Rich metallic gold gradient
       const grad = ctx.createLinearGradient(0, 0, w, h);
-      grad.addColorStop(0, '#9C82DA');
-      grad.addColorStop(0.26, '#F3E7C2');
-      grad.addColorStop(0.5, '#C9A24E');
-      grad.addColorStop(0.76, '#F4EEFF');
-      grad.addColorStop(1, '#7A5BBE');
+      grad.addColorStop(0, '#B88E28');
+      grad.addColorStop(0.25, '#F7E7B4');
+      grad.addColorStop(0.5, '#D4AF37');
+      grad.addColorStop(0.75, '#FFF5D1');
+      grad.addColorStop(1, '#8A6414');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, w, h);
 
-      // Light rays fanning from the top-left
-      ctx.save();
-      ctx.globalAlpha = 0.2;
-      ctx.strokeStyle = '#FFFFFF';
-      ctx.lineWidth = Math.max(1, w / 90);
-      for (let k = -6; k < 30; k++) {
-        ctx.beginPath();
-        ctx.moveTo(w * 0.22, -h * 0.15);
-        ctx.lineTo(w * (k / 22), h * 1.05);
-        ctx.stroke();
-      }
-      ctx.restore();
-
-      // Fine border
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.55)';
-      ctx.lineWidth = 2;
-      ctx.strokeRect(5, 5, w - 10, h - 10);
+      // Fine filigree border
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(6, 6, w - 12, h - 12);
 
       // Glitter noise
-      for (let i = 0; i < 160; i++) {
-        ctx.fillStyle = Math.random() > 0.5 ? 'rgba(255, 255, 255, 0.45)' : 'rgba(60, 35, 120, 0.22)';
+      for (let i = 0; i < 180; i++) {
+        ctx.fillStyle = Math.random() > 0.5 ? 'rgba(255, 255, 255, 0.4)' : 'rgba(99, 71, 7, 0.25)';
         ctx.fillRect(Math.random() * w, Math.random() * h, 2, 2);
       }
 
       // Foil text
-      ctx.fillStyle = '#3A2670';
-      ctx.font = '600 20px "Montserrat", sans-serif';
+      ctx.fillStyle = '#2A163B';
+      ctx.font = 'bold 12px "Montserrat", sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText('SCRATCH', w / 2, h / 2 - 8);
+      ctx.fillText('✨ SCRATCH ✨', w / 2, h / 2 - 9);
 
-      ctx.fillStyle = '#4B3690';
-      ctx.font = 'italic 19px "Cormorant Garamond", Georgia, serif';
-      ctx.fillText(b.title.toLowerCase(), w / 2, h / 2 + 18);
+      ctx.fillStyle = '#634707';
+      ctx.font = 'italic 11px "Cormorant Garamond", Georgia, serif';
+      ctx.fillText(`Rub to reveal ${b.title.toLowerCase()}`, w / 2, h / 2 + 11);
     }
 
     renderTileFoil();
@@ -795,7 +782,7 @@ function initScratchCard() {
 
       ctx.globalCompositeOperation = 'destination-out';
       ctx.beginPath();
-      ctx.arc(x, y, 26, 0, Math.PI * 2, false);
+      ctx.arc(x, y, 20, 0, Math.PI * 2, false);
       ctx.fill();
 
       checkBlockPercentage();
@@ -846,7 +833,7 @@ function initScratchCard() {
             hintText.innerText = `Scratch all 3 blocks to unveil! (${revealedCount} of ${totalBlocks} Revealed)`;
           } else {
             hintText.innerText = '✨ Mubarak! Auspicious Wedding Date Has Been Revealed: 26th January 2026! ✨';
-            hintText.style.color = '#6E4FB3';
+            hintText.style.color = '#8C5E14';
             hintText.style.fontWeight = '700';
             if (revealedSummary) revealedSummary.classList.add('visible');
             triggerGoldConfetti();
@@ -867,7 +854,7 @@ function initScratchCard() {
 }
 
 function triggerGoldConfetti() {
-  const container = document.querySelector('.vx-cards') || document.querySelector('.scratch-container');
+  const container = document.querySelector('.scratch-container');
   if (!container) return;
 
   const rect = container.getBoundingClientRect();
@@ -881,7 +868,7 @@ function triggerGoldConfetti() {
     confetti.style.top = `${centerY}px`;
     confetti.style.width = `${Math.random() * 8 + 4}px`;
     confetti.style.height = `${Math.random() * 12 + 6}px`;
-    confetti.style.backgroundColor = Math.random() > 0.4 ? '#C9A24E' : '#B29FE0';
+    confetti.style.backgroundColor = Math.random() > 0.4 ? '#D4AF37' : '#B29FE0';
     confetti.style.borderRadius = '2px';
     confetti.style.pointerEvents = 'none';
     confetti.style.zIndex = '9999';
@@ -1049,110 +1036,40 @@ function initRsvpAndGuestbook() {
 
   renderWishes();
 
-  /* ---- Google Sheet connection --------------------------------------------
-     The Apps Script Web app URL is set in rsvp-config.js. The RSVP is confirmed by the sheet
-     before the guest sees "received"; otherwise they see a clear message and can press Send
-     again. Every RSVP carries one reference id (reused on retries) so the sheet never gets
-     duplicates. */
-  const submitBtn = document.getElementById('submit-rsvp-btn');
-  const submitLabel = submitBtn ? submitBtn.querySelector('.btn-text') : null;
-  const errorBox = document.getElementById('rsvp-error');
-  let attemptId = null;
-
-  function showRsvpError(text) {
-    if (!errorBox) return;
-    errorBox.textContent = text;
-    errorBox.classList.remove('hidden');
-  }
-
-  function clearRsvpError() {
-    if (!errorBox) return;
-    errorBox.textContent = '';
-    errorBox.classList.add('hidden');
-  }
-
-  function setSending(on) {
-    if (!submitBtn) return;
-    submitBtn.disabled = on;
-    if (!submitLabel) return;
-    if (on) {
-      submitLabel.dataset.label = submitLabel.textContent;
-      submitLabel.textContent = 'Sending…';
-    } else if (submitLabel.dataset.label) {
-      submitLabel.textContent = submitLabel.dataset.label;
-    }
-  }
-
-  async function sendToSheet(rsvp) {
-    const url = String(window.GOOGLE_SHEET_WEBHOOK_URL || GOOGLE_SHEET_WEBHOOK_URL || '').trim();
-    if (!url) {
-      console.warn('RSVP sheet is not connected yet: paste the Apps Script Web app URL into rsvp-config.js');
-      return false;
-    }
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 20000);
-    try {
-      // A plain-text body keeps this a "simple" request, which Apps Script accepts and answers with CORS headers.
-      const res = await fetch(url, { method: 'POST', body: JSON.stringify(rsvp), signal: controller.signal });
-      if (!res.ok) return false;
-      const out = await res.json();
-      return !!out && out.status === 'success';
-    } catch (err) {
-      console.warn('RSVP sheet sync failed:', err);
-      return false;
-    } finally {
-      clearTimeout(timer);
-    }
-  }
-
   // Form submission
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (submitBtn && submitBtn.disabled) return;
 
     const name = document.getElementById('guest-name').value.trim();
     const phone = document.getElementById('guest-phone').value.trim();
     const count = document.getElementById('guest-count').value;
     const attendance = form.querySelector('input[name="attendance"]:checked')?.value || 'Joyfully Attending';
     const message = document.getElementById('guest-message').value.trim();
-    const trap = form.querySelector('input[name="website"]');
 
     if (!name || !phone) return;
 
-    if (!attemptId) {
-      attemptId = (window.crypto && crypto.randomUUID)
-        ? crypto.randomUUID()
-        : 'r' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
-    }
-
+    // Save RSVP record to localStorage
+    const rsvpRecords = JSON.parse(localStorage.getItem('mt_rsvp_records') || '[]');
     const rsvpItem = {
-      id: attemptId,
       name,
       phone,
       count,
       attendance,
       message,
-      timestamp: new Date().toISOString(),
-      website: trap ? trap.value : ''
+      timestamp: new Date().toISOString()
     };
-
-    clearRsvpError();
-    setSending(true);
-    const sent = await sendToSheet(rsvpItem);
-    setSending(false);
-
-    // Keep a copy on this device either way (one entry per reference id)
-    const rsvpRecords = JSON.parse(localStorage.getItem('mt_rsvp_records') || '[]');
-    const record = { id: rsvpItem.id, name, phone, count, attendance, message, timestamp: rsvpItem.timestamp, synced: sent };
-    const at = rsvpRecords.findIndex((r) => r.id === record.id);
-    if (at >= 0) rsvpRecords[at] = record; else rsvpRecords.push(record);
+    rsvpRecords.push(rsvpItem);
     localStorage.setItem('mt_rsvp_records', JSON.stringify(rsvpRecords));
 
-    if (!sent) {
-      showRsvpError('We could not send your RSVP just now. Please check your connection and press "Send" again.');
-      return;
+    // Async sync to Google Sheets (if webhook configured or fallback webhook)
+    if (typeof GOOGLE_SHEET_WEBHOOK_URL !== 'undefined' && GOOGLE_SHEET_WEBHOOK_URL) {
+      fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(rsvpItem)
+      }).catch(err => console.log('Google Sheets sync notice:', err));
     }
-    attemptId = null;
 
     // If guest left a message, add it to the live wall
     if (message) {

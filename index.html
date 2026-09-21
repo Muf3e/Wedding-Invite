@@ -9,9 +9,10 @@
   <!-- Favicon & Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Pinyon+Script&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="lavender.css" />
 </head>
 <body>
   <!-- Ambient Wedding Audio Player -->
@@ -19,30 +20,15 @@
     <source src="assets/music.mp3" type="audio/mp3">
   </audio>
 
-  <!-- Floating Audio Equalizer Control (Matching Circular Gold Button in Reference Video) -->
-  <button id="music-toggle" class="floating-music-btn" aria-label="Toggle Background Music" title="Play / Pause Music">
-    <span class="music-icon-state" id="music-icon-state">⏸</span>
-    <div class="eq-bars">
-      <span class="bar bar-1"></span>
-      <span class="bar bar-2"></span>
-      <span class="bar bar-3"></span>
-      <span class="bar bar-4"></span>
-    </div>
+  <!-- Music control: equalizer bars only. They move while music plays and freeze when paused. -->
+  <button id="vx-music" class="vx-music" type="button" aria-label="Play music" aria-pressed="false">
+    <span class="vx-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
   </button>
 
   <!-- Steady Ambient Canvas for Floating Lavender Petals, Bokeh Orbs & Golden Stardust -->
   <canvas id="petal-canvas"></canvas>
 
-  <!-- Side Storyteller Chapter Navigation (Parallax Book) -->
-  <nav class="story-nav" id="story-nav" aria-label="Invitation Chapters">
-    <div class="story-nav-track">
-      <a href="#chapter-union" class="story-nav-dot active" data-chapter="I" title="The Royal Union"></a>
-      <a href="#chapter-invitation" class="story-nav-dot" data-chapter="II" title="The Invitation"></a>
-      <a href="#chapter-date" class="story-nav-dot" data-chapter="III" title="Auspicious Date"></a>
-      <a href="#chapter-rusumat" class="story-nav-dot" data-chapter="IV" title="Wedding Timeline"></a>
-      <a href="#chapter-rsvp" class="story-nav-dot" data-chapter="V" title="RSVP &amp; Mubaraki"></a>
-    </div>
-  </nav>
+  
 
   <!-- Main Container -->
   <main class="app-viewport">
@@ -53,77 +39,35 @@
     <!-- ==============================================
          PROLOGUE: FULLSCREEN ENVELOPE CLOSE-UP SCREEN
          ============================================== -->
-    <section id="envelope-screen" class="envelope-screen fullscreen-envelope-view">
-      <div class="fullscreen-envelope-container" id="envelope-box">
-        
-        <!-- Embossed Texture & Gilded Flaps Base -->
-        <div class="envelope-full-bg"></div>
+    <section id="envelope-screen" class="env2" aria-label="Wedding invitation envelope">
+      <div class="env2-stage" id="env2-stage">
+        <!-- what the flaps reveal: golden light fading to lavender -->
+        <div class="env2-interior" aria-hidden="true"></div>
+        <div class="env2-light" aria-hidden="true"><i class="env2-rays"></i><i class="env2-beam"></i><i class="env2-flare"></i></div>
 
-        <!-- Inner Shimmering Gold Pocket Lining -->
-        <div class="envelope-pocket-liner"></div>
+        <!-- the four folds of the envelope, each with its blind-embossed relief -->
+        <div class="env2-panel env2-left" aria-hidden="true"><span class="env2-relief env2-vine"></span></div>
+        <div class="env2-panel env2-right" aria-hidden="true"><span class="env2-relief env2-vine env2-vine-r"></span></div>
+        <div class="env2-panel env2-bottom" aria-hidden="true"><span class="env2-relief env2-bouquet env2-bouquet-b"></span></div>
+        <div class="env2-panel env2-top" aria-hidden="true"><span class="env2-relief env2-bouquet"></span></div>
 
-        <!-- Emerging Card Peek (Slides gracefully up when flap opens, matching reference video) -->
-        <div class="envelope-card-peek" id="envelope-card-peek">
-          <div class="peek-inner-card">
-            <img src="assets/calligraphy/Asset 12.png" alt="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" class="peek-bismillah-img" />
-            <img src="assets/rosette_logo.png" alt="Mustafa &amp; Tasneem Calligraphy Rosette Medallion" class="peek-logo-img" />
-            <span class="peek-cursive-prefix">Together with their families</span>
-            <div class="peek-couple-title">Mustafa &amp; Tasneem</div>
-            <div class="peek-thuluth-title">مُصْطَفَى وَ تَسْنِيم</div>
-            <div class="peek-scroll-indicator">
-              <span class="peek-scroll-text">Scroll down</span>
-              <span class="peek-scroll-chevron">⌄</span>
-            </div>
-          </div>
-        </div>
+        <svg class="env2-creases" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path class="c-shadow" d="M0 0.4L50 50.4L100 0.4M0 99.6L50 49.6L100 99.6"/>
+          <path class="c-light" d="M0 0L50 50L100 0M0 100L50 50L100 100"/>
+        </svg>
+        <div class="env2-glints" aria-hidden="true"></div>
 
-        <!-- Envelope Flap Layers: 4 Authentic 3D Flaps Meeting at Center -->
-        <div class="envelope-panel panel-bottom" id="panel-bottom">
-          <div class="flap-embossed-flourish bouquet-bottom"></div>
-        </div>
-        <div class="envelope-panel panel-left" id="panel-left">
-          <div class="flap-embossed-flourish vine-left"></div>
-        </div>
-        <div class="envelope-panel panel-right" id="panel-right">
-          <div class="flap-embossed-flourish vine-right"></div>
-        </div>
-        <div class="envelope-panel panel-top" id="top-flap">
-          <div class="flap-embossed-flourish bouquet-top"></div>
-        </div>
-
-        <!-- Expanding Golden Wave / Ripple Effect from behind Seal on Tap -->
-        <div class="seal-wave-container" id="seal-waves">
-          <div class="seal-wave-ring wave-1"></div>
-          <div class="seal-wave-ring wave-2"></div>
-          <div class="seal-wave-ring wave-3"></div>
-        </div>
-
-        <!-- Radiant Golden Light Burst from behind Seal on Tap -->
-        <div class="seal-light-burst" id="seal-light-burst"></div>
-
-        <!-- Prominent Pure Gold Wax Seal (Direct Authentic Frontal Cutout) -->
-        <div class="wax-seal-macro-wrap" id="wax-seal" role="button" tabindex="0" aria-label="Open wedding invitation">
-          <div class="seal-soft-aura"></div>
-          <div class="seal-sunbeam-rays" id="seal-rays"></div>
-          <img src="assets/seal.png" alt="Mustafa &amp; Tasneem Bilingual Gold Wax Seal (MT / م ت)" class="seal-macro-img" id="seal-img" />
-        </div>
-
-        <!-- Elegant Tap Prompt (Separate from seal so it never overlaps the gold rim) -->
-        <div class="seal-tap-indicator" id="seal-indicator">
-          <div class="seal-callout-pill">
-            <span class="callout-sparkle">✨</span>
-            <span class="callout-text">TAP TO UNVEIL</span>
-            <span class="callout-sparkle">✨</span>
-          </div>
-        </div>
+        <div class="env2-waves" aria-hidden="true"><i></i><i></i><i></i></div>
+        <button id="env2-seal" class="env2-seal" type="button" aria-label="Open the wedding invitation">
+          <span class="env2-seal-halo"></span>
+          <img src="assets/seal.png" alt="Mustafa &amp; Tasneem gold wax seal" />
+        </button>
+        <i class="env2-sparkle" aria-hidden="true">&#10022;</i>
+        <div class="env2-bloom" aria-hidden="true"></div>
       </div>
     </section>
 
-    <!-- Soft Ethereal Champagne Light Bloom Portal Overlay -->
-    <div class="soft-light-portal" id="light-portal">
-      <div class="portal-sunburst"></div>
-      <div class="portal-warm-glow"></div>
-    </div>
+    
 
     <!-- ==============================================
          STORYTELLER PARALLAX BOOK INVITATION
@@ -131,222 +75,71 @@
     <section id="invitation-screen" class="invitation-screen hidden">
 
       <!-- CHAPTER I: THE ROYAL PROCESSION & UNION (Living Archway & Walking Couple) -->
-      <article class="story-chapter hero-arch-chapter" id="chapter-union">
-
-        <div class="chapter-header">
-          <span class="chapter-roman">Chapter I</span>
-          <h2 class="chapter-title">The Royal Union</h2>
-          <div class="ornate-separator">
-            <span class="sep-line"></span>
-            <span class="sep-gem">✦</span>
-            <span class="sep-line"></span>
-          </div>
-        </div>
-
-        <div class="bismillah-block">
-          <img src="assets/calligraphy/Asset 12.png" alt="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" class="bismillah-calligraphy-img" />
-          <p class="bismillah-trans">In the name of Allah, the Most Beneficent, the Most Merciful</p>
-        </div>
-
-        <!-- Grand Mughal Archway Stage with Living Motion, Swaying Lanterns & Walking Couple (Matching Reference Video) -->
-        <div class="hero-archway-container" id="hero-archway-stage">
-          
-          <!-- Hanging Ornate Lanterns (Fanoos) with Physics Sway & Amber Flame Glow -->
-          <div class="hanging-lantern lantern-left" id="lantern-left">
-            <div class="lantern-chain"></div>
-            <div class="lantern-body">
-              <div class="lantern-flame-glow"></div>
-              <svg viewBox="0 0 60 105" class="lantern-svg" aria-hidden="true">
-                <defs>
-                  <linearGradient id="lanternGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#FFF4D0"/>
-                    <stop offset="30%" stop-color="#E5C368"/>
-                    <stop offset="70%" stop-color="#B88A28"/>
-                    <stop offset="100%" stop-color="#735212"/>
-                  </linearGradient>
-                  <radialGradient id="lanternGlassGlow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#FFFDF2" stop-opacity="1"/>
-                    <stop offset="40%" stop-color="#FFE082" stop-opacity="0.95"/>
-                    <stop offset="80%" stop-color="#FFB300" stop-opacity="0.8"/>
-                    <stop offset="100%" stop-color="#E65100" stop-opacity="0.5"/>
-                  </radialGradient>
-                </defs>
-                <circle cx="30" cy="6" r="4" fill="none" stroke="url(#lanternGoldGrad)" stroke-width="2"/>
-                <path d="M28 10 L32 10 L30 16 Z" fill="url(#lanternGoldGrad)"/>
-                <path d="M16 28 C16 18, 24 16, 30 16 C36 16, 44 18, 44 28 Z" fill="url(#lanternGoldGrad)" stroke="#523908" stroke-width="0.8"/>
-                <rect x="14" y="28" width="32" height="4" rx="2" fill="url(#lanternGoldGrad)" stroke="#523908" stroke-width="0.8"/>
-                <path d="M17 32 L43 32 L40 76 L20 76 Z" fill="url(#lanternGlassGlow)"/>
-                <path d="M17 32 L43 32 L40 76 L20 76 Z" fill="none" stroke="url(#lanternGoldGrad)" stroke-width="1.2"/>
-                <path d="M30 32 L30 76 M20 46 L40 46 M18 60 L42 60" stroke="#7A5612" stroke-width="0.9" opacity="0.75"/>
-                <path d="M22 32 L38 76 M38 32 L22 76" stroke="#946B18" stroke-width="0.8" opacity="0.6"/>
-                <path d="M20 76 L40 76 L34 90 L26 90 Z" fill="url(#lanternGoldGrad)" stroke="#523908" stroke-width="0.8"/>
-                <circle cx="30" cy="95" r="3" fill="url(#lanternGoldGrad)" stroke="#523908" stroke-width="0.8"/>
-                <path d="M30 98 L30 104" stroke="url(#lanternGoldGrad)" stroke-width="1.5"/>
-              </svg>
+      <article class="vx-hero" id="chapter-union" aria-label="Welcome">
+        <div class="vx-arch" id="hero-archway-stage">
+          <img class="vx-arch-img" src="assets/arch_bg.jpg" alt="" />
+          <div class="vx-arch-sweep" aria-hidden="true"></div>
+          <div class="vx-arch-logo">
+            <div class="vx-logo-ring">
+              <img src="assets/rosette_logo.png" alt="Mustafa &amp; Tasneem wedding monogram" />
             </div>
           </div>
-
-          <div class="hanging-lantern lantern-right" id="lantern-right">
-            <div class="lantern-chain"></div>
-            <div class="lantern-body">
-              <div class="lantern-flame-glow"></div>
-              <svg viewBox="0 0 60 105" class="lantern-svg" aria-hidden="true">
-                <circle cx="30" cy="6" r="4" fill="none" stroke="url(#lanternGoldGrad)" stroke-width="2"/>
-                <path d="M28 10 L32 10 L30 16 Z" fill="url(#lanternGoldGrad)"/>
-                <path d="M16 28 C16 18, 24 16, 30 16 C36 16, 44 18, 44 28 Z" fill="url(#lanternGoldGrad)" stroke="#523908" stroke-width="0.8"/>
-                <rect x="14" y="28" width="32" height="4" rx="2" fill="url(#lanternGoldGrad)" stroke="#523908" stroke-width="0.8"/>
-                <path d="M17 32 L43 32 L40 76 L20 76 Z" fill="url(#lanternGlassGlow)"/>
-                <path d="M17 32 L43 32 L40 76 L20 76 Z" fill="none" stroke="url(#lanternGoldGrad)" stroke-width="1.2"/>
-                <path d="M30 32 L30 76 M20 46 L40 46 M18 60 L42 60" stroke="#7A5612" stroke-width="0.9" opacity="0.75"/>
-                <path d="M22 32 L38 76 M38 32 L22 76" stroke="#946B18" stroke-width="0.8" opacity="0.6"/>
-                <path d="M20 76 L40 76 L34 90 L26 90 Z" fill="url(#lanternGoldGrad)" stroke="#523908" stroke-width="0.8"/>
-                <circle cx="30" cy="95" r="3" fill="url(#lanternGoldGrad)" stroke="#523908" stroke-width="0.8"/>
-                <path d="M30 98 L30 104" stroke="url(#lanternGoldGrad)" stroke-width="1.5"/>
-              </svg>
-            </div>
-          </div>
-
-          <!-- Archway Frame Card with Floral Bouquets & Scenic Window -->
-          <div class="archway-frame-card" id="archway-card">
-            <!-- Arch Floral Corner Bouquets -->
-            <div class="arch-floral-corner arch-corner-left" aria-hidden="true">
-              <img src="assets/floral_corner.png" alt="" class="arch-corner-img" />
-            </div>
-            <div class="arch-floral-corner arch-corner-right" aria-hidden="true">
-              <img src="assets/floral_corner.png" alt="" class="arch-corner-img" />
-            </div>
-
-            <!-- Arch Invitation Heading Matching Video -->
-            <div class="arch-invitation-heading">
-              <span class="arch-script-welcome">Welcome to the</span>
-              <h2 class="arch-ceremony-title">Wedding Celebration</h2>
-              <span class="arch-of-script">of</span>
-              <h3 class="arch-couple-title">Mustafa <span>&amp;</span> Tasneem</h3>
-            </div>
-
-            <!-- Scenic Walking Couple Stage (Continuous Video Loop & Image Fallback) -->
-            <div class="arch-scenic-window" id="arch-scenic-window">
-              <div class="walking-video-wrap" id="walking-video-wrap">
-                <video class="couple-walk-video" id="couple-walk-video" autoplay loop muted playsinline poster="assets/couple_walking.jpg">
-                  <source src="assets/couple_walking.mp4" type="video/mp4" />
-                </video>
-                <img src="assets/couple_walking.jpg" alt="Mustafa &amp; Tasneem Walking" class="couple-walk-fallback" />
-              </div>
-              <div class="arch-sunbeam-glow"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Chapter I Ornate Monogram Presentation -->
-        <div class="calligraphy-monogram-block">
-          <div class="hero-logo-frame">
-            <div class="logo-glow-halo"></div>
-            <div class="logo-inner-wrapper">
-              <img src="assets/rosette_logo.png" alt="Mustafa &amp; Tasneem Arabic Calligraphy Rosette Medallion" class="couple-arabic-logo" />
-            </div>
-          </div>
-          <div class="couple-names-header">
-            <span class="cursive-prefix">Together with their families</span>
-            <h1 class="couple-primary-names">Mustafa &amp; Tasneem</h1>
-            <div class="couple-thuluth-title">مُصْطَفَى وَ تَسْنِيم</div>
-            <p class="couple-tagline">Celebrate with us as we embark on this sacred journey of companionship and barakat.</p>
-          </div>
-        </div>
-
-        <!-- Scroll Down Motion Prompt (Matching Video Frame 280) -->
-        <div class="chapter-scroll-prompt">
-          <span class="scroll-prompt-text">Scroll down</span>
-          <span class="scroll-prompt-chevron">⌄</span>
+          <h1 class="vx-sr">Welcome to the wedding celebration of Mustafa &amp; Tasneem</h1>
+          <div class="hero-scroll-cue" aria-hidden="true">Scroll down<span class="chev">&#8964;</span></div>
         </div>
       </article>
 
-      <!-- Royal Section Separator -->
-      <div class="royal-section-divider">
-        <span class="div-line"></span>
-        <span class="div-ornament"><span class="div-gem">✦</span><span class="div-rosette">❖</span><span class="div-gem">✦</span></span>
-        <span class="div-line rev"></span>
-      </div>
+            <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <defs>
+          <path id="vx-lf" d="M0 0C7-8 20-8 32 0C20 8 7 8 0 0Z" style="fill:var(--lf,var(--f,#fff));stroke:var(--s,#a58bdb);stroke-width:.8"/>
+          <g id="vx-bl" style="fill:var(--f,#fff);stroke:var(--s,#a58bdb);stroke-width:.8"><circle cx="0" cy="-6" r="4.6"/><circle cx="5.7" cy="-1.9" r="4.6"/><circle cx="3.5" cy="4.9" r="4.6"/><circle cx="-3.5" cy="4.9" r="4.6"/><circle cx="-5.7" cy="-1.9" r="4.6"/><circle r="2" style="fill:var(--c,#c9b3f0);stroke:none"/></g>
+          <g id="vx-od">
+            <path d="M2 7H58M92 7H148" style="fill:none;stroke:currentColor;stroke-width:.8"/>
+            <path d="M75 1L80 7L75 13L70 7Z" style="fill:currentColor"/>
+            <circle cx="63" cy="7" r="1.6" style="fill:currentColor"/><circle cx="87" cy="7" r="1.6" style="fill:currentColor"/>
+            <path d="M66 7Q70 3 72 7M84 7Q80 3 78 7" style="fill:none;stroke:currentColor;stroke-width:.8"/>
+          </g>
+          <g id="vx-sk"><path d="M0-6C1-2 2-1 6 0C2 1 1 2 0 6C-1 2-2 1-6 0C-2-1-1-2 0-6Z"/></g>
+          <pattern id="vx-jali" width="14" height="14" patternUnits="userSpaceOnUse"><path d="M7 0L14 7L7 14L0 7Z M7 3.5L10.5 7L7 10.5L3.5 7Z" fill="none" stroke="#b9a5e4" stroke-width=".7"/></pattern>
+        </defs>
+      </svg>
 
-      <!-- CHAPTER II: THE INVITATION (Traditional Bohra Invitation Card) -->
-      <article class="story-chapter" id="chapter-invitation">
-        <div class="chapter-header">
-          <span class="chapter-roman">Chapter II</span>
-          <h2 class="chapter-title">The Invitation</h2>
-          <div class="ornate-separator">
-            <span class="sep-line"></span>
-            <span class="sep-gem">✦</span>
-            <span class="sep-line"></span>
+      <!-- THE DATE: scratch to reveal -->
+      <section class="vx-sec vx-date" id="chapter-date" aria-labelledby="t-date">
+        <h2 class="vx-h2 rv" id="t-date">The Date</h2>
+        <p class="vx-hint rv"><svg class="vx-spark" width="12" height="12" viewBox="-7 -7 14 14" aria-hidden="true"><use href="#vx-sk"/></svg>Scratch to reveal the date<svg class="vx-spark" width="12" height="12" viewBox="-7 -7 14 14" aria-hidden="true"><use href="#vx-sk"/></svg></p>
+        <div class="vx-cards rv">
+          <div class="vx-cardcol">
+            <div class="vx-card"><div class="vx-face"><span class="vx-val">26</span></div><canvas id="scratch-canvas-1" class="vx-foil" width="192" height="216"></canvas></div>
+            <div class="vx-clabel">Day</div>
+          </div>
+          <div class="vx-cardcol">
+            <div class="vx-card"><div class="vx-face"><span class="vx-val vx-val-sm">January</span></div><canvas id="scratch-canvas-2" class="vx-foil" width="192" height="216"></canvas></div>
+            <div class="vx-clabel">Month</div>
+          </div>
+          <div class="vx-cardcol">
+            <div class="vx-card"><div class="vx-face"><span class="vx-val">2026</span></div><canvas id="scratch-canvas-3" class="vx-foil" width="192" height="216"></canvas></div>
+            <div class="vx-clabel">Year</div>
           </div>
         </div>
-
-        <!-- Live Invitation Customizer Toolbar -->
-        <div class="card-customizer-bar" id="card-customizer-bar">
-          <button id="toggle-editor-btn" class="btn-customizer-toggle" title="Customize Invitation Text &amp; Styling">
-            <span class="btn-icon">✏️</span>
-            <span class="btn-text">Customize Card Content</span>
-          </button>
-
-          <!-- Drawer that expands when toggle is clicked -->
-          <div class="card-editor-panel hidden" id="card-editor-panel">
-            <div class="editor-header">
-              <div class="editor-header-text">
-                <span class="editor-title">🖋️ Live Card Customizer</span>
-                <span class="editor-subtext">Click any text directly on the card to edit, or adjust layout below</span>
-              </div>
-              <button id="close-editor-x" class="editor-close-x" title="Close editor">✕</button>
-            </div>
-
-            <div class="editor-controls-row">
-              <div class="control-unit">
-                <label for="card-width-slider">Card Frame Width:</label>
-                <div class="slider-with-val">
-                  <input type="range" id="card-width-slider" min="540" max="950" value="780" step="10">
-                  <span id="card-width-val">780px</span>
-                </div>
-              </div>
-
-              <div class="control-unit">
-                <label for="text-box-width-slider">Text Box Length / Width:</label>
-                <div class="slider-with-val">
-                  <input type="range" id="text-box-width-slider" min="200" max="900" value="720" step="10">
-                  <span id="text-box-width-val">Full</span>
-                </div>
-              </div>
-
-              <div class="control-unit">
-                <label>Text Size (Selected Text):</label>
-                <div class="btn-font-group">
-                  <button id="font-dec-btn" class="btn-mini-tool" title="Decrease Font Size">A-</button>
-                  <span id="font-size-indicator">Standard</span>
-                  <button id="font-inc-btn" class="btn-mini-tool" title="Increase Font Size">A+</button>
-                </div>
-              </div>
-
-              <div class="control-unit">
-                <label for="card-padding-slider">Card Padding:</label>
-                <div class="slider-with-val">
-                  <input type="range" id="card-padding-slider" min="15" max="60" value="35" step="5">
-                  <span id="card-padding-val">35px</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="editor-actions-row">
-              <button id="save-card-btn" class="btn-editor-action save-btn">
-                <span>💾 Save Customization</span>
-              </button>
-              <button id="reset-card-btn" class="btn-editor-action reset-btn">
-                <span>↺ Reset to Default</span>
-              </button>
-              <button id="close-editor-btn" class="btn-editor-action done-btn">
-                <span>✓ Done Preview</span>
-              </button>
-            </div>
-            <p class="editor-tip">💡 Tip: Changes are saved to your browser and reflected live on the invitation!</p>
-          </div>
+        <div class="scratch-progress-bar" id="scratch-progress" hidden></div>
+        <p class="vx-sr" id="scratch-hint" aria-live="polite">Scratch all 3 blocks to unveil! (0 of 3 Revealed)</p>
+        <div class="vx-saved" id="scratch-revealed-summary">
+          <p class="vx-saved-line">Monday, 26th January 2026 &middot; Pulgaon, Maharashtra</p>
+          <p class="vx-saved-sub">8 Shaban al-Karim 1447 H</p>
+          <button id="add-to-cal-btn" class="vx-pill" type="button">Add to Calendar</button>
         </div>
+      </section>
 
-        <div class="bohra-invitation-stage" id="invitation-card-stage">
+      <!-- INVITATION: arched card holding the full Bohra dawat card -->
+      <section class="vx-sec vx-invite" id="chapter-invitation" aria-label="Invitation">
+        <div class="vx-archcard rv">
+          <svg class="vx-archcap" viewBox="0 0 348 130" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+            <path d="M1 130V74C1 52 20 38 50 26C86 12 150 8 174 1C198 8 262 12 298 26C328 38 347 52 347 74V130" fill="#fcfaff" stroke="#c9a24e" stroke-width="1.6"/>
+            <path d="M9 130V76C9 57 28 45 58 34C92 20 150 17 174 9C198 17 256 20 290 34C320 45 339 57 339 76V130" fill="none" stroke="#cdbbf0" stroke-width="1"/>
+          </svg>
+          <div class="vx-archbody">
+<div class="bohra-invitation-stage" id="invitation-card-stage">
           <div class="parchment-body" id="card-parchment-body">
               <!-- Top Ornate Calligraphy Bar -->
               <div class="card-calligraphy-topbar">
@@ -461,242 +254,78 @@
               </div>
             </div>
           </div>
-      </article>
-
-      <!-- Royal Section Separator -->
-      <div class="royal-section-divider">
-        <span class="div-line"></span>
-        <span class="div-ornament"><span class="div-gem">✦</span><span class="div-rosette">❖</span><span class="div-gem">✦</span></span>
-        <span class="div-line rev"></span>
-      </div>
-
-      <!-- CHAPTER III: THE AUSPICIOUS DATE & COUNTDOWN -->
-      <article class="story-chapter" id="chapter-date">
-        <div class="chapter-header">
-          <span class="chapter-roman">Chapter III</span>
-          <h2 class="chapter-title">Auspicious Date &amp; Countdown</h2>
-          <div class="ornate-separator">
-            <span class="sep-line"></span>
-            <span class="sep-gem">✦</span>
-            <span class="sep-line"></span>
+                </div>
+          <div class="vx-archfoot" aria-hidden="true">
+            <svg viewBox="0 0 348 60" preserveAspectRatio="xMidYMid meet"><use href="#vx-od" transform="translate(99 24)" style="color:#a58bdb"/></svg>
           </div>
         </div>
+      </section>
 
-        <!-- Interactive 3-Block Scratch-to-Reveal Grid -->
-        <div class="luxury-card-box scratch-container">
-          <div class="card-ornament top-center">❖</div>
-          <span class="section-eyebrow">Interactive Milestone</span>
-          <h3 class="card-title">Scratch to Reveal Date</h3>
-          <p class="scratch-instructions">Rub the golden shimmering foil across the 3 blocks below to unveil the celebration date!</p>
 
-          <div class="scratch-grid-3">
-            <!-- Block 1: Date -->
-            <div class="scratch-tile-block" data-block="1">
-              <div class="tile-reveal-content">
-                <span class="tile-val-huge">26</span>
-                <span class="tile-category-tag">Date</span>
-              </div>
-              <canvas id="scratch-canvas-1" class="tile-scratch-canvas" width="220" height="140"></canvas>
-            </div>
+      
 
-            <!-- Block 2: Month -->
-            <div class="scratch-tile-block" data-block="2">
-              <div class="tile-reveal-content">
-                <span class="tile-val-huge">JAN</span>
-                <span class="tile-category-tag">Month</span>
-              </div>
-              <canvas id="scratch-canvas-2" class="tile-scratch-canvas" width="220" height="140"></canvas>
-            </div>
+            <!-- WEDDING TIMELINE -->
+      <section class="vx-sec vx-tl-sec" id="chapter-rusumat" aria-labelledby="t-tl">
+        <h2 class="vx-h2 rv" id="t-tl">Wedding Timeline</h2>
+        <svg class="vx-orn" viewBox="0 0 150 14" aria-hidden="true"><use href="#vx-od"/></svg>
+        <div class="vx-tl">
+          <div class="vx-tl-line"></div>
 
-            <!-- Block 3: Year -->
-            <div class="scratch-tile-block" data-block="3">
-              <div class="tile-reveal-content">
-                <span class="tile-val-huge">2026</span>
-                <span class="tile-category-tag">Year</span>
-              </div>
-              <canvas id="scratch-canvas-3" class="tile-scratch-canvas" width="220" height="140"></canvas>
-            </div>
+          <div class="vx-tl-row rv">
+            <div class="vx-tl-ico"><svg class="vx-ico" viewBox="0 0 100 100" aria-hidden="true"><path d="M16 60C29 53 42 53 50 60C58 53 71 53 84 60V82C71 75 58 75 50 82C42 75 29 75 16 82Z" style="fill:#efe7fb;fill-opacity:.7"/><path d="M50 60V82M30 92L50 84L70 92"/><path d="M57 20C45 20 39 32 47 42C37 40 33 26 43 16C50 11 57 13 57 20Z"/><path d="M72 28l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/><path d="M28 44l1.5 3.5 3.5 1.5-3.5 1.5L28 54l-1.5-3.5L23 49l3.5-1.5z"/><path d="M50 52V46M38 55L34 49M62 55L66 49"/></svg></div>
+            <div class="vx-tl-node vx-f"><svg viewBox="-10 -10 20 20" width="20" height="20" aria-hidden="true"><use href="#vx-bl" style="--f:#fff;--s:#a58bdb"/></svg></div>
+            <div class="vx-tl-txt"><div class="vx-tl-time">10:00 am</div><div class="vx-tl-what">Khushi ni Darees</div><div class="vx-tl-date">Fri, 23 Jan 2026</div></div>
           </div>
 
-          <div class="scratch-progress-wrap">
-            <div class="scratch-progress-bar" id="scratch-progress"></div>
-            <span class="scratch-hint" id="scratch-hint">Scratch all 3 blocks to unveil! (0 of 3 Revealed)</span>
+          <div class="vx-tl-row rv">
+            <div class="vx-tl-txt"><div class="vx-tl-time">4:30 pm</div><div class="vx-tl-what">Mithi Shitabi</div><div class="vx-tl-date">Fri, 23 Jan 2026</div></div>
+            <div class="vx-tl-node"></div>
+            <div class="vx-tl-ico"><svg class="vx-ico" viewBox="0 0 100 100" aria-hidden="true"><path d="M20 58H80C78 76 65 88 50 88C35 88 22 76 20 58Z" style="fill:#efe7fb;fill-opacity:.7"/><path d="M14 58H86"/><circle cx="35" cy="50" r="8"/><circle cx="50" cy="45" r="8"/><circle cx="65" cy="50" r="8"/><path d="M50 37V24"/><use href="#vx-bl" transform="translate(50 17) scale(.9)" style="--f:#fff;--s:#a58bdb"/><use href="#vx-lf" transform="translate(50 32) rotate(-145) scale(.5)" style="--lf:none;--s:#a58bdb"/><use href="#vx-lf" transform="translate(50 32) rotate(-35) scale(.5)" style="--lf:none;--s:#a58bdb"/></svg></div>
           </div>
 
-          <!-- Revealed Complete Summary & Calendar Action -->
-          <div class="scratch-revealed-summary" id="scratch-revealed-summary">
-            <div class="revealed-badge">
-              <span class="badge-sparkle">✨</span>
-              <span class="badge-tag">SAVE THE DATE</span>
-              <span class="badge-sparkle">✨</span>
-            </div>
-            <p class="revealed-full-detail">
-              <strong>26th January 2026, Monday</strong> • <strong>Pulgaon, Maharashtra</strong>
-            </p>
-            <p class="revealed-hijri-date">8 Shaban al-Karim 1447 H (۸ مي شعبان الكريم ١٤٤٧ هـ)</p>
-            <div class="add-cal-btn-wrap">
-              <button id="add-to-cal-btn" class="btn-gold-action">
-                <span class="btn-icon">📅</span> Add to Calendar
-              </button>
-            </div>
+          <div class="vx-tl-row rv">
+            <div class="vx-tl-ico"><svg class="vx-ico" viewBox="0 0 100 100" aria-hidden="true"><circle cx="40" cy="62" r="19"/><circle cx="60" cy="62" r="19"/><path d="M44 36l6-10 6 10-6 8z" style="fill:#efe7fb;fill-opacity:.8"/><path d="M22 30l1.5 3.5 3.5 1.5-3.5 1.5L22 40l-1.5-3.5L17 35l3.5-1.5z"/><path d="M78 24l1.5 3.5 3.5 1.5-3.5 1.5L78 34l-1.5-3.5L73 31l3.5-1.5z"/></svg></div>
+            <div class="vx-tl-node vx-f"><svg viewBox="-10 -10 20 20" width="20" height="20" aria-hidden="true"><use href="#vx-bl" style="--f:#fff;--s:#a58bdb"/></svg></div>
+            <div class="vx-tl-txt"><div class="vx-tl-time">12:00 pm</div><div class="vx-tl-what">Nikah &amp; Zafaf</div><div class="vx-tl-date">Mon, 26 Jan 2026</div></div>
+          </div>
+
+          <div class="vx-tl-row rv">
+            <div class="vx-tl-txt"><div class="vx-tl-time">7:30 pm</div><div class="vx-tl-what">Valima</div><div class="vx-tl-date">Mon, 26 Jan 2026</div></div>
+            <div class="vx-tl-node"></div>
+            <div class="vx-tl-ico"><svg class="vx-ico" viewBox="0 0 100 100" aria-hidden="true"><path d="M24 62C24 40 36 30 50 30C64 30 76 40 76 62Z" style="fill:#efe7fb;fill-opacity:.7"/><circle cx="50" cy="26" r="3.6"/><path d="M18 66H82M22 71H78"/><path d="M34 44C36 40 40 37 44 36M30 54C31 51 33 49 35 47"/><use href="#vx-bl" transform="translate(22 76) scale(.8)" style="--f:#fff;--s:#a58bdb"/><use href="#vx-bl" transform="translate(78 76) scale(.8)" style="--f:#fff;--s:#a58bdb"/></svg></div>
           </div>
         </div>
+      </section>
 
-        <!-- Live Real-Time Countdown Timer -->
-        <div class="luxury-card-box countdown-box">
-          <span class="section-eyebrow">Ticking Down</span>
-          <h3 class="card-title">Counting Down to Forever</h3>
-          
-          <div class="timer-grid" id="countdown-timer">
-            <div class="timer-item">
-              <span class="time-digit" id="cd-days">00</span>
-              <span class="time-label">DAYS</span>
-            </div>
-            <div class="timer-colon">:</div>
-            <div class="timer-item">
-              <span class="time-digit" id="cd-hours">00</span>
-              <span class="time-label">HOURS</span>
-            </div>
-            <div class="timer-colon">:</div>
-            <div class="timer-item">
-              <span class="time-digit" id="cd-minutes">00</span>
-              <span class="time-label">MINUTES</span>
-            </div>
-            <div class="timer-colon">:</div>
-            <div class="timer-item">
-              <span class="time-digit" id="cd-seconds">00</span>
-              <span class="time-label">SECONDS</span>
-            </div>
-          </div>
-
-          <p class="timer-subtext">Until we celebrate this joyous union and festive Shaadi moments together ✨</p>
+      <!-- THE CELEBRATION BEGINS -->
+      <section class="vx-sec vx-cd-sec" id="chapter-countdown" aria-labelledby="t-cd">
+        <h2 class="vx-h2 rv" id="t-cd">The Celebration Begins</h2>
+        <svg class="vx-orn" viewBox="0 0 150 14" aria-hidden="true"><use href="#vx-od"/></svg>
+        <div class="vx-cd rv" id="countdown-timer" role="timer" aria-label="Time remaining until the wedding">
+          <div class="vx-u"><span class="vx-v" id="cd-days">00</span><span class="vx-l">Days</span></div>
+          <div class="vx-s" aria-hidden="true">:</div>
+          <div class="vx-u"><span class="vx-v" id="cd-hours">00</span><span class="vx-l">Hours</span></div>
+          <div class="vx-s" aria-hidden="true">:</div>
+          <div class="vx-u"><span class="vx-v" id="cd-minutes">00</span><span class="vx-l">Minutes</span></div>
+          <div class="vx-s" aria-hidden="true">:</div>
+          <div class="vx-u"><span class="vx-v" id="cd-seconds">00</span><span class="vx-l">Seconds</span></div>
         </div>
-      </article>
+      </section>
 
-      <!-- Royal Section Separator -->
-      <div class="royal-section-divider">
-        <span class="div-line"></span>
-        <span class="div-ornament"><span class="div-gem">✦</span><span class="div-rosette">❖</span><span class="div-gem">✦</span></span>
-        <span class="div-line rev"></span>
-      </div>
+      <!-- LOCATION -->
+      <section class="vx-sec vx-loc" id="chapter-location" aria-labelledby="t-loc">
+        <h2 class="vx-h2 rv" id="t-loc">Location</h2>
+        <svg class="vx-orn" viewBox="0 0 150 14" aria-hidden="true"><use href="#vx-od"/></svg>
+        <p class="vx-venue rv">PULGAON</p>
+        <p class="vx-venue2 rv">Pulgaon Mawaid, Maharashtra</p>
+      </section>
 
-      <!-- CHAPTER IV: WEDDING TIMELINE (Sacred Rusumat) -->
-      <article class="story-chapter" id="chapter-rusumat">
-        <div class="chapter-header">
-          <span class="chapter-roman">Chapter IV</span>
-          <h2 class="chapter-title script-timeline-title">Wedding Timeline</h2>
-          <div class="ornate-separator">
-            <span class="sep-line"></span>
-            <span class="sep-gem">✦</span>
-            <span class="sep-line"></span>
-          </div>
-          <p class="chapter-subtitle">Join us across the cherished Dawoodi Bohra wedding customs</p>
-        </div>
-
-        <div class="serpentine-timeline-container">
-          <!-- Background Curved Winding Dashed Path -->
-          <svg class="timeline-winding-svg" viewBox="0 0 400 960" preserveAspectRatio="none" aria-hidden="true">
-            <defs>
-              <linearGradient id="pathGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#C0392B" stop-opacity="0.75" />
-                <stop offset="50%" stop-color="#D4AF37" stop-opacity="0.85" />
-                <stop offset="100%" stop-color="#C0392B" stop-opacity="0.75" />
-              </linearGradient>
-            </defs>
-            <path class="winding-dashed-line" d="M 290 120 C 230 170, 110 200, 110 330 C 110 460, 290 460, 290 590 C 290 710, 110 720, 110 840" fill="none" stroke="url(#pathGradient)" stroke-width="2.5" stroke-dasharray="6,8" />
-          </svg>
-
-          <!-- 1. Khushi ni Darees (Right) -->
-          <div class="timeline-node node-right" data-node="1">
-            <div class="node-badge-wrap">
-              <div class="circular-badge-frame">
-                <img src="assets/rusumat_darees.png" alt="Khushi ni Darees" class="badge-round-img" />
-              </div>
-            </div>
-            <div class="node-content">
-              <h3 class="node-script-title">Khushi ni Darees</h3>
-              <p class="node-desc">Recitation of the Holy Quran, zikr, praises, and prayers seeking divine blessings prior to the Shaadi.</p>
-              <div class="node-meta">
-                <span class="node-meta-item"><i class="meta-icon">🗓️</i> Friday, 23rd January 2026</span>
-                <span class="node-meta-item"><i class="meta-icon">⏰</i> 10:00 AM onwards</span>
-                <span class="node-meta-item"><i class="meta-icon">📍</i> Saifee Villa, Pulgaon, Maharashtra</span>
-              </div>
-              <a href="https://maps.google.com/?q=Pulgaon+Maharashtra" target="_blank" class="btn-mini-map">📍 View on Google Maps</a>
-            </div>
-          </div>
-
-          <!-- 2. Mithi Shitabi & Mandvo (Left) -->
-          <div class="timeline-node node-left" data-node="2">
-            <div class="node-badge-wrap">
-              <div class="circular-badge-frame">
-                <img src="assets/rusumat_shitabi.png" alt="Mithi Shitabi &amp; Mandvo" class="badge-round-img" />
-              </div>
-            </div>
-            <div class="node-content">
-              <h3 class="node-script-title">Mithi Shitabi</h3>
-              <p class="node-desc">Auspicious canopy blessings, traditional sweets, and family prayers celebrating the wedding threshold.</p>
-              <div class="node-meta">
-                <span class="node-meta-item"><i class="meta-icon">🗓️</i> Friday, 23rd January 2026</span>
-                <span class="node-meta-item"><i class="meta-icon">⏰</i> 04:30 PM</span>
-                <span class="node-meta-item"><i class="meta-icon">📍</i> Courtyard, Pulgaon, Maharashtra</span>
-              </div>
-              <a href="https://maps.google.com/?q=Pulgaon+Maharashtra" target="_blank" class="btn-mini-map">📍 View on Google Maps</a>
-            </div>
-          </div>
-
-          <!-- 3. Aqd al-Nikah & Zafaf (Right) -->
-          <div class="timeline-node node-right" data-node="3">
-            <div class="node-badge-wrap">
-              <div class="circular-badge-frame">
-                <img src="assets/rusumat_nikah.png" alt="Nikah &amp; Zafaf" class="badge-round-img" />
-              </div>
-            </div>
-            <div class="node-content">
-              <h3 class="node-script-title">Nikah &amp; Zafaf</h3>
-              <p class="node-desc">Sacred blessings under the pious Raza Mubarak of His Holiness Syedna Mufaddal Saifuddin (TUS), followed by joyful wedding festivities.</p>
-              <div class="node-meta">
-                <span class="node-meta-item"><i class="meta-icon">🗓️</i> Monday, 26th January 2026</span>
-                <span class="node-meta-item"><i class="meta-icon">⏰</i> 12:00 PM Sharp</span>
-                <span class="node-meta-item"><i class="meta-icon">📍</i> Pulgaon Mawaid, Maharashtra</span>
-              </div>
-              <a href="https://maps.google.com/?q=Pulgaon+Maharashtra" target="_blank" class="btn-mini-map">📍 View on Google Maps</a>
-            </div>
-          </div>
-
-          <!-- 4. Valima Celebration (Left) -->
-          <div class="timeline-node node-left" data-node="4">
-            <div class="node-badge-wrap">
-              <div class="circular-badge-frame">
-                <img src="assets/rusumat_valima.png" alt="Valima Celebration" class="badge-round-img" />
-              </div>
-            </div>
-            <div class="node-content">
-              <h3 class="node-script-title">Valima</h3>
-              <p class="node-desc">Traditional Bohra wedding feast served in the Thaal followed by an enchanting evening of congratulations and joy celebrating the newlyweds.</p>
-              <div class="node-meta">
-                <span class="node-meta-item"><i class="meta-icon">🗓️</i> Monday, 26th January 2026</span>
-                <span class="node-meta-item"><i class="meta-icon">⏰</i> 07:30 PM onwards</span>
-                <span class="node-meta-item"><i class="meta-icon">📍</i> Grand Hall, Pulgaon, Maharashtra</span>
-              </div>
-              <a href="https://maps.google.com/?q=Pulgaon+Maharashtra" target="_blank" class="btn-mini-map">📍 View on Google Maps</a>
-            </div>
-          </div>
-
-        </div>
-      </article>
-
-      <!-- Royal Section Separator -->
-      <div class="royal-section-divider">
-        <span class="div-line"></span>
-        <span class="div-ornament"><span class="div-gem">✦</span><span class="div-rosette">❖</span><span class="div-gem">✦</span></span>
-        <span class="div-line rev"></span>
-      </div>
 
       <!-- CHAPTER V: RSVP & MUBARAKI DUA -->
       <article class="story-chapter" id="chapter-rsvp">
         <div class="chapter-header">
           <span class="chapter-roman">Chapter V</span>
-          <h2 class="chapter-title">RSVP &amp; Mubaraki Dua</h2>
+          <h2 class="chapter-title">RSVP &amp; Mubarak Dua</h2>
           <div class="ornate-separator">
             <span class="sep-line"></span>
             <span class="sep-gem">✦</span>
@@ -747,14 +376,18 @@
             </div>
 
             <div class="form-group">
-              <label for="guest-message">Mubaraki Wish / Dua for the Couple</label>
+              <label for="guest-message">Mubarak Wish / Dua for the Couple</label>
               <textarea id="guest-message" rows="3" placeholder="Write your heartfelt congratulations, dua, or warm wishes here..."></textarea>
             </div>
 
+            <!-- spam trap: hidden from guests, bots tend to fill it in -->
+            <div class="vx-hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+
             <button type="submit" class="btn-submit-rsvp" id="submit-rsvp-btn">
-              <span class="btn-text">Send RSVP &amp; Mubaraki</span>
+              <span class="btn-text">Send RSVP &amp; Mubarak</span>
               <span class="btn-sparkle">✨</span>
             </button>
+            <p id="rsvp-error" class="rsvp-error hidden" role="alert"></p>
           </form>
 
           <div id="rsvp-feedback" class="rsvp-feedback hidden">
@@ -763,7 +396,7 @@
             <p>Shukran for your warm prayers and response. We look forward to celebrating together!</p>
           </div>
 
-          <!-- Live Mubaraki & Wishes Wall -->
+          <!-- Live Mubarak & Wishes Wall -->
           <div class="wishes-board" id="wishes-board">
             <div class="wishes-title-bar">
               <span class="wishes-crown">👑</span>
@@ -775,13 +408,6 @@
           </div>
         </div>
       </article>
-
-      <!-- Royal Section Separator -->
-      <div class="royal-section-divider">
-        <span class="div-line"></span>
-        <span class="div-ornament"><span class="div-gem">✦</span><span class="div-rosette">❖</span><span class="div-gem">✦</span></span>
-        <span class="div-line rev"></span>
-      </div>
 
       <!-- EPILOGUE: IN DIVINE GRATITUDE -->
       <footer class="invite-footer">
@@ -810,6 +436,9 @@
     </section>
   </main>
 
+  <script src="rsvp-config.js"></script>
   <script src="app.js"></script>
+  <script src="enhancements.js" defer></script>
+  <script src="envelope.js" defer></script>
 </body>
 </html>

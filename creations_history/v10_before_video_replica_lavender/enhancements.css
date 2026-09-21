@@ -1,0 +1,373 @@
+/* ==========================================================================
+   ENHANCEMENTS — video-parity opening, seal glow waves, arch reveal, wildlife
+   Loaded AFTER styles.css. To revert everything: remove the <link> to this file,
+   the <script> for enhancements.js, and the blocks tagged "enhancements" in index.html.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. SEAL TAP — soft luminous glow waves (replaces the thin outline rings)
+   -------------------------------------------------------------------------- */
+.seal-wave-ring {
+  width: 220px;
+  height: 220px;
+  border: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(255, 240, 170, 0) 44%,
+    rgba(255, 226, 130, 0.30) 55%,
+    rgba(255, 249, 216, 0.95) 63%,
+    rgba(255, 214, 100, 0.45) 70%,
+    rgba(255, 214, 100, 0) 79%);
+  box-shadow: none;
+  mix-blend-mode: screen;
+  filter: blur(1.2px);
+  will-change: transform, opacity;
+}
+
+.fullscreen-envelope-container.light-active .seal-wave-ring.wave-1 { animation: sealGlowWave 3s cubic-bezier(0.16, 0.7, 0.25, 1) 0s forwards; }
+.fullscreen-envelope-container.light-active .seal-wave-ring.wave-2 { animation: sealGlowWave 3s cubic-bezier(0.16, 0.7, 0.25, 1) 0.5s forwards; }
+.fullscreen-envelope-container.light-active .seal-wave-ring.wave-3 { animation: sealGlowWave 3s cubic-bezier(0.16, 0.7, 0.25, 1) 1s forwards; }
+.fullscreen-envelope-container.light-active .seal-wave-ring.wave-4 { animation: sealGlowWave 3s cubic-bezier(0.16, 0.7, 0.25, 1) 1.5s forwards; }
+
+@keyframes sealGlowWave {
+  0%   { transform: scale(0.55); opacity: 0; }
+  12%  { opacity: 1; }
+  100% { transform: scale(7.4); opacity: 0; }
+}
+
+/* The seal itself throbs with light while the waves roll out */
+.wax-seal-macro-wrap.glowing .seal-macro-img {
+  animation: sealThrob 1.5s ease-in-out infinite;
+}
+
+@keyframes sealThrob {
+  0%, 100% { transform: scale(1);    filter: drop-shadow(0 0 10px rgba(255, 220, 110, 0.6)) brightness(1); }
+  50%      { transform: scale(1.06); filter: drop-shadow(0 0 34px rgba(255, 236, 150, 1))   brightness(1.18); }
+}
+
+/* Warm flash across the whole envelope at the moment of the tap */
+.fullscreen-envelope-container.light-active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 246, 200, 0.6), rgba(255, 246, 200, 0) 62%);
+  animation: tapFlash 1.6s ease-out forwards;
+}
+
+@keyframes tapFlash {
+  0%   { opacity: 0; }
+  18%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   2. HERO ARCH — the first thing you see once the envelope has opened
+   -------------------------------------------------------------------------- */
+.hero-arch-chapter {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px 55px;
+  margin-top: 0;
+}
+
+.hero-arch-chapter > .hero-archway-container { order: 1; }
+.hero-arch-chapter > .chapter-header         { order: 2; margin-left: 14px; margin-right: 14px; }
+.hero-arch-chapter > .bismillah-block        { order: 3; margin-left: 14px; margin-right: 14px; }
+.hero-arch-chapter > .calligraphy-monogram-block { order: 4; margin-left: 14px; margin-right: 14px; }
+.hero-arch-chapter > .chapter-scroll-prompt  { order: 5; }
+
+.hero-archway-container {
+  height: calc(100vh - 24px);
+  height: min(calc(100svh - 24px), 900px);
+  min-height: 560px;
+  max-width: 480px;
+  margin: 0 auto 30px;
+  perspective: none;
+}
+
+.archway-frame-card {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+}
+
+/* Static blurred shadow under the arch (a filter on the card itself would re-run on every video frame) */
+.arch-ogee-shadow {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  transform: translateY(14px);
+  filter: blur(14px);
+}
+
+.arch-ogee-shadow path { fill: rgba(60, 30, 90, 0.24); }
+
+.arch-scenic-window {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: #fdf6e3;
+  -webkit-clip-path: url(#ogeeClip);
+  clip-path: url(#ogeeClip);
+}
+
+@media (max-width: 480px) {
+  .arch-scenic-window { height: 100%; border-radius: 0; }
+}
+
+/* Cream scrim so the greeting stays legible over the bright sky, and a soft floor fade */
+.arch-scenic-window::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    rgba(255, 250, 236, 0.92) 0%,
+    rgba(255, 248, 230, 0.72) 26%,
+    rgba(255, 246, 222, 0.16) 50%,
+    rgba(255, 246, 222, 0) 64%);
+}
+
+.arch-scenic-window::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 16%;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 250, 240, 0), rgba(255, 250, 240, 0.9));
+}
+
+.arch-invitation-heading {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 10.5%;
+  z-index: 8;
+  padding: 0 15%;
+  pointer-events: none;
+}
+
+.arch-couple-title { text-shadow: 0 1px 12px rgba(255, 250, 236, 0.9); }
+
+@media (max-height: 720px) {
+  .arch-ceremony-title { font-size: 2.1rem; }
+  .arch-couple-title   { font-size: 1.7rem; }
+}
+
+/* Gold ogee outline drawn over the clipped window (same curve as #ogeeClip) */
+.arch-ogee-border {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.arch-ogee-border .ogee-outer {
+  fill: none;
+  stroke: #d4af37;
+  stroke-width: 2.5px;
+  vector-effect: non-scaling-stroke;
+}
+
+.arch-ogee-border .ogee-inner {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.85);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Floral corners: bigger, plus a mirrored pair at the foot of the arch */
+.arch-floral-corner { width: 150px; top: 4px; z-index: 10; }
+.arch-corner-left   { left: -8px; }
+.arch-corner-right  { right: -8px; }
+.arch-floral-corner.arch-corner-bl { top: auto; bottom: 2px; left: -8px;  transform: scaleY(-1); width: 130px; }
+.arch-floral-corner.arch-corner-br { top: auto; bottom: 2px; right: -8px; transform: scale(-1, -1); width: 130px; }
+
+/* Lanterns hang lower along the arch, staggered like the reference */
+.hanging-lantern { top: 0; z-index: 12; }
+.hanging-lantern.lantern-left  { left: 5%; }
+.hanging-lantern.lantern-right { right: 5%; }
+.hanging-lantern.lantern-left  .lantern-chain { height: 84px; }
+.hanging-lantern.lantern-right .lantern-chain { height: 56px; }
+.hanging-lantern.lantern-b { transform: scale(0.82); transform-origin: top center; }
+.hanging-lantern.lantern-left.lantern-b  { left: 13%; }
+.hanging-lantern.lantern-right.lantern-b { right: 13%; }
+.hanging-lantern.lantern-left.lantern-b  .lantern-chain { height: 132px; }
+.hanging-lantern.lantern-right.lantern-b .lantern-chain { height: 118px; }
+
+.hero-scroll-cue {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 3.5%;
+  z-index: 11;
+  text-align: center;
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.55rem;
+  color: #5b3d8f;
+  text-shadow: 0 0 12px rgba(255, 250, 236, 0.95), 0 0 4px rgba(255, 250, 236, 0.9);
+  pointer-events: none;
+}
+
+.hero-scroll-cue .chev {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  line-height: 1;
+  animation: cueBob 1.8s ease-in-out infinite;
+}
+
+@keyframes cueBob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(6px); }
+}
+
+/* One slow golden light sweep across the arch when it is revealed */
+.arch-sweep {
+  position: absolute;
+  inset: -20% -60%;
+  z-index: 4;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0;
+  background: linear-gradient(105deg, transparent 38%, rgba(255, 246, 200, 0) 42%, rgba(255, 240, 170, 0.6) 50%, rgba(255, 246, 200, 0) 58%, transparent 62%);
+  transform: translateX(-70%);
+}
+
+/* --------------------------------------------------------------------------
+   3. REVEAL CHOREOGRAPHY — runs when enhancements.js adds .arch-revealed
+   -------------------------------------------------------------------------- */
+/* "backwards" (not "both"): once finished, the card returns to its plain, filter-free state */
+.arch-revealed .archway-frame-card { animation: archRise 2.2s cubic-bezier(0.16, 0.84, 0.24, 1) backwards; }
+
+@keyframes archRise {
+  0%   { opacity: 0; transform: scale(1.14) translateY(4%); filter: blur(12px) brightness(1.7); }
+  60%  { opacity: 1; filter: blur(0px) brightness(1.15); }
+  100% { opacity: 1; transform: none; filter: blur(0px) brightness(1); }
+}
+
+.arch-revealed .arch-script-welcome,
+.arch-revealed .arch-ceremony-title,
+.arch-revealed .arch-of-script,
+.arch-revealed .arch-couple-title {
+  animation: archTextRise 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.arch-revealed .arch-script-welcome  { animation-delay: 0.9s; }
+.arch-revealed .arch-ceremony-title  { animation-delay: 1.15s; }
+.arch-revealed .arch-of-script       { animation-delay: 1.4s; }
+.arch-revealed .arch-couple-title    { animation-delay: 1.6s; }
+
+@keyframes archTextRise {
+  from { opacity: 0; transform: translateY(18px); filter: blur(6px); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+
+.arch-revealed .hanging-lantern { animation: lanternDrop 1.6s cubic-bezier(0.3, 1.4, 0.5, 1) 1.1s both; }
+.arch-revealed .hanging-lantern.lantern-b { animation-delay: 1.4s; }
+
+@keyframes lanternDrop {
+  from { translate: 0 -160px; opacity: 0; }
+  to   { translate: 0 0;      opacity: 1; }
+}
+
+.arch-revealed .arch-floral-corner { animation: cornerBloom 1.6s cubic-bezier(0.2, 0.9, 0.25, 1) 0.5s both; }
+
+@keyframes cornerBloom {
+  from { opacity: 0; scale: 0.55; rotate: -8deg; }
+  to   { opacity: 0.95; scale: 1; rotate: 0deg; }
+}
+
+.arch-revealed .arch-sweep { animation: archSweep 2.8s ease-in-out 1s 1 both; }
+
+@keyframes archSweep {
+  0%   { opacity: 1; transform: translateX(-70%); }
+  85%  { opacity: 1; }
+  100% { opacity: 0; transform: translateX(70%); }
+}
+
+.arch-revealed .hero-scroll-cue { animation: archTextRise 1s ease 2.4s both; }
+
+/* --------------------------------------------------------------------------
+   4. WILDLIFE — hummingbirds & butterflies (drawn as SVG, animated by enhancements.js)
+   -------------------------------------------------------------------------- */
+#wildlife-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;
+  overflow: hidden;
+}
+
+.critter {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transition: opacity 1.4s ease;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 4px 5px rgba(60, 30, 90, 0.25));
+}
+
+.critter.on { opacity: 1; }
+.critter svg { display: block; overflow: visible; }
+
+/* Butterfly: both wings fold toward the body from the centre line */
+.bf .wl, .bf .wr {
+  transform-box: view-box;
+  transform-origin: 50px 40px;
+  animation: bfFlap var(--flap, 0.28s) ease-in-out infinite alternate;
+}
+
+@keyframes bfFlap {
+  from { transform: scaleX(1); }
+  to   { transform: scaleX(0.16); }
+}
+
+/* Hummingbird: blurred, fast wing beat around the shoulder */
+.hb .hw1, .hb .hw2 {
+  transform-box: view-box;
+  transform-origin: 58px 44px;
+  animation: hbFlap 0.085s ease-in-out infinite alternate;
+}
+.hb .hw2 { animation-delay: -0.04s; }
+
+@keyframes hbFlap {
+  from { transform: rotate(-34deg) scaleY(1); }
+  to   { transform: rotate(14deg)  scaleY(0.55); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #wildlife-layer { display: none; }
+  .arch-revealed .archway-frame-card,
+  .arch-revealed .arch-script-welcome,
+  .arch-revealed .arch-ceremony-title,
+  .arch-revealed .arch-of-script,
+  .arch-revealed .arch-couple-title,
+  .arch-revealed .hanging-lantern,
+  .arch-revealed .arch-floral-corner,
+  .arch-revealed .arch-sweep,
+  .arch-revealed .hero-scroll-cue { animation: none; }
+  .hero-scroll-cue .chev { animation: none; }
+}

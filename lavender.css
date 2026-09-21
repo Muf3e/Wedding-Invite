@@ -1,0 +1,363 @@
+/* ==========================================================================
+   LAVENDER & GOLD — video-replica theme for the Mustafa & Tasneem invitation
+   Loaded AFTER styles.css. Order of the page (as in the reference video):
+   envelope → arch → The Date → invitation → timeline → countdown → location → RSVP.
+   Earlier builds: creations_history/v10_before_video_replica_lavender/
+   ========================================================================== */
+
+:root {
+  --lv-ink: #5b5070;
+  --lv-ink-soft: #7c7192;
+  --lv-mauve: #8a78b4;
+  --lv-violet: #6e4fb3;
+  --lv-deep: #4a3080;
+  --lv-lav: #a58bdb;
+  --lv-paper: #fcfaff;
+  --au: #c9a24e;
+  --au-l: #ecd9a0;
+  --au-d: #a8842f;
+  --au-ink: #8a6c2a;
+}
+
+body {
+  background-color: #f6f2fc;
+  background-image:
+    radial-gradient(circle at 14% 12%, rgba(206, 190, 245, 0.55) 0%, transparent 45%),
+    radial-gradient(circle at 88% 22%, rgba(236, 222, 190, 0.5) 0%, transparent 45%),
+    linear-gradient(180deg, #f8f5fd, #eee7f9);
+}
+
+.story-nav, .royal-section-divider, .card-customizer-bar { display: none !important; }
+.vx-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+#invitation-screen {
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
+  padding: 0 0 60px;
+  background: var(--lv-paper);
+  box-shadow: 0 0 60px rgba(90, 60, 150, 0.12);
+  position: relative;
+  isolation: isolate;                       /* lets the wildlife sit behind the text */
+  animation: fadeInStory 1.2s var(--smooth-ease) backwards;   /* no fill: keeps position:fixed children viewport-relative */
+}
+
+/* --------------------------------------------------------------------------
+   MUSIC — equalizer bars only. Bars move while playing, freeze when paused.
+   -------------------------------------------------------------------------- */
+.vx-music {
+  position: fixed; z-index: 1100; right: max(16px, calc(50% - 214px)); bottom: 22px;
+  width: 48px; height: 48px; padding: 0; border-radius: 50%; cursor: pointer;
+  border: 2px solid #e6cf8c;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(145deg, #c2a9f0, #8a6bd0);
+  box-shadow: 0 4px 14px rgba(110, 80, 180, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  opacity: 0; pointer-events: none; transform: scale(0.8);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.vx-music.is-visible { opacity: 1; pointer-events: auto; transform: none; }
+.vx-music:focus-visible { outline: 2px solid var(--lv-deep); outline-offset: 3px; }
+.vx-eq { display: flex; align-items: flex-end; justify-content: center; gap: 3px; width: 22px; height: 20px; }
+.vx-eq i {
+  display: block; width: 3.5px; height: 100%; border-radius: 2px; background: #fff;
+  transform-origin: 50% 100%;
+  animation: vxEq var(--d, 0.8s) ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+.vx-eq i:nth-child(1) { --d: 0.72s; animation-delay: -0.20s; }
+.vx-eq i:nth-child(2) { --d: 0.54s; animation-delay: -0.45s; }
+.vx-eq i:nth-child(3) { --d: 0.90s; animation-delay: -0.10s; }
+.vx-eq i:nth-child(4) { --d: 0.63s; animation-delay: -0.35s; }
+.vx-music.is-playing .vx-eq i { animation-play-state: running; }
+@keyframes vxEq { 0% { transform: scaleY(0.22); } 100% { transform: scaleY(1); } }
+
+/* --------------------------------------------------------------------------
+   ENVELOPE — built from the video's sequence:
+   idle shimmer → seal ignites + glow waves → seal & flaps lift, golden light at the seam
+   → light blooms → the arch appears through the glow.
+   -------------------------------------------------------------------------- */
+html.env-lock, html.env-lock body { overflow: hidden; }
+.env2 { position: fixed; inset: 0; z-index: 1000; display: flex; justify-content: center; background: transparent; }
+.env2.hidden { display: none; }
+.env2-stage { position: relative; width: 100%; max-width: 440px; height: 100%; overflow: hidden; perspective: 1400px; background: #e9dff7; box-shadow: 0 0 60px rgba(90, 60, 150, 0.18); }
+.env2-stage.is-opening { pointer-events: none; animation: envStageOut 1.9s ease 5s forwards; }
+
+.env2-interior { position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, #fff6d6 0%, #f5dc98 20%, #d6bcf2 52%, #a688df 100%); }
+.env2-light { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
+.env2-rays {
+  position: absolute; left: 50%; top: 50%; width: 170%; aspect-ratio: 1; transform: translate(-50%, -50%);
+  background: repeating-conic-gradient(from 0deg, rgba(255, 244, 200, 0.55) 0deg 6deg, transparent 6deg 18deg);
+  -webkit-mask-image: radial-gradient(circle, #000 0%, transparent 60%); mask-image: radial-gradient(circle, #000 0%, transparent 60%);
+  animation: envSpin 30s linear infinite;
+}
+@keyframes envSpin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+.env2-beam { position: absolute; left: 0; right: 0; top: 50%; height: 16px; margin-top: -8px; background: radial-gradient(ellipse at 50% 50%, #fff 0%, rgba(255, 236, 170, 0.85) 35%, transparent 72%); filter: blur(4px); }
+.env2-flare { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform: scale(0.15); }
+.env2-flare::before, .env2-flare::after { content: ''; position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); border-radius: 50%; box-shadow: 0 0 22px 8px rgba(255, 238, 170, 0.85); }
+.env2-flare::before { width: min(90vw, 380px); height: 4px; background: linear-gradient(90deg, transparent, #fff 45%, #fff 55%, transparent); }
+.env2-flare::after  { width: 4px; height: min(60vh, 380px); background: linear-gradient(180deg, transparent, #fff 45%, #fff 55%, transparent); }
+
+/* the four folds */
+.env2-panel { position: absolute; inset: 0; pointer-events: none; background-size: 16px 16px, 100% 100%; }
+.env2-top    { clip-path: polygon(0 0, 100% 0, 50% 50%);     transform-origin: 50% 0;    background-image: radial-gradient(rgba(150, 120, 210, 0.10) 1px, transparent 1px), linear-gradient(180deg, #fdfbff 0%, #efe8fa 100%); }
+.env2-bottom { clip-path: polygon(0 100%, 100% 100%, 50% 50%); transform-origin: 50% 100%; background-image: radial-gradient(rgba(150, 120, 210, 0.10) 1px, transparent 1px), linear-gradient(0deg, #e8ddf6 0%, #f6f1fd 100%); }
+.env2-left   { clip-path: polygon(0 0, 50% 50%, 0 100%);      background-image: radial-gradient(rgba(150, 120, 210, 0.10) 1px, transparent 1px), linear-gradient(90deg, #f1ebfb 0%, #e3d8f3 100%); }
+.env2-right  { clip-path: polygon(100% 0, 50% 50%, 100% 100%); background-image: radial-gradient(rgba(150, 120, 210, 0.10) 1px, transparent 1px), linear-gradient(270deg, #f1ebfb 0%, #e3d8f3 100%); }
+
+.env2-relief { position: absolute; background-repeat: no-repeat; background-size: contain; background-position: center; pointer-events: none; filter: drop-shadow(0 4px 8px rgba(70, 50, 110, 0.16)); }
+.env2-bouquet   { left: 50%; top: 2.5%; width: 84%; height: 27%; transform: translateX(-50%); background-image: url('assets/embossed_bouquet.png'); }
+.env2-bouquet-b { top: auto; bottom: 2.5%; transform: translateX(-50%) rotate(180deg); }
+.env2-vine   { left: 1.5%; top: 26%; width: 23%; height: 48%; background-image: url('assets/embossed_vine.png'); background-position: center left; }
+.env2-vine-r { left: auto; right: 1.5%; transform: scaleX(-1); }
+
+.env2-creases { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.env2-creases path { fill: none; vector-effect: non-scaling-stroke; }
+.env2-creases .c-shadow { stroke: rgba(120, 90, 180, 0.28); stroke-width: 1.4px; }
+.env2-creases .c-light  { stroke: rgba(255, 255, 255, 0.95); stroke-width: 1.1px; }
+
+/* golden light gliding over the embossing while idle */
+.env2-glints {
+  position: absolute; inset: -10%; pointer-events: none; mix-blend-mode: soft-light;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 232, 150, 0) 38%, rgba(255, 236, 160, 0.95) 48%, #fff 52%, rgba(255, 232, 150, 0) 62%, transparent 70%);
+  background-size: 250% 100%; background-position: 150% 0;
+  animation: envGlint 6s ease-in-out 1.2s infinite;
+}
+@keyframes envGlint { 0% { background-position: 150% 0; } 45%, 100% { background-position: -60% 0; } }
+
+.env2-sparkle { position: absolute; right: 9%; bottom: 10%; font-style: normal; font-size: 22px; line-height: 1; color: #e8cf86; text-shadow: 0 0 10px rgba(255, 236, 160, 0.9); animation: envSpark 2.8s ease-in-out infinite; pointer-events: none; }
+@keyframes envSpark { 0%, 100% { opacity: 0.25; transform: scale(0.7) rotate(0); } 50% { opacity: 1; transform: scale(1.15) rotate(20deg); } }
+
+/* your gold wax seal */
+.env2-seal { position: absolute; left: 50%; top: 50%; z-index: 6; width: clamp(128px, 38%, 176px); aspect-ratio: 1; margin: 0; padding: 0; border: 0; background: none; cursor: pointer; transform: translate(-50%, -50%); }
+.env2-seal img { position: relative; display: block; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 16px 24px rgba(35, 18, 60, 0.5)) drop-shadow(0 0 8px rgba(226, 196, 110, 0.35)); transition: transform 0.4s ease; }
+.env2-seal:hover img { transform: scale(1.05); }
+.env2-seal:focus-visible { outline: 2px solid var(--lv-deep); outline-offset: 8px; border-radius: 50%; }
+.env2-seal-halo { position: absolute; inset: -22%; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, rgba(255, 232, 160, 0.85) 0%, rgba(206, 184, 245, 0.5) 45%, transparent 70%); animation: envHalo 3s ease-in-out infinite; }
+@keyframes envHalo { 0%, 100% { opacity: 0.25; transform: scale(0.9); } 50% { opacity: 0.95; transform: scale(1.15); } }
+
+/* soft glow waves rolling out from the seal on tap */
+.env2-waves { position: absolute; left: 50%; top: 50%; width: 0; height: 0; z-index: 5; pointer-events: none; }
+.env2-waves i {
+  position: absolute; left: 50%; top: 50%; width: 240px; height: 240px; margin: -120px 0 0 -120px; border-radius: 50%; opacity: 0;
+  background: radial-gradient(circle, rgba(255, 240, 190, 0) 44%, rgba(236, 214, 150, 0.38) 55%, rgba(255, 252, 236, 0.95) 63%, rgba(190, 160, 240, 0.5) 71%, rgba(190, 160, 240, 0) 80%);
+  mix-blend-mode: screen; filter: blur(1.2px);
+}
+.env2-bloom { position: absolute; inset: 0; opacity: 0; pointer-events: none; background: radial-gradient(circle at 50% 50%, #fffdf4 0%, #fbefc8 30%, #e8dbfb 68%, #d2c0f4 100%); }
+
+/* ----- the opening timeline (seconds after the tap) ----- */
+.is-opening .env2-seal img        { animation: envIgnite 1.8s ease forwards; }
+.is-opening .env2-seal-halo       { animation: envHaloBurst 2.2s ease forwards; }
+.is-opening .env2-seal            { animation: envSealRise 1.8s cubic-bezier(0.55, 0, 0.25, 1) 2s forwards; }
+.is-opening .env2-waves i         { animation: envWave 3s cubic-bezier(0.16, 0.7, 0.25, 1) forwards; }
+.is-opening .env2-waves i:nth-child(2) { animation-delay: 0.55s; }
+.is-opening .env2-waves i:nth-child(3) { animation-delay: 1.1s; }
+.is-opening .env2-glints          { animation: envGlint 1.8s ease-in-out 0.1s 1 forwards; }
+.is-opening .env2-creases         { animation: envFade 0.5s ease 1.9s forwards; }
+.is-opening .env2-light           { animation: envLightIn 1.6s ease 2s forwards; }
+.is-opening .env2-flare           { animation: envFlareGrow 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) 2s forwards; }
+.is-opening .env2-top             { animation: envFlapTop 2.1s cubic-bezier(0.6, 0.02, 0.25, 1) 2s forwards; }
+.is-opening .env2-bottom          { animation: envFlapBottom 2.1s cubic-bezier(0.6, 0.02, 0.25, 1) 2s forwards; }
+.is-opening .env2-left            { animation: envSideL 2.4s ease 3s forwards; }
+.is-opening .env2-right           { animation: envSideR 2.4s ease 3s forwards; }
+.is-opening .env2-bloom           { animation: envBloom 1.5s ease 3.4s forwards; }
+
+@keyframes envIgnite {
+  0%   { transform: scale(1); filter: drop-shadow(0 16px 24px rgba(35, 18, 60, 0.5)) drop-shadow(0 0 8px rgba(226, 196, 110, 0.35)); }
+  35%  { transform: scale(1.09); filter: drop-shadow(0 0 30px rgba(255, 226, 140, 1)) drop-shadow(0 0 60px rgba(255, 236, 170, 0.9)) brightness(1.18); }
+  100% { transform: scale(1.05); filter: drop-shadow(0 0 22px rgba(255, 226, 140, 0.9)) drop-shadow(0 0 40px rgba(255, 236, 170, 0.6)) brightness(1.1); }
+}
+@keyframes envHaloBurst { 0% { opacity: 0.3; transform: scale(0.9); } 30% { opacity: 1; transform: scale(1.5); } 100% { opacity: 0.7; transform: scale(1.3); } }
+@keyframes envSealRise { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 100% { transform: translate(-50%, -190%) scale(0.8); opacity: 0; } }
+@keyframes envWave { 0% { transform: scale(0.55); opacity: 0; } 12% { opacity: 1; } 100% { transform: scale(6.4); opacity: 0; } }
+@keyframes envFade { from { opacity: 1; } to { opacity: 0; } }
+@keyframes envLightIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes envFlareGrow { from { transform: scale(0.15); } to { transform: scale(1.25); } }
+@keyframes envFlapTop    { 0% { transform: rotateX(0); opacity: 1; } 70% { transform: rotateX(74deg); opacity: 1; }  100% { transform: rotateX(84deg); opacity: 0; } }
+@keyframes envFlapBottom { 0% { transform: rotateX(0); opacity: 1; } 70% { transform: rotateX(-74deg); opacity: 1; } 100% { transform: rotateX(-84deg); opacity: 0; } }
+@keyframes envSideL { to { transform: translateX(-7%); opacity: 0; } }
+@keyframes envSideR { to { transform: translateX(7%); opacity: 0; } }
+@keyframes envBloom { from { opacity: 0; } to { opacity: 1; } }
+@keyframes envStageOut { to { opacity: 0; } }
+
+/* --------------------------------------------------------------------------
+   ARCH — your lavender rose & gold artwork with only the logo inside
+   -------------------------------------------------------------------------- */
+.vx-hero { padding: 14px 0 0; margin: 0; background: none; border: 0; box-shadow: none; }
+.vx-arch {
+  position: relative; overflow: hidden; margin: 0 auto; aspect-ratio: 768 / 1376;
+  width: min(100%, 460px, calc((100vh - 20px) * 0.5581));
+  width: min(100%, 460px, calc((100svh - 20px) * 0.5581));
+}
+.vx-arch-img { position: absolute; inset: 0; z-index: -2; display: block; width: 100%; height: 100%; object-fit: cover; }
+.vx-arch-logo { position: absolute; left: 0; right: 0; top: 33.5%; display: flex; justify-content: center; }
+.vx-logo-ring {
+  position: relative; width: 60%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: #f7f4ee;
+  box-shadow: 0 0 0 2px #d9bc6c, 0 0 0 6px rgba(255, 255, 255, 0.78), 0 0 0 7.5px #c9b2f0, 0 14px 34px rgba(80, 50, 140, 0.3), 0 0 46px rgba(226, 196, 110, 0.35);
+}
+.vx-logo-ring img { display: block; width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); }
+.vx-logo-ring::after {
+  content: ''; position: absolute; inset: -60%; pointer-events: none;
+  background: linear-gradient(60deg, transparent 40%, rgba(255, 246, 210, 0.3) 47%, rgba(255, 255, 255, 0.75) 50%, rgba(255, 246, 210, 0.3) 53%, transparent 60%);
+  transform: translateY(-120%) rotate(25deg); animation: logoSheen 7s ease-in-out 3s infinite;
+}
+@keyframes logoSheen { 0%, 60% { transform: translateY(-120%) rotate(25deg); } 100% { transform: translateY(120%) rotate(25deg); } }
+
+.hero-scroll-cue { position: absolute; left: 0; right: 0; bottom: 13%; text-align: center; font-family: 'Great Vibes', cursive; font-size: 1.55rem; color: #5b3d8f; text-shadow: 0 0 10px rgba(255, 255, 255, 0.95); pointer-events: none; }
+.hero-scroll-cue .chev { display: block; font-family: var(--font-sans); font-size: 1.1rem; line-height: 1; animation: cueBob 1.8s ease-in-out infinite; }
+@keyframes cueBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+.vx-arch-sweep { position: absolute; inset: -20% -60%; pointer-events: none; mix-blend-mode: screen; opacity: 0; transform: translateX(-70%); background: linear-gradient(105deg, transparent 38%, rgba(255, 240, 200, 0) 42%, rgba(255, 236, 190, 0.7) 50%, rgba(255, 240, 200, 0) 58%, transparent 62%); }
+
+/* reveal choreography — enhancements.js adds .arch-revealed when the envelope has opened */
+.arch-revealed .vx-arch-img   { animation: archImgIn 2.4s cubic-bezier(0.16, 0.84, 0.24, 1) backwards; }
+.arch-revealed .vx-arch-logo  { animation: logoIn 1.9s cubic-bezier(0.2, 0.9, 0.25, 1) 0.9s backwards; }
+.arch-revealed .vx-arch-sweep { animation: archSweep 2.8s ease-in-out 1s 1 both; }
+.arch-revealed .hero-scroll-cue { animation: logoIn 1s ease 2.4s backwards; }
+@keyframes archImgIn { 0% { opacity: 0; transform: scale(1.08); filter: blur(10px) brightness(1.5); } 60% { opacity: 1; filter: blur(0) brightness(1.1); } 100% { opacity: 1; transform: none; filter: blur(0) brightness(1); } }
+@keyframes logoIn { 0% { opacity: 0; transform: scale(0.7); filter: blur(8px); } 100% { opacity: 1; transform: none; filter: blur(0); } }
+@keyframes archSweep { 0% { opacity: 1; transform: translateX(-70%); } 85% { opacity: 1; } 100% { opacity: 0; transform: translateX(70%); } }
+
+/* --------------------------------------------------------------------------
+   WILDLIFE — a few butterflies and one hummingbird, always behind the text
+   -------------------------------------------------------------------------- */
+#wildlife-layer { position: fixed; inset: 0; pointer-events: none; z-index: -1; overflow: hidden; }
+.critter { position: absolute; left: 0; top: 0; opacity: 0; transition: opacity 1.4s ease; will-change: transform, opacity; filter: drop-shadow(0 3px 4px rgba(60, 30, 90, 0.2)); }
+.critter.on { opacity: 0.9; }
+.critter svg { display: block; overflow: visible; }
+.bf .wl, .bf .wr { transform-box: view-box; transform-origin: 50px 40px; animation: bfFlap var(--flap, 0.28s) ease-in-out infinite alternate; }
+@keyframes bfFlap { from { transform: scaleX(1); } to { transform: scaleX(0.16); } }
+.hb .hw1, .hb .hw2 { transform-box: view-box; transform-origin: 58px 44px; animation: hbFlap 0.085s ease-in-out infinite alternate; }
+.hb .hw2 { animation-delay: -0.04s; }
+@keyframes hbFlap { from { transform: rotate(-34deg) scaleY(1); } to { transform: rotate(14deg) scaleY(0.55); } }
+
+/* --------------------------------------------------------------------------
+   SECTIONS — shared
+   -------------------------------------------------------------------------- */
+.vx-sec { position: relative; padding: 60px 22px 34px; text-align: center; color: var(--lv-ink); }
+.vx-h2 { margin: 0; font-family: 'Pinyon Script', 'Snell Roundhand', cursive; font-weight: 400; font-size: 2.6rem; line-height: 1.15; color: var(--lv-mauve); }
+.vx-orn { display: block; margin: 10px auto 0; width: 150px; height: 14px; color: var(--au); }
+.vx-rule { display: block; margin: 22px auto; width: 130px; height: 12px; color: var(--au); }
+.vx-spark { fill: var(--au); vertical-align: -1px; margin: 0 6px; }
+
+@supports (animation-timeline: view()) {
+  .rv { animation: rv both linear; animation-timeline: view(); animation-range: entry 0% entry 60%; }
+  @keyframes rv { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+}
+
+.vx-pill {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 24px; border-radius: 999px; cursor: pointer; text-decoration: none;
+  font-family: var(--font-serif); font-size: 1.05rem; font-weight: 600; letter-spacing: 0.06em; color: #3f2b73;
+  border: 1px solid #f0dc9c; background: linear-gradient(145deg, #f3e2a6, #d2ab55); box-shadow: 0 4px 14px rgba(168, 132, 47, 0.3);
+}
+.vx-pill:hover { filter: brightness(1.05); }
+.vx-pill:focus-visible { outline: 2px solid var(--lv-deep); outline-offset: 3px; }
+
+/* --------------------------------------------------------------------------
+   THE DATE — lavender & gold foil
+   -------------------------------------------------------------------------- */
+.vx-date { padding: 34px 22px 12px; }
+.vx-hint { margin: 16px 0 0; font-family: var(--font-serif); font-size: 1.1rem; color: var(--lv-ink-soft); letter-spacing: 0.02em; }
+.vx-cards { display: flex; justify-content: center; gap: 14px; margin-top: 22px; position: relative; }
+.vx-cards, .vx-cards * { -webkit-user-select: none; user-select: none; }
+.vx-card { position: relative; width: 96px; height: 108px; }
+.vx-face {
+  position: absolute; inset: 0; border-radius: 10px; display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(160deg, #ffffff, #f3ecfb); color: var(--lv-violet);
+  box-shadow: inset 0 0 0 1px rgba(201, 162, 78, 0.65), 0 6px 14px rgba(110, 80, 180, 0.16);
+}
+.vx-val { font-family: var(--font-serif); font-size: 1.7rem; font-weight: 500; letter-spacing: 0.04em; }
+.vx-val-sm { font-size: 1.25rem; letter-spacing: 0.02em; }
+.vx-foil { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 10px; touch-action: none; cursor: crosshair; -webkit-user-drag: none; }
+.vx-clabel { margin-top: 10px; font-family: var(--font-serif); font-size: 0.68rem; letter-spacing: 0.32em; color: var(--au-ink); text-transform: uppercase; }
+
+.vx-saved { display: none; margin-top: 20px; }
+.vx-saved.visible { display: block; animation: logoIn 0.9s ease both; }
+.vx-saved-line { margin: 0; font-family: var(--font-serif); font-size: 1.15rem; color: var(--lv-ink); }
+.vx-saved-sub { margin: 4px 0 14px; font-family: var(--font-serif); font-style: italic; font-size: 1rem; color: var(--lv-ink-soft); }
+
+/* --------------------------------------------------------------------------
+   INVITATION — arched card (gold outline, lavender inner line) holding the Bohra card
+   -------------------------------------------------------------------------- */
+.vx-invite { padding: 0 10px 20px; }
+.vx-archcard { position: relative; width: 100%; }
+.vx-archcap { display: block; width: 100%; height: auto; margin-bottom: -1px; }
+.vx-archbody { background: #fcfaff; border-left: 1.6px solid var(--au); border-right: 1.6px solid var(--au); padding: 0 4px 10px; position: relative; }
+.vx-archbody::before, .vx-archbody::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 14px; pointer-events: none; opacity: 0.85;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Cpath d='M7 0L14 7L7 14L0 7Z M7 3.5L10.5 7L7 10.5L3.5 7Z' fill='none' stroke='%23d8bf7a' stroke-width='.7'/%3E%3C/svg%3E") repeat-y;
+}
+.vx-archbody::before { left: 6px; }
+.vx-archbody::after  { right: 6px; }
+.vx-archfoot { border: 1.6px solid var(--au); border-top: 0; border-radius: 0 0 18px 18px; background: #fcfaff; padding: 6px 0 0; }
+.vx-archfoot svg { display: block; width: 60%; margin: 0 auto; height: auto; }
+
+.bohra-invitation-stage, .parchment-body { background: transparent !important; box-shadow: none !important; border: 0 !important; }
+.parchment-body { padding: 8px 14px 12px !important; }
+
+/* Bismillah larger, the two side medallions smaller, the whole row lifted into the arch */
+.parchment-body .card-calligraphy-topbar { gap: 6px; margin: -44px 0 16px; position: relative; z-index: 2; align-items: center; }
+.parchment-body .top-medallion-box { flex: 0 0 38px; }
+.parchment-body .alhamdolillah-medallion-img { max-width: 38px; }
+.parchment-body .top-bismillah-box { flex: 1 1 auto; min-width: 0; }
+.parchment-body .bismillah-card-header-img { max-width: 100%; width: 100%; }
+
+.lisan-stanza-line, .parent-line-bold, .parent-line-sub, .invitation-request-line, .nikah-raza-callout,
+.event-detail-eng, .event-detail-arabic, .sign-name, .final-salutations, .knot-wedding-script, .knot-sub-script { color: var(--lv-ink) !important; }
+.kinship-label, .dawat-ubaid-title { color: #8c5e14 !important; }
+.thuluth-calligraphy-name { color: var(--lv-violet) !important; background: none !important; -webkit-text-fill-color: currentColor !important; }
+.card-event-details-box { background: #faf6ff !important; border: 1.5px solid rgba(201, 162, 78, 0.8) !important; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8) !important; }
+.event-detail-sep { color: var(--au) !important; }
+
+/* --------------------------------------------------------------------------
+   WEDDING TIMELINE — zig-zag, gold line icons
+   -------------------------------------------------------------------------- */
+.vx-tl-sec { padding-top: 44px; }
+.vx-tl { position: relative; margin: 34px auto 0; max-width: 360px; }
+.vx-tl-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; margin-left: -0.5px; background: linear-gradient(180deg, rgba(201, 162, 78, 0), #d4bd7c 10%, #c9b3ee 50%, #d4bd7c 90%, rgba(201, 162, 78, 0)); }
+.vx-tl-row { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 30px minmax(0, 1fr); align-items: center; min-height: 138px; }
+.vx-tl-node { justify-self: center; width: 9px; height: 9px; transform: rotate(45deg); border: 1px solid var(--au); background: var(--lv-paper); }
+.vx-tl-node.vx-f { width: 20px; height: 20px; transform: none; border: 0; background: none; }
+.vx-tl-txt { padding: 0 6px; text-align: center; }
+.vx-tl-time { font-family: var(--font-serif); font-style: italic; font-size: 1.55rem; color: var(--lv-violet); line-height: 1.1; }
+.vx-tl-what { margin-top: 4px; font-family: var(--font-serif); font-size: 1.1rem; line-height: 1.25; color: var(--lv-ink); }
+.vx-tl-date { margin-top: 3px; font-family: var(--font-serif); font-size: 0.86rem; letter-spacing: 0.04em; color: var(--au-ink); }
+.vx-tl-ico { display: flex; justify-content: center; }
+.vx-ico { display: block; width: 104px; height: 104px; fill: none; stroke: var(--au); stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* --------------------------------------------------------------------------
+   THE CELEBRATION BEGINS
+   -------------------------------------------------------------------------- */
+.vx-cd-sec { padding: 44px 12px 18px; }
+.vx-cd { display: flex; justify-content: center; align-items: flex-start; gap: 4px; margin-top: 22px; color: var(--lv-violet); }
+.vx-u { min-width: 62px; display: flex; flex-direction: column; align-items: center; }
+.vx-v { font-family: var(--font-serif); font-size: 2.9rem; line-height: 1; font-weight: 500; letter-spacing: 0.02em; font-variant-numeric: lining-nums tabular-nums; }
+.vx-l { margin-top: 8px; font-family: var(--font-serif); font-size: 0.9rem; letter-spacing: 0.06em; color: var(--au-ink); }
+.vx-s { font-family: var(--font-serif); font-size: 2.5rem; line-height: 1; padding-top: 2px; color: var(--au); }
+
+/* --------------------------------------------------------------------------
+   LOCATION
+   -------------------------------------------------------------------------- */
+.vx-loc { padding: 40px 0 26px; }
+.vx-venue { margin: 14px 0 0; font-family: var(--font-serif); font-size: 1rem; letter-spacing: 0.14em; color: var(--au-ink); }
+.vx-venue2 { margin: 6px auto 0; max-width: 270px; font-family: var(--font-serif); font-size: 1.2rem; line-height: 1.3; color: var(--lv-ink); }
+
+/* --------------------------------------------------------------------------
+   RSVP + FOOTER (your build, kept; gold and lavender)
+   -------------------------------------------------------------------------- */
+#chapter-rsvp { padding: 50px 18px 20px; }
+#chapter-rsvp .chapter-header { text-align: center; margin-bottom: 18px; }
+#chapter-rsvp .chapter-roman, #chapter-rsvp .ornate-separator { display: none; }
+#chapter-rsvp .chapter-title { font-family: 'Pinyon Script', cursive; font-size: 2.6rem; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--lv-mauve); background: none; -webkit-text-fill-color: currentColor; }
+.luxury-card-box { background: #fff; border: 1px solid rgba(201, 162, 78, 0.5); box-shadow: 0 10px 28px rgba(110, 80, 180, 0.1); }
+.vx-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.rsvp-error { margin: 14px 0 0; padding: 10px 14px; border-radius: 10px; text-align: center; font-family: var(--font-serif); font-size: 1.02rem; line-height: 1.35; color: #8a2c1a; background: #fff3f0; border: 1px solid #e4a99d; }
+#submit-rsvp-btn:disabled { opacity: 0.7; cursor: progress; }
+.invite-footer { background: none; text-align: center; padding: 20px 22px 40px; }
+.footer-gratitude-title { font-family: 'Pinyon Script', cursive !important; font-weight: 400; font-size: 2.2rem; color: var(--lv-mauve) !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  #wildlife-layer { display: none; }
+  .rv { animation: none; }
+  .env2-glints, .env2-sparkle, .env2-seal-halo, .env2-rays, .vx-logo-ring::after, .hero-scroll-cue .chev { animation: none; }
+  .arch-revealed .vx-arch-img, .arch-revealed .vx-arch-logo, .arch-revealed .vx-arch-sweep, .arch-revealed .hero-scroll-cue { animation: none; }
+}
