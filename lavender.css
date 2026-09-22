@@ -97,7 +97,7 @@ html.env-lock, html.env-lock body { overflow: hidden; }
 .env2 { position: fixed; inset: 0; z-index: 1000; display: flex; justify-content: center; background: transparent; }
 .env2.hidden { display: none; }
 .env2-stage { position: relative; width: 100%; max-width: 440px; height: 100%; overflow: hidden; perspective: 1400px; background: #e9dff7; box-shadow: 0 0 60px rgba(90, 60, 150, 0.18); }
-.env2-stage.is-opening { pointer-events: none; animation: envStageOut 1.3s ease 5.8s forwards; }
+.env2-stage.is-opening { pointer-events: none; animation: envStageOut 1.9s ease 5s forwards; }
 
 .env2-interior { position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, #fff6d6 0%, #f5dc98 20%, #d6bcf2 52%, #a688df 100%); }
 .env2-light { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
@@ -161,50 +161,22 @@ html.env-lock, html.env-lock body { overflow: hidden; }
 }
 .env2-bloom { position: absolute; inset: 0; opacity: 0; pointer-events: none; background: radial-gradient(circle at 50% 50%, #fffdf4 0%, #fbefc8 30%, #e8dbfb 68%, #d2c0f4 100%); }
 
-/* ----- the opening timeline (seconds after the tap) -----
-   The mechanic is still what was verified against the source video — seal ignites, gold light
-   ramps up and races along the fold lines, holds at full brightness while still visually closed,
-   then the envelope DISSOLVES (a plain opacity crossfade, never a panel hinge-rotation) into the
-   arch underneath. But a fast, frame-accurate ~2.1s read as rushed in practice, so this is
-   stretched back out to a slow, unhurried ~7.1s — close to the original pacing — while keeping
-   that same shape:
-     0.00 - 0.50s  the seal reacts — a slow scale-up as its drop-shadow flares in (envIgnite).
-     0.50 - ~1.7s  RAMP — a bright flash: gold light bursts from behind the seal and races along
-                    the fold-line creases (envHaloBurst, envWave, envFlareGrow and envBloom all
-                    peak around here — envFlareGrow at 35% of 3.4s ≈ 1.7s, envBloom at 35% of
-                    3.4s ≈ 1.7s too).
-     ~1.7 - 5.80s  HOLD — the flash SETTLES back down to a gentle ambient glow (envFlareGrow and
-                    envBloom ease down to a low resting scale/opacity by ~3.9s) so the envelope's
-                    own embossed texture, creases and seal stay visible underneath the light,
-                    rather than being blanketed by an opaque wash — that blank-looking whiteout
-                    was the earlier bug. envWave keeps rippling and envGlint keeps sweeping on
-                    loop for the rest of the hold, so there is always something gently moving.
-                    Still visually CLOSED throughout — this is the long, steady anticipation
-                    beat — do not compress it, and do not let it go flat/blank again.
-     5.80 - 7.10s  (~1.3s) DISSOLVE — a slow opacity crossfade of the whole envelope face reveals
-                    the arch, already rendering underneath (envStageOut, see
-                    .env2-stage.is-opening above).
-   Total tap-to-revealed is ~7.1s. Keep T_REVEAL/T_DONE in envelope.js in step with envStageOut's
-   delay/duration below if you change these. */
-.is-opening .env2-seal img        { animation: envIgnite 0.5s ease forwards; }
-.is-opening .env2-seal-halo       { animation: envHaloBurst 0.6s ease forwards; }
-.is-opening .env2-seal            { animation: envSealRise 2s cubic-bezier(0.55, 0, 0.25, 1) 0.6s forwards; }
-/* waves keep gently rippling out for the whole hold, not just a quick burst at the start */
-.is-opening .env2-waves i         { animation: envWave 2.8s cubic-bezier(0.16, 0.7, 0.25, 1) 0.5s infinite; }
-.is-opening .env2-waves i:nth-child(2) { animation-delay: 1.4s; }
-.is-opening .env2-waves i:nth-child(3) { animation-delay: 2.3s; }
-/* the idle shimmer keeps sweeping (faster than its resting 6s pace) through the whole hold too,
-   so there is always something moving instead of a frozen frame */
-.is-opening .env2-glints          { animation: envGlint 3.2s ease-in-out 0.1s infinite; }
-.is-opening .env2-creases         { animation: envFade 1s ease 1.6s forwards; }
-.is-opening .env2-light           { animation: envLightIn 1.8s ease 0.5s forwards; }
-/* flare and bloom used to grow/fade IN and then just sit there at full intensity for the rest of
-   the (now much longer) hold — a giant light-cross and an opaque colour wash both frozen at their
-   brightest, completely covering the embossed envelope underneath. That was the "blank screen".
-   They now flash up, then settle back down to a much gentler ambient level that leaves the
-   envelope's own texture, creases and sparkle visible through the glow. */
-.is-opening .env2-flare           { animation: envFlareGrow 3.4s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards; }
-.is-opening .env2-bloom           { animation: envBloom 3.4s ease 0.5s forwards; }
+/* ----- the opening timeline (seconds after the tap) ----- */
+.is-opening .env2-seal img        { animation: envIgnite 1.8s ease forwards; }
+.is-opening .env2-seal-halo       { animation: envHaloBurst 2.2s ease forwards; }
+.is-opening .env2-seal            { animation: envSealRise 1.8s cubic-bezier(0.55, 0, 0.25, 1) 2s forwards; }
+.is-opening .env2-waves i         { animation: envWave 3s cubic-bezier(0.16, 0.7, 0.25, 1) forwards; }
+.is-opening .env2-waves i:nth-child(2) { animation-delay: 0.55s; }
+.is-opening .env2-waves i:nth-child(3) { animation-delay: 1.1s; }
+.is-opening .env2-glints          { animation: envGlint 1.8s ease-in-out 0.1s 1 forwards; }
+.is-opening .env2-creases         { animation: envFade 0.5s ease 1.9s forwards; }
+.is-opening .env2-light           { animation: envLightIn 1.6s ease 2s forwards; }
+.is-opening .env2-flare           { animation: envFlareGrow 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) 2s forwards; }
+.is-opening .env2-top             { animation: envFlapTop 2.1s cubic-bezier(0.6, 0.02, 0.25, 1) 2s forwards; }
+.is-opening .env2-bottom          { animation: envFlapBottom 2.1s cubic-bezier(0.6, 0.02, 0.25, 1) 2s forwards; }
+.is-opening .env2-left            { animation: envSideL 2.4s ease 3s forwards; }
+.is-opening .env2-right           { animation: envSideR 2.4s ease 3s forwards; }
+.is-opening .env2-bloom           { animation: envBloom 1.5s ease 3.4s forwards; }
 
 @keyframes envIgnite {
   0%   { transform: scale(1); filter: drop-shadow(0 16px 24px rgba(35, 18, 60, 0.5)) drop-shadow(0 0 8px rgba(226, 196, 110, 0.35)); }
@@ -216,9 +188,14 @@ html.env-lock, html.env-lock body { overflow: hidden; }
 @keyframes envWave { 0% { transform: scale(0.55); opacity: 0; } 12% { opacity: 1; } 100% { transform: scale(6.4); opacity: 0; } }
 @keyframes envFade { from { opacity: 1; } to { opacity: 0; } }
 @keyframes envLightIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes envFlareGrow { 0% { transform: scale(0.15); } 35% { transform: scale(1.3); } 100% { transform: scale(0.5); } }
-@keyframes envBloom { 0% { opacity: 0; } 35% { opacity: 0.85; } 100% { opacity: 0.3; } }
+@keyframes envFlareGrow { from { transform: scale(0.15); } to { transform: scale(1.25); } }
+@keyframes envFlapTop    { 0% { transform: rotateX(0); opacity: 1; } 70% { transform: rotateX(74deg); opacity: 1; }  100% { transform: rotateX(84deg); opacity: 0; } }
+@keyframes envFlapBottom { 0% { transform: rotateX(0); opacity: 1; } 70% { transform: rotateX(-74deg); opacity: 1; } 100% { transform: rotateX(-84deg); opacity: 0; } }
+@keyframes envSideL { to { transform: translateX(-7%); opacity: 0; } }
+@keyframes envSideR { to { transform: translateX(7%); opacity: 0; } }
+@keyframes envBloom { from { opacity: 0; } to { opacity: 1; } }
 @keyframes envStageOut { to { opacity: 0; } }
+
 
 /* --------------------------------------------------------------------------
    ARCH — your lavender rose & gold artwork with only the logo inside
