@@ -3,9 +3,11 @@
  * Mustafa & Tasneem wedding invitation.
  *
  * Envelope: tapping the seal starts a CSS timeline (see the "opening timeline" block in
- * lavender.css): seal ignites + glow waves → seal and flaps lift with golden light at the
- * seam → the light blooms → the arch appears through the glow. This file only starts that
- * timeline and reveals the invitation at the right moment.
+ * lavender.css) that matches the reference video — seal ignites, lifts and glows, gold light
+ * races along the fold lines and blooms across the whole face, then the envelope simply
+ * DISSOLVES (no flap hinge-rotation) into the arch, which is already rendering underneath.
+ * ~1.5s tap-to-revealed, not a slow multi-second unfold. This file only starts that timeline
+ * and reveals the invitation at the right moment.
  *
  * Music: a single bars-only button. Its state is always read from the <audio> element
  * (play / pause / ended events), so the bars can never disagree with what you hear.
@@ -62,8 +64,8 @@
   if (!envScreen || !stage || !seal || !invite) { showMusicBtn(); return; }
 
   // milliseconds after the tap; keep in step with the timeline in lavender.css
-  var T_REVEAL = 4900; // the bloom is fully opaque, so the arch can be placed underneath
-  var T_DONE = 7100;   // the stage has finished fading out
+  var T_REVEAL = 650;  // just before the stage starts to dissolve, so the arch is already there to show through
+  var T_DONE = 1550;   // the stage has finished fading out
 
   function reveal() {
     invite.classList.remove('hidden'); // enhancements.js sees this and plays the arch reveal
