@@ -134,27 +134,34 @@
       <!-- INVITATION: arched card holding the full Bohra dawat card -->
       <section class="vx-sec vx-invite" id="chapter-invitation" aria-label="Invitation">
         <div class="vx-archcard rv">
-          <svg class="vx-archcap" viewBox="0 -12 348 142" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+          <svg class="vx-archcap" viewBox="0 0 348 150" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
             <defs>
-              <linearGradient id="archGoldEdge" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#ecd9a0"/><stop offset="0.5" stop-color="#c9a24e"/><stop offset="1" stop-color="#a8842f"/>
+              <linearGradient id="vxVineGold" gradientUnits="userSpaceOnUse" x1="174" y1="6" x2="174" y2="110">
+                <stop offset="0%" stop-color="#ecd9a0"/><stop offset="55%" stop-color="#c9a24e"/><stop offset="100%" stop-color="#a8842f"/>
               </linearGradient>
-              <pattern id="archLattice" width="16" height="16" patternUnits="userSpaceOnUse">
-                <path d="M8 0L16 8L8 16L0 8Z" fill="none" stroke="#c9a24e" stroke-width=".7" opacity=".5"/>
-                <circle cx="8" cy="8" r="1.1" fill="#a58bdb" opacity=".55"/>
-              </pattern>
             </defs>
-            <!-- card-colour silhouette, gold-gradient outline -->
-            <path d="M1 130V74C1 52 20 38 50 26C86 12 150 8 174 1C198 8 262 12 298 26C328 38 347 52 347 74V130" fill="#fcfaff" stroke="url(#archGoldEdge)" stroke-width="2"/>
-            <!-- lattice-textured shoulder band, like a jali screen -->
-            <path d="M1 74C1 52 20 38 50 26C86 12 150 8 174 1C198 8 262 12 298 26C328 38 347 52 347 74L339 76C339 57 320 45 290 34C256 20 198 17 174 9C150 17 92 20 58 34C28 45 9 57 9 76Z" fill="url(#archLattice)"/>
-            <path d="M9 76C9 57 28 45 58 34C92 20 150 17 174 9C198 17 256 20 290 34C320 45 339 57 339 76" fill="none" stroke="#9d7fe0" stroke-width="1" opacity=".85"/>
-            <!-- peak finial -->
-            <use href="#vx-sk" transform="translate(174,-7) scale(.85)" fill="#c9a24e"/>
-            <path d="M174 -13L179.5 -6.5L174 0L168.5 -6.5Z" fill="url(#archGoldEdge)" stroke="#8a6c2a" stroke-width=".6"/>
-            <!-- springline rosettes tucked into the lattice -->
-            <use href="#vx-bl" transform="translate(26,60) scale(.48)" style="--f:#fff;--s:#a58bdb"/>
-            <use href="#vx-bl" transform="translate(322,60) scale(.48)" style="--f:#fff;--s:#a58bdb"/>
+            <!-- a single quiet dome, card-colour, thin gold rim -->
+            <path d="M0 150V90A174 80 0 0 1 348 90V150Z" fill="#fcfaff" stroke="#c9a24e" stroke-width="1.6"/>
+            <!-- botanical crest: a rose blooms at the peak, a vine trails unevenly down each side -->
+            <g fill="none" stroke="url(#vxVineGold)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M174 35C168 32 165 25 170 18C175 11 185 11 189 17C193 23 189 29 182 28C177 27 175 23 178 21"/>
+              <path d="M171 35C165 34 158 37 156 43C162 44 170 41 171 35Z"/>
+              <path d="M177 35C183 34 190 37 192 43C186 44 178 41 177 35Z"/>
+            </g>
+            <g fill="#a8842f" stroke="none">
+              <circle cx="178" cy="22" r=".9"/><circle cx="181" cy="24" r=".9"/><circle cx="176" cy="25" r=".9"/>
+            </g>
+            <g fill="none" stroke="url(#vxVineGold)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M170 37C138 45 106 51 88 65C74 76 66 87 63 97"/>
+              <path d="M119 50C109 53 99 57 95 63C105 61 115 59 119 50Z"/>
+              <path d="M79 81C69 84 61 87 57 91C67 89 75 86 79 81Z"/>
+            </g>
+            <path d="M60 92C64 92 67 96 64 101C61 105 56 103 57 98C58 94 58 92 60 92Z" fill="#a58bdb" stroke="#6e4fb3" stroke-width=".5"/>
+            <g fill="none" stroke="url(#vxVineGold)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M178 37C202 43 220 47 231 57C236 61 238 64 237 67"/>
+              <path d="M207 47C215 49 223 51 225 55C217 55 209 53 207 47Z"/>
+            </g>
+            <path d="M235 63C239 62 243 65 241 69C239 72 234 71 234 67C234 65 234 64 235 63Z" fill="#a58bdb" stroke="#6e4fb3" stroke-width=".5"/>
           </svg>
           <div class="vx-archbody">
 <div class="bohra-invitation-stage" id="invitation-card-stage">
