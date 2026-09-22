@@ -128,15 +128,24 @@
       'translate3d(' + (c.x - c.w / 2).toFixed(1) + 'px,' + (c.y - c.h / 2).toFixed(1) + 'px,0) rotate(' + c.rot.toFixed(1) + 'deg)';
   }
 
-  // The butterflies roam the FULL width of the screen — including over the invitation column —
-  // but the layer they live in sits behind the card content (z-index, see #wildlife-layer), so
-  // they pass behind text and cards and only show through in the gaps between them, and in the
-  // side margins. That "now you see it, now you don't" is the effect, not a hard boundary.
+  // The butterflies roam the FULL width of the screen — including over the invitation column and,
+  // on a wide/desktop viewport, well outside it into the side margins — but the layer they live in
+  // sits behind the card content (z-index, see #wildlife-layer), so they pass behind text and cards
+  // and only show through in the gaps between them. That "now you see it, now you don't" is the
+  // effect, not a hard boundary.
+  //
+  // "hold" is derived from the actual distance to the new target, not a fixed random span: on a
+  // narrow phone screen a flat 2.4-5.2s hold was plenty of time to cross the whole width, but on a
+  // wide desktop viewport it was nowhere near enough — the butterfly got re-targeted long before it
+  // ever reached a far-off point, so in practice it just drifted near wherever it started, never
+  // visibly reaching the outer margins. Basing hold on distance/speed (+ a short linger) guarantees
+  // it actually arrives wherever it's sent, however far that is.
   function pickButterflyTarget(c) {
     c.tx = rand(vw() * 0.04, vw() * 0.96);
     c.ty = rand(vh() * 0.06, vh() * 0.94);
-    c.speed = rand(30, 60);
-    c.hold = rand(2.4, 5.2);
+    c.speed = rand(55, 100);
+    var dist = Math.hypot(c.tx - c.x, c.ty - c.y);
+    c.hold = dist / c.speed + rand(0.8, 2.0);
   }
 
   function updateButterfly(c, dt, t) {
