@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 348 500" width="348" height="500">
+  <!-- Ogee arch outline (open at the bottom, like a doorway) — use as a decorative frame or a photo mask. -->
+  <path d="M1 500V74C1 52 20 38 50 26C86 12 150 8 174 1C198 8 262 12 298 26C328 38 347 52 347 74V500"
+        fill="none" stroke="#c9a24e" stroke-width="3"/>
+  <path d="M9 500V76C9 57 28 45 58 34C92 20 150 17 174 9C198 17 256 20 290 34C320 45 339 57 339 76V500"
+        fill="none" stroke="#a58bdb" stroke-width="1.6" stroke-opacity="0.7"/>
+</svg>

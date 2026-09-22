@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <!-- Gold corner flourish (drawn for the TOP-LEFT corner). Flip horizontally/vertically or rotate
+       in your design tool to use it in the other three corners. -->
+  <g fill="none" stroke="#c9a24e" stroke-width="2.2" stroke-linecap="round">
+    <path d="M8 8C60 10 96 30 110 72C118 96 112 118 128 138"/>
+    <path d="M8 8C10 46 26 76 60 96C80 108 100 108 116 122"/>
+    <path d="M110 72C122 68 132 74 140 66"/>
+    <path d="M60 96C56 108 62 118 52 128"/>
+  </g>
+  <g fill="none" stroke="#c9a24e" stroke-width="1.3" stroke-linecap="round" opacity="0.8">
+    <path d="M8 8C34 9 54 18 66 38"/>
+  </g>
+  <!-- tiny lavender bud accents -->
+  <g fill="#a58bdb">
+    <circle cx="110" cy="72" r="4.4"/><circle cx="118" cy="67" r="3.4"/><circle cx="104" cy="65" r="3.4"/><circle cx="112" cy="80" r="3"/>
+    <circle cx="60" cy="96" r="4"/><circle cx="67" cy="91" r="3.1"/><circle cx="55" cy="90" r="3.1"/>
+    <circle cx="128" cy="138" r="3.4"/><circle cx="134" cy="133" r="2.6"/><circle cx="123" cy="132" r="2.6"/>
+  </g>
+  <!-- gold dust -->
+  <g fill="#c9a24e" opacity="0.7">
+    <circle cx="150" cy="30" r="1.6"/><circle cx="170" cy="50" r="1.3"/><circle cx="30" cy="150" r="1.6"/><circle cx="50" cy="170" r="1.3"/>
+  </g>
+</svg>

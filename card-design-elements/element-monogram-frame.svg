@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="320" height="320">
+  <!-- Empty circular monogram frame — transparent center. Place your own initials, photo or logo
+       inside the circle in your design tool. -->
+  <circle cx="160" cy="160" r="150" fill="none" stroke="#ffffff" stroke-width="10"/>
+  <circle cx="160" cy="160" r="150" fill="none" stroke="#c9a24e" stroke-width="4"/>
+  <circle cx="160" cy="160" r="162" fill="none" stroke="#a58bdb" stroke-width="2.4" stroke-opacity="0.75"/>
+  <circle cx="160" cy="160" r="140" fill="none" stroke="#c9a24e" stroke-width="1" stroke-opacity="0.55"/>
+</svg>

@@ -134,9 +134,27 @@
       <!-- INVITATION: arched card holding the full Bohra dawat card -->
       <section class="vx-sec vx-invite" id="chapter-invitation" aria-label="Invitation">
         <div class="vx-archcard rv">
-          <svg class="vx-archcap" viewBox="0 0 348 130" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
-            <path d="M1 130V74C1 52 20 38 50 26C86 12 150 8 174 1C198 8 262 12 298 26C328 38 347 52 347 74V130" fill="#fcfaff" stroke="#c9a24e" stroke-width="1.6"/>
-            <path d="M9 130V76C9 57 28 45 58 34C92 20 150 17 174 9C198 17 256 20 290 34C320 45 339 57 339 76V130" fill="none" stroke="#cdbbf0" stroke-width="1"/>
+          <svg class="vx-archcap" viewBox="0 -12 348 142" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+            <defs>
+              <linearGradient id="archGoldEdge" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ecd9a0"/><stop offset="0.5" stop-color="#c9a24e"/><stop offset="1" stop-color="#a8842f"/>
+              </linearGradient>
+              <pattern id="archLattice" width="16" height="16" patternUnits="userSpaceOnUse">
+                <path d="M8 0L16 8L8 16L0 8Z" fill="none" stroke="#c9a24e" stroke-width=".7" opacity=".5"/>
+                <circle cx="8" cy="8" r="1.1" fill="#a58bdb" opacity=".55"/>
+              </pattern>
+            </defs>
+            <!-- card-colour silhouette, gold-gradient outline -->
+            <path d="M1 130V74C1 52 20 38 50 26C86 12 150 8 174 1C198 8 262 12 298 26C328 38 347 52 347 74V130" fill="#fcfaff" stroke="url(#archGoldEdge)" stroke-width="2"/>
+            <!-- lattice-textured shoulder band, like a jali screen -->
+            <path d="M1 74C1 52 20 38 50 26C86 12 150 8 174 1C198 8 262 12 298 26C328 38 347 52 347 74L339 76C339 57 320 45 290 34C256 20 198 17 174 9C150 17 92 20 58 34C28 45 9 57 9 76Z" fill="url(#archLattice)"/>
+            <path d="M9 76C9 57 28 45 58 34C92 20 150 17 174 9C198 17 256 20 290 34C320 45 339 57 339 76" fill="none" stroke="#9d7fe0" stroke-width="1" opacity=".85"/>
+            <!-- peak finial -->
+            <use href="#vx-sk" transform="translate(174,-7) scale(.85)" fill="#c9a24e"/>
+            <path d="M174 -13L179.5 -6.5L174 0L168.5 -6.5Z" fill="url(#archGoldEdge)" stroke="#8a6c2a" stroke-width=".6"/>
+            <!-- springline rosettes tucked into the lattice -->
+            <use href="#vx-bl" transform="translate(26,60) scale(.48)" style="--f:#fff;--s:#a58bdb"/>
+            <use href="#vx-bl" transform="translate(322,60) scale(.48)" style="--f:#fff;--s:#a58bdb"/>
           </svg>
           <div class="vx-archbody">
 <div class="bohra-invitation-stage" id="invitation-card-stage">

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1414" width="1000" height="1414">
+  <!-- Blank card background: soft lavender + gold watercolor wash on cream, no border — a more open
+       canvas than bg-parchment-border.svg. Matches the wedding site's own background wash. -->
+  <defs>
+    <radialGradient id="b1" cx="10%" cy="8%" r="46%"><stop offset="0%" stop-color="#a58bdb" stop-opacity="0.30"/><stop offset="100%" stop-color="#a58bdb" stop-opacity="0"/></radialGradient>
+    <radialGradient id="b2" cx="90%" cy="20%" r="46%"><stop offset="0%" stop-color="#c9a24e" stop-opacity="0.26"/><stop offset="100%" stop-color="#c9a24e" stop-opacity="0"/></radialGradient>
+    <radialGradient id="b3" cx="12%" cy="38%" r="46%"><stop offset="0%" stop-color="#c9a24e" stop-opacity="0.22"/><stop offset="100%" stop-color="#c9a24e" stop-opacity="0"/></radialGradient>
+    <radialGradient id="b4" cx="88%" cy="52%" r="46%"><stop offset="0%" stop-color="#a58bdb" stop-opacity="0.28"/><stop offset="100%" stop-color="#a58bdb" stop-opacity="0"/></radialGradient>
+    <radialGradient id="b5" cx="14%" cy="68%" r="46%"><stop offset="0%" stop-color="#a58bdb" stop-opacity="0.24"/><stop offset="100%" stop-color="#a58bdb" stop-opacity="0"/></radialGradient>
+    <radialGradient id="b6" cx="86%" cy="82%" r="46%"><stop offset="0%" stop-color="#c9a24e" stop-opacity="0.22"/><stop offset="100%" stop-color="#c9a24e" stop-opacity="0"/></radialGradient>
+    <radialGradient id="b7" cx="18%" cy="95%" r="46%"><stop offset="0%" stop-color="#c9a24e" stop-opacity="0.24"/><stop offset="100%" stop-color="#c9a24e" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1000" height="1414" fill="#fcfaff"/>
+  <rect width="1000" height="1414" fill="url(#b1)"/>
+  <rect width="1000" height="1414" fill="url(#b2)"/>
+  <rect width="1000" height="1414" fill="url(#b3)"/>
+  <rect width="1000" height="1414" fill="url(#b4)"/>
+  <rect width="1000" height="1414" fill="url(#b5)"/>
+  <rect width="1000" height="1414" fill="url(#b6)"/>
+  <rect width="1000" height="1414" fill="url(#b7)"/>
+</svg>

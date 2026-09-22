@@ -35,7 +35,24 @@ body {
   max-width: 460px;
   margin: 0 auto;
   padding: 0 0 60px;
-  background: var(--lv-paper);
+  background-color: var(--lv-paper);
+  /* a soft watercolor wash + fine gold/lavender texture, so the paper isn't a flat block;
+     card boxes below (archbody, luxury-card-box, ...) keep their own solid backgrounds on top.
+     The wash is ONE continuous gradient sized to the whole column (no-repeat) — tiling it in
+     bands left a visible seam where each tile wrapped, so every bloom lives in this one layer. */
+  background-image:
+    url('assets/paper_texture.svg'),
+    radial-gradient(ellipse 55% 9% at 10% 15%, rgba(165, 139, 219, 0.15), transparent 70%),
+    radial-gradient(ellipse 55% 9% at 90% 27%, rgba(201, 162, 78, 0.13), transparent 70%),
+    radial-gradient(ellipse 55% 9% at 12% 39%, rgba(201, 162, 78, 0.12), transparent 70%),
+    radial-gradient(ellipse 55% 9% at 88% 51%, rgba(165, 139, 219, 0.14), transparent 70%),
+    radial-gradient(ellipse 55% 9% at 14% 63%, rgba(165, 139, 219, 0.13), transparent 70%),
+    radial-gradient(ellipse 55% 9% at 86% 75%, rgba(201, 162, 78, 0.12), transparent 70%),
+    radial-gradient(ellipse 55% 9% at 16% 87%, rgba(201, 162, 78, 0.13), transparent 70%),
+    radial-gradient(ellipse 55% 9% at 84% 98%, rgba(165, 139, 219, 0.14), transparent 70%);
+  background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+  background-size: 220px 220px, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+  background-position: 0 0;
   box-shadow: 0 0 60px rgba(90, 60, 150, 0.12);
   position: relative;
   isolation: isolate;                       /* lets the wildlife sit behind the text */
@@ -278,7 +295,10 @@ html.env-lock, html.env-lock body { overflow: hidden; }
    INVITATION — arched card (gold outline, lavender inner line) holding the Bohra card
    -------------------------------------------------------------------------- */
 .vx-invite { padding: 0 10px 20px; }
-.vx-archcard { position: relative; width: 100%; }
+.vx-archcard {
+  position: relative; width: 100%;
+  filter: drop-shadow(0 14px 28px rgba(110, 79, 179, 0.16)) drop-shadow(0 3px 10px rgba(201, 162, 78, 0.18));
+}
 .vx-archcap { display: block; width: 100%; height: auto; margin-bottom: -1px; }
 .vx-archbody { background: #fcfaff; border-left: 1.6px solid var(--au); border-right: 1.6px solid var(--au); padding: 0 4px 10px; position: relative; }
 .vx-archbody::before, .vx-archbody::after {

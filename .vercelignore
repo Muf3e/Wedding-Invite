@@ -1,0 +1,10 @@
+# Not part of the live guest-facing site — keep the production deploy to just the invitation itself.
+.claude/
+.claude-flow/
+assets/.claude-flow/
+scratch/
+creations_history/
+card-design-elements/
+google-apps-script/
+temp_ref/
+*.log

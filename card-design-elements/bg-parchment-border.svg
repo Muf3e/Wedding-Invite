@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1414" width="1000" height="1414">
+  <!-- Blank card background: ivory parchment + fine gold/lavender texture + a gold double-line border frame.
+       No text — drop your own content on top of this in Canva/Illustrator/Figma. -->
+  <defs>
+    <radialGradient id="paper" cx="50%" cy="22%" r="85%">
+      <stop offset="0%" stop-color="#fffdf9"/>
+      <stop offset="55%" stop-color="#fbf7ee"/>
+      <stop offset="100%" stop-color="#f5eee1"/>
+    </radialGradient>
+    <pattern id="texture" width="130" height="130" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="#c9a24e" stroke-width="1.4" stroke-linecap="round" opacity="0.16">
+        <path d="M8 118C12 105 20 99 24 87C27 79 22 72 27 65"/>
+        <path d="M24 87C29 88 32 86 35 90"/>
+        <path d="M104 12C108 21 116 26 118 37C120 45 116 51 121 58"/>
+      </g>
+      <g fill="#a58bdb" opacity="0.14">
+        <circle cx="88" cy="22" r="2.6"/><circle cx="93" cy="19" r="2.1"/><circle cx="86" cy="17" r="2.1"/><circle cx="90" cy="26" r="1.9"/>
+        <circle cx="17" cy="64" r="2.6"/><circle cx="22" cy="61" r="2.1"/><circle cx="14" cy="59" r="2.1"/><circle cx="19" cy="68" r="1.9"/>
+      </g>
+      <g fill="#c9a24e" opacity="0.3">
+        <circle cx="55" cy="12" r="1.2"/><circle cx="70" cy="42" r="1.1"/><circle cx="42" cy="95" r="1.2"/>
+        <circle cx="7" cy="36" r="1"/><circle cx="118" cy="78" r="1.2"/><circle cx="82" cy="118" r="1.1"/>
+      </g>
+    </pattern>
+  </defs>
+
+  <rect width="1000" height="1414" fill="url(#paper)"/>
+  <rect width="1000" height="1414" fill="url(#texture)"/>
+
+  <!-- gold double-line border frame -->
+  <rect x="36" y="36" width="928" height="1342" fill="none" stroke="#c9a24e" stroke-width="2.2"/>
+  <rect x="50" y="50" width="900" height="1314" fill="none" stroke="#a58bdb" stroke-width="1.2" stroke-opacity="0.65"/>
+</svg>

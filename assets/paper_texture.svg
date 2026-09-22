@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" width="220" height="220">
+  <!-- faint gold tendrils -->
+  <g fill="none" stroke="#c9a24e" stroke-width="1" stroke-linecap="round" opacity="0.16">
+    <path d="M14 200 C 20 178, 34 168, 40 148 C 44 134, 38 122, 46 110" />
+    <path d="M40 148 C 48 150, 54 146, 58 152" />
+    <path d="M46 110 C 52 108, 56 102, 54 96" />
+    <path d="M176 20 C 182 36, 196 44, 200 62 C 202 76, 196 86, 204 98" />
+    <path d="M200 62 C 208 60, 212 66, 218 62" />
+  </g>
+  <!-- tiny lavender sprig clusters -->
+  <g fill="#a58bdb" opacity="0.14">
+    <circle cx="150" cy="38" r="2.2" /><circle cx="156" cy="34" r="1.8" /><circle cx="146" cy="32" r="1.8" /><circle cx="152" cy="44" r="1.6" /><circle cx="144" cy="40" r="1.5" />
+    <circle cx="28" cy="108" r="2.2" /><circle cx="34" cy="104" r="1.8" /><circle cx="24" cy="102" r="1.8" /><circle cx="30" cy="114" r="1.6" /><circle cx="22" cy="110" r="1.5" />
+    <circle cx="186" cy="176" r="2.2" /><circle cx="192" cy="172" r="1.8" /><circle cx="182" cy="170" r="1.8" /><circle cx="188" cy="182" r="1.6" /><circle cx="180" cy="178" r="1.5" />
+  </g>
+  <!-- fine gold dust -->
+  <g fill="#c9a24e" opacity="0.28">
+    <circle cx="90" cy="20" r="1" /><circle cx="118" cy="70" r="0.9" /><circle cx="70" cy="160" r="1" />
+    <circle cx="12" cy="60" r="0.8" /><circle cx="200" cy="130" r="1" /><circle cx="138" cy="200" r="0.9" />
+    <circle cx="60" cy="40" r="0.8" /><circle cx="170" cy="100" r="0.9" /><circle cx="100" cy="190" r="0.8" />
+  </g>
+</svg>
