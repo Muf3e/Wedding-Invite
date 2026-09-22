@@ -4,10 +4,10 @@
  *
  * Envelope: tapping the seal starts a CSS timeline (see the "opening timeline" block in
  * lavender.css) that matches the reference video — seal ignites, lifts and glows, gold light
- * races along the fold lines and blooms across the whole face, then the envelope simply
- * DISSOLVES (no flap hinge-rotation) into the arch, which is already rendering underneath.
- * ~1.5s tap-to-revealed, not a slow multi-second unfold. This file only starts that timeline
- * and reveals the invitation at the right moment.
+ * races along the fold lines and blooms across the whole face, HOLDS there fully lit for over
+ * a second (the anticipation beat), then the envelope DISSOLVES (no flap hinge-rotation) into
+ * the arch, which is already rendering underneath. ~1.9s tap-to-revealed. This file only
+ * starts that timeline and reveals the invitation at the right moment.
  *
  * Music: a single bars-only button. Its state is always read from the <audio> element
  * (play / pause / ended events), so the bars can never disagree with what you hear.
@@ -64,8 +64,8 @@
   if (!envScreen || !stage || !seal || !invite) { showMusicBtn(); return; }
 
   // milliseconds after the tap; keep in step with the timeline in lavender.css
-  var T_REVEAL = 650;  // just before the stage starts to dissolve, so the arch is already there to show through
-  var T_DONE = 1550;   // the stage has finished fading out
+  var T_REVEAL = 1250; // just before the stage starts to dissolve, so the arch is already there to show through
+  var T_DONE = 1950;   // the stage has finished fading out
 
   function reveal() {
     invite.classList.remove('hidden'); // enhancements.js sees this and plays the arch reveal

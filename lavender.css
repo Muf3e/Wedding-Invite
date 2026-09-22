@@ -97,7 +97,7 @@ html.env-lock, html.env-lock body { overflow: hidden; }
 .env2 { position: fixed; inset: 0; z-index: 1000; display: flex; justify-content: center; background: transparent; }
 .env2.hidden { display: none; }
 .env2-stage { position: relative; width: 100%; max-width: 440px; height: 100%; overflow: hidden; perspective: 1400px; background: #e9dff7; box-shadow: 0 0 60px rgba(90, 60, 150, 0.18); }
-.env2-stage.is-opening { pointer-events: none; animation: envStageOut 0.8s ease 0.7s forwards; }
+.env2-stage.is-opening { pointer-events: none; animation: envStageOut 0.6s ease 1.3s forwards; }
 
 .env2-interior { position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, #fff6d6 0%, #f5dc98 20%, #d6bcf2 52%, #a688df 100%); }
 .env2-light { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
@@ -162,21 +162,23 @@ html.env-lock, html.env-lock body { overflow: hidden; }
 .env2-bloom { position: absolute; inset: 0; opacity: 0; pointer-events: none; background: radial-gradient(circle at 50% 50%, #fffdf4 0%, #fbefc8 30%, #e8dbfb 68%, #d2c0f4 100%); }
 
 /* ----- the opening timeline (seconds after the tap) -----
-   Matches the reference video: tap -> the seal ignites and lifts as gold light bursts
-   from behind it and races along the fold lines -> the whole face brightens -> the envelope
-   simply DISSOLVES (no panel hinge-rotation) into the arch, which is already rendering
-   underneath. Total tap-to-revealed is ~1.5s, not a slow multi-second unfold. */
-.is-opening .env2-seal img        { animation: envIgnite 0.5s ease forwards; }
-.is-opening .env2-seal-halo       { animation: envHaloBurst 0.6s ease forwards; }
-.is-opening .env2-seal            { animation: envSealRise 0.5s cubic-bezier(0.55, 0, 0.25, 1) 0.4s forwards; }
-.is-opening .env2-waves i         { animation: envWave 1s cubic-bezier(0.16, 0.7, 0.25, 1) forwards; }
-.is-opening .env2-waves i:nth-child(2) { animation-delay: 0.16s; }
-.is-opening .env2-waves i:nth-child(3) { animation-delay: 0.32s; }
-.is-opening .env2-glints          { animation: envGlint 0.5s ease-in-out 0s 1 forwards; }
-.is-opening .env2-creases         { animation: envFade 0.3s ease 0.45s forwards; }
-.is-opening .env2-light           { animation: envLightIn 0.5s ease 0.3s forwards; }
-.is-opening .env2-flare           { animation: envFlareGrow 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards; }
-.is-opening .env2-bloom           { animation: envBloom 0.45s ease 0.3s forwards; }
+   Matches the reference video: tap -> the seal ignites and lifts as gold light bursts from
+   behind it and races along the fold lines -> the whole face brightens and HOLDS there, fully
+   lit and sparkling, still visually closed, for over a second (this is the anticipation beat —
+   compressing it away is what made an earlier pass feel rushed) -> only then does the envelope
+   DISSOLVE (no panel hinge-rotation) into the arch, which is already rendering underneath.
+   Total tap-to-revealed is ~1.9s: a ~1.3s build-and-hold, then a quick ~0.6s dissolve. */
+.is-opening .env2-seal img        { animation: envIgnite 0.6s ease forwards; }
+.is-opening .env2-seal-halo       { animation: envHaloBurst 0.7s ease forwards; }
+.is-opening .env2-seal            { animation: envSealRise 0.5s cubic-bezier(0.55, 0, 0.25, 1) 0.85s forwards; }
+.is-opening .env2-waves i         { animation: envWave 1.1s cubic-bezier(0.16, 0.7, 0.25, 1) forwards; }
+.is-opening .env2-waves i:nth-child(2) { animation-delay: 0.18s; }
+.is-opening .env2-waves i:nth-child(3) { animation-delay: 0.36s; }
+.is-opening .env2-glints          { animation: envGlint 0.6s ease-in-out 0s 1 forwards; }
+.is-opening .env2-creases         { animation: envFade 0.3s ease 0.55s forwards; }
+.is-opening .env2-light           { animation: envLightIn 0.55s ease 0.3s forwards; }
+.is-opening .env2-flare           { animation: envFlareGrow 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards; }
+.is-opening .env2-bloom           { animation: envBloom 0.55s ease 0.3s forwards; }
 
 @keyframes envIgnite {
   0%   { transform: scale(1); filter: drop-shadow(0 16px 24px rgba(35, 18, 60, 0.5)) drop-shadow(0 0 8px rgba(226, 196, 110, 0.35)); }
