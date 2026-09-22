@@ -169,12 +169,18 @@ html.env-lock, html.env-lock body { overflow: hidden; }
    stretched back out to a slow, unhurried ~7.1s — close to the original pacing — while keeping
    that same shape:
      0.00 - 0.50s  the seal reacts — a slow scale-up as its drop-shadow flares in (envIgnite).
-     0.50 - 2.70s  (~2.2s) RAMP — gold light builds from nothing to full brightness along the
-                    fold-line creases, gems sparkling in (envHaloBurst, envSealRise, envWave,
-                    envGlint, envFade, envLightIn, envFlareGrow, envBloom all finish by ~2.7s).
-     2.70 - 5.80s  (~3.1s) HOLD — the glow sits at full brightness, envelope fully lit and
-                    sparkling but still visually CLOSED. This is the long, steady anticipation
-                    beat — do not compress it.
+     0.50 - ~1.7s  RAMP — a bright flash: gold light bursts from behind the seal and races along
+                    the fold-line creases (envHaloBurst, envWave, envFlareGrow and envBloom all
+                    peak around here — envFlareGrow at 35% of 3.4s ≈ 1.7s, envBloom at 35% of
+                    3.4s ≈ 1.7s too).
+     ~1.7 - 5.80s  HOLD — the flash SETTLES back down to a gentle ambient glow (envFlareGrow and
+                    envBloom ease down to a low resting scale/opacity by ~3.9s) so the envelope's
+                    own embossed texture, creases and seal stay visible underneath the light,
+                    rather than being blanketed by an opaque wash — that blank-looking whiteout
+                    was the earlier bug. envWave keeps rippling and envGlint keeps sweeping on
+                    loop for the rest of the hold, so there is always something gently moving.
+                    Still visually CLOSED throughout — this is the long, steady anticipation
+                    beat — do not compress it, and do not let it go flat/blank again.
      5.80 - 7.10s  (~1.3s) DISSOLVE — a slow opacity crossfade of the whole envelope face reveals
                     the arch, already rendering underneath (envStageOut, see
                     .env2-stage.is-opening above).
@@ -183,14 +189,22 @@ html.env-lock, html.env-lock body { overflow: hidden; }
 .is-opening .env2-seal img        { animation: envIgnite 0.5s ease forwards; }
 .is-opening .env2-seal-halo       { animation: envHaloBurst 0.6s ease forwards; }
 .is-opening .env2-seal            { animation: envSealRise 2s cubic-bezier(0.55, 0, 0.25, 1) 0.6s forwards; }
-.is-opening .env2-waves i         { animation: envWave 1.8s cubic-bezier(0.16, 0.7, 0.25, 1) 0.5s forwards; }
-.is-opening .env2-waves i:nth-child(2) { animation-delay: 0.65s; }
-.is-opening .env2-waves i:nth-child(3) { animation-delay: 0.8s; }
-.is-opening .env2-glints          { animation: envGlint 1.8s ease-in-out 0.1s 1 forwards; }
+/* waves keep gently rippling out for the whole hold, not just a quick burst at the start */
+.is-opening .env2-waves i         { animation: envWave 2.8s cubic-bezier(0.16, 0.7, 0.25, 1) 0.5s infinite; }
+.is-opening .env2-waves i:nth-child(2) { animation-delay: 1.4s; }
+.is-opening .env2-waves i:nth-child(3) { animation-delay: 2.3s; }
+/* the idle shimmer keeps sweeping (faster than its resting 6s pace) through the whole hold too,
+   so there is always something moving instead of a frozen frame */
+.is-opening .env2-glints          { animation: envGlint 3.2s ease-in-out 0.1s infinite; }
 .is-opening .env2-creases         { animation: envFade 1s ease 1.6s forwards; }
 .is-opening .env2-light           { animation: envLightIn 1.8s ease 0.5s forwards; }
-.is-opening .env2-flare           { animation: envFlareGrow 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards; }
-.is-opening .env2-bloom           { animation: envBloom 1.8s ease 0.6s forwards; }
+/* flare and bloom used to grow/fade IN and then just sit there at full intensity for the rest of
+   the (now much longer) hold — a giant light-cross and an opaque colour wash both frozen at their
+   brightest, completely covering the embossed envelope underneath. That was the "blank screen".
+   They now flash up, then settle back down to a much gentler ambient level that leaves the
+   envelope's own texture, creases and sparkle visible through the glow. */
+.is-opening .env2-flare           { animation: envFlareGrow 3.4s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards; }
+.is-opening .env2-bloom           { animation: envBloom 3.4s ease 0.5s forwards; }
 
 @keyframes envIgnite {
   0%   { transform: scale(1); filter: drop-shadow(0 16px 24px rgba(35, 18, 60, 0.5)) drop-shadow(0 0 8px rgba(226, 196, 110, 0.35)); }
@@ -202,8 +216,8 @@ html.env-lock, html.env-lock body { overflow: hidden; }
 @keyframes envWave { 0% { transform: scale(0.55); opacity: 0; } 12% { opacity: 1; } 100% { transform: scale(6.4); opacity: 0; } }
 @keyframes envFade { from { opacity: 1; } to { opacity: 0; } }
 @keyframes envLightIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes envFlareGrow { from { transform: scale(0.15); } to { transform: scale(1.25); } }
-@keyframes envBloom { from { opacity: 0; } to { opacity: 1; } }
+@keyframes envFlareGrow { 0% { transform: scale(0.15); } 35% { transform: scale(1.3); } 100% { transform: scale(0.5); } }
+@keyframes envBloom { 0% { opacity: 0; } 35% { opacity: 0.85; } 100% { opacity: 0.3; } }
 @keyframes envStageOut { to { opacity: 0; } }
 
 /* --------------------------------------------------------------------------
