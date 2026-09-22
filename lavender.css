@@ -182,12 +182,9 @@ html.env-lock, html.env-lock body { overflow: hidden; }
 /* --------------------------------------------------------------------------
    ARCH — your lavender rose & gold artwork with only the logo inside
    -------------------------------------------------------------------------- */
-.vx-hero { padding: 14px 0 0; margin: 0; background: none; border: 0; box-shadow: none; }
-.vx-arch {
-  position: relative; overflow: hidden; margin: 0 auto; aspect-ratio: 768 / 1376;
-  width: min(100%, 460px, calc((100vh - 20px) * 0.5581));
-  width: min(100%, 460px, calc((100svh - 20px) * 0.5581));
-}
+.vx-hero { padding: 0; margin: 0; background: none; border: 0; box-shadow: none; }
+/* the artwork always fills the whole column (no paper showing at the sides), at its own 768 x 1376 ratio */
+.vx-arch { position: relative; overflow: hidden; margin: 0 auto; width: 100%; aspect-ratio: 768 / 1376; }
 .vx-arch-img { position: absolute; inset: 0; z-index: -2; display: block; width: 100%; height: 100%; object-fit: cover; }
 .vx-arch-logo { position: absolute; left: 0; right: 0; top: 33.5%; display: flex; justify-content: center; }
 .vx-logo-ring {
@@ -218,9 +215,11 @@ html.env-lock, html.env-lock body { overflow: hidden; }
 @keyframes archSweep { 0% { opacity: 1; transform: translateX(-70%); } 85% { opacity: 1; } 100% { opacity: 0; transform: translateX(70%); } }
 
 /* --------------------------------------------------------------------------
-   WILDLIFE — a few butterflies and one hummingbird, always behind the text
+   WILDLIFE — butterflies in the side margins, hummingbirds around the roses of the arch.
+   Both layers sit above the artwork (z -2) and behind all the text and the logo.
    -------------------------------------------------------------------------- */
 #wildlife-layer { position: fixed; inset: 0; pointer-events: none; z-index: -1; overflow: hidden; }
+#flock-layer { position: absolute; inset: 0; pointer-events: none; z-index: -1; overflow: hidden; }
 .critter { position: absolute; left: 0; top: 0; opacity: 0; transition: opacity 1.4s ease; will-change: transform, opacity; filter: drop-shadow(0 3px 4px rgba(60, 30, 90, 0.2)); }
 .critter.on { opacity: 0.9; }
 .critter svg { display: block; overflow: visible; }
@@ -301,6 +300,20 @@ html.env-lock, html.env-lock body { overflow: hidden; }
 .parchment-body .top-bismillah-box { flex: 1 1 auto; min-width: 0; }
 .parchment-body .bismillah-card-header-img { max-width: 100%; width: 100%; }
 
+/* Couple section: groom, then the centred "in marriage with" line, then bride.
+   The old side-by-side layout squeezed that line into a thin column with one word per row. */
+.parchment-body .bohra-card-couple-grid { flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 6px; margin: 22px 0 24px; }
+.parchment-body .couple-side-col { flex: 0 0 auto; width: 100%; padding: 18px 16px; }
+.parchment-body .thuluth-calligraphy-name { font-size: 3.2rem; margin: 4px 0; }
+.parchment-body .family-parent-lines { margin-top: 2px; }
+.parchment-body .couple-center-knot { width: 100%; padding: 22px 8px; position: relative; text-align: center; }
+.parchment-body .couple-center-knot::before,
+.parchment-body .couple-center-knot::after { content: ''; position: absolute; left: 50%; width: 1px; height: 14px; background: linear-gradient(180deg, rgba(201, 162, 78, 0), var(--au)); }
+.parchment-body .couple-center-knot::before { top: 4px; }
+.parchment-body .couple-center-knot::after  { bottom: 4px; transform: scaleY(-1); }
+.parchment-body .knot-wedding-script { font-size: 1.7rem; line-height: 1.3; }
+.parchment-body .knot-sub-script { font-size: 1.2rem; line-height: 1.5; margin-top: 4px; }
+
 .lisan-stanza-line, .parent-line-bold, .parent-line-sub, .invitation-request-line, .nikah-raza-callout,
 .event-detail-eng, .event-detail-arabic, .sign-name, .final-salutations, .knot-wedding-script, .knot-sub-script { color: var(--lv-ink) !important; }
 .kinship-label, .dawat-ubaid-title { color: #8c5e14 !important; }
@@ -356,7 +369,7 @@ html.env-lock, html.env-lock body { overflow: hidden; }
 .footer-gratitude-title { font-family: 'Pinyon Script', cursive !important; font-weight: 400; font-size: 2.2rem; color: var(--lv-mauve) !important; }
 
 @media (prefers-reduced-motion: reduce) {
-  #wildlife-layer { display: none; }
+  #wildlife-layer, #flock-layer { display: none; }
   .rv { animation: none; }
   .env2-glints, .env2-sparkle, .env2-seal-halo, .env2-rays, .vx-logo-ring::after, .hero-scroll-cue .chev { animation: none; }
   .arch-revealed .vx-arch-img, .arch-revealed .vx-arch-logo, .arch-revealed .vx-arch-sweep, .arch-revealed .hero-scroll-cue { animation: none; }
