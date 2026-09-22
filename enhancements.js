@@ -1,14 +1,16 @@
 /**
- * ENHANCEMENTS — arch reveal, butterflies at the sides, and a small flock of hummingbirds
- * that hovers around the roses of the arch artwork.
+ * ENHANCEMENTS — arch reveal, butterflies roaming the whole screen, and a small flock of
+ * hummingbirds that hovers around the roses of the arch artwork.
  * Mustafa & Tasneem wedding invitation.
  *
  * Works alongside app.js without modifying it:
  *   - waits for #invitation-screen to lose its "hidden" class (envelope.js does that when the
  *     envelope has finished opening), then plays the arch reveal and releases the wildlife.
- *   - butterflies drift in the two side margins of the screen (never across the text).
+ *   - butterflies drift over the FULL width of the screen, including over the invitation column;
+ *     their layer sits behind the card content (z-index), so they pass behind text and cards and
+ *     only show through the gaps and margins — never drawn on top of anything readable.
  *   - three hummingbirds live INSIDE the arch: they hover beside its rose and lilac clusters,
- *     dart from bloom to bloom and scroll away with the arch.
+ *     dart from bloom to bloom (slowly — a leisurely drift, not a dart) and scroll away with the arch.
  *
  * To revert to the pre-lavender build: see creations_history/v10_before_video_replica_lavender/.
  */
@@ -126,20 +128,12 @@
       'translate3d(' + (c.x - c.w / 2).toFixed(1) + 'px,' + (c.y - c.h / 2).toFixed(1) + 'px,0) rotate(' + c.rot.toFixed(1) + 'deg)';
   }
 
-  // The butterflies keep to the two SIDES of the screen and never cross the middle, where the text is:
-  // the empty margins beside the invitation on wide screens, or a thin band along each edge on phones.
-  function sideBand(side) {
-    var W = vw();
-    var margin = (W - Math.min(460, W)) / 2;
-    var lo, hi;
-    if (margin >= 90) { lo = 14; hi = margin - 34; }
-    else { lo = 22; hi = Math.max(60, W * 0.18); }
-    return side === 0 ? [lo, hi] : [W - hi, W - lo];
-  }
-
+  // The butterflies roam the FULL width of the screen — including over the invitation column —
+  // but the layer they live in sits behind the card content (z-index, see #wildlife-layer), so
+  // they pass behind text and cards and only show through in the gaps between them, and in the
+  // side margins. That "now you see it, now you don't" is the effect, not a hard boundary.
   function pickButterflyTarget(c) {
-    var b = sideBand(c.side);
-    c.tx = rand(b[0], b[1]);
+    c.tx = rand(vw() * 0.04, vw() * 0.96);
     c.ty = rand(vh() * 0.06, vh() * 0.94);
     c.speed = rand(30, 60);
     c.hold = rand(2.4, 5.2);
@@ -158,9 +152,9 @@
     var wob = Math.sin(t * 6.5 + c.phase) * 26 + Math.sin(t * 2.7 + c.phase * 1.7) * 16;
     c.x += (c.vx + (-c.vy / sp) * wob) * dt;
     c.y += (c.vy + (c.vx / sp) * wob + Math.sin(t * 9 + c.phase) * 16) * dt;
-    var band = sideBand(c.side);                    // stay inside this side's band
-    if (c.x < band[0]) { c.x = band[0]; c.vx = Math.abs(c.vx); }
-    else if (c.x > band[1]) { c.x = band[1]; c.vx = -Math.abs(c.vx); }
+    var lo = vw() * 0.02, hi = vw() * 0.98;          // stay just inside the viewport edges
+    if (c.x < lo) { c.x = lo; c.vx = Math.abs(c.vx); }
+    else if (c.x > hi) { c.x = hi; c.vx = -Math.abs(c.vx); }
     var target = Math.atan2(c.vy, c.vx) * 180 / Math.PI + 90; // head is "up" in the sprite
     var diff = ((target - c.rot + 540) % 360) - 180;
     c.rot += diff * Math.min(1, dt * 3.2);
@@ -171,14 +165,12 @@
     var w = small ? rand(26, 36) : rand(30, 44);
     var c = makeButterfly(w, w * 0.8, butterflySVG(PALETTES[i % PALETTES.length]));
     var fromTop = Math.random() < 0.5;
-    c.side = i % 2;                                  // alternate left / right
-    var b0 = sideBand(c.side);
-    c.x = rand(b0[0], b0[1]);
+    c.x = rand(vw() * 0.1, vw() * 0.9);
     c.y = fromTop ? -60 : vh() + 60;
     c.vy = fromTop ? 40 : -40;
-    c.sleep = i * 0.8;
+    c.sleep = i * 0.6;
     pickButterflyTarget(c);
-    setTimeout(function () { c.el.classList.add('on'); }, 200 + i * 800);
+    setTimeout(function () { c.el.classList.add('on'); }, 200 + i * 550);
   }
 
   /* ------------------------------------------------------------------
@@ -214,7 +206,7 @@
     birds.push(c);
     var pt = pickBloom(c, ci) || hoverPoint(BLOOMS[ci][0]);
     c.X = c.hx = c.tx = pt.x; c.Y = c.hy = c.ty = pt.y; c.face = pt.face;
-    c.dur = rand(1.2, 3.2);
+    c.dur = rand(2.5, 5.5);
     return c;
   }
 
@@ -264,7 +256,7 @@
     if (Math.abs(dy) > 0.6) { c.cx = c.sx < 0.5 ? 0.02 : 0.98; c.cy = (c.sy + c.ey) / 2; }          // hug the edge, not the logo
     else if (Math.abs(dx) > 0.3) { c.cx = (c.sx + c.ex) / 2; c.cy = Math.min(c.sy, c.ey) - 0.09; }   // arc over the top
     else { c.cx = (c.sx + c.ex) / 2 + (c.ex < 0.5 ? -1 : 1) * rand(0, 0.06); c.cy = (c.sy + c.ey) / 2 + rand(-0.05, 0.05); }   // bend outward, away from the middle
-    c.mode = 'dash'; c.mt = 0; c.dur = clamp(dist * 0.7 + 0.4, 0.55, 1.5);
+    c.mode = 'dash'; c.mt = 0; c.dur = clamp(dist * 1.8 + 1.0, 1.3, 3.2); // a leisurely drift, not a dart
     // the rest of the flock on this side sometimes follows the leader
     for (i = 0; i < birds.length; i++) {
       o = birds[i];
@@ -296,7 +288,7 @@
       c.X = qb(c.sx, c.cx, c.ex, e);
       c.Y = qb(c.sy, c.cy, c.ey, e);
       want = clamp(-(c.ey - c.sy) * 20, -14, 14);
-      if (p >= 1) { c.mode = 'hover'; c.mt = 0; c.dur = rand(2.2, 4.6); c.hx = c.ex; c.hy = c.ey; }
+      if (p >= 1) { c.mode = 'hover'; c.mt = 0; c.dur = rand(2.8, 5.5); c.hx = c.ex; c.hy = c.ey; }
     }
     keepClear(c);
     c.pitch += (want - c.pitch) * Math.min(1, dt * 8);
@@ -344,7 +336,7 @@
       layer.setAttribute('aria-hidden', 'true');
       (document.getElementById('invitation-screen') || document.body).appendChild(layer);
       var small = vw() < 600;
-      var nButterflies = small ? 3 : 4;
+      var nButterflies = small ? 6 : 9;
       for (var i = 0; i < nButterflies; i++) spawnButterfly(i, small);
 
       // hummingbirds: a layer inside the arch itself, above the artwork and below the logo

@@ -97,7 +97,7 @@ html.env-lock, html.env-lock body { overflow: hidden; }
 .env2 { position: fixed; inset: 0; z-index: 1000; display: flex; justify-content: center; background: transparent; }
 .env2.hidden { display: none; }
 .env2-stage { position: relative; width: 100%; max-width: 440px; height: 100%; overflow: hidden; perspective: 1400px; background: #e9dff7; box-shadow: 0 0 60px rgba(90, 60, 150, 0.18); }
-.env2-stage.is-opening { pointer-events: none; animation: envStageOut 0.6s ease 1.3s forwards; }
+.env2-stage.is-opening { pointer-events: none; animation: envStageOut 0.4s ease 1.7s forwards; }
 
 .env2-interior { position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, #fff6d6 0%, #f5dc98 20%, #d6bcf2 52%, #a688df 100%); }
 .env2-light { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
@@ -162,23 +162,33 @@ html.env-lock, html.env-lock body { overflow: hidden; }
 .env2-bloom { position: absolute; inset: 0; opacity: 0; pointer-events: none; background: radial-gradient(circle at 50% 50%, #fffdf4 0%, #fbefc8 30%, #e8dbfb 68%, #d2c0f4 100%); }
 
 /* ----- the opening timeline (seconds after the tap) -----
-   Matches the reference video: tap -> the seal ignites and lifts as gold light bursts from
-   behind it and races along the fold lines -> the whole face brightens and HOLDS there, fully
-   lit and sparkling, still visually closed, for over a second (this is the anticipation beat —
-   compressing it away is what made an earlier pass feel rushed) -> only then does the envelope
-   DISSOLVE (no panel hinge-rotation) into the arch, which is already rendering underneath.
-   Total tap-to-revealed is ~1.9s: a ~1.3s build-and-hold, then a quick ~0.6s dissolve. */
-.is-opening .env2-seal img        { animation: envIgnite 0.6s ease forwards; }
-.is-opening .env2-seal-halo       { animation: envHaloBurst 0.7s ease forwards; }
-.is-opening .env2-seal            { animation: envSealRise 0.5s cubic-bezier(0.55, 0, 0.25, 1) 0.85s forwards; }
-.is-opening .env2-waves i         { animation: envWave 1.1s cubic-bezier(0.16, 0.7, 0.25, 1) forwards; }
-.is-opening .env2-waves i:nth-child(2) { animation-delay: 0.18s; }
-.is-opening .env2-waves i:nth-child(3) { animation-delay: 0.36s; }
-.is-opening .env2-glints          { animation: envGlint 0.6s ease-in-out 0s 1 forwards; }
-.is-opening .env2-creases         { animation: envFade 0.3s ease 0.55s forwards; }
-.is-opening .env2-light           { animation: envLightIn 0.55s ease 0.3s forwards; }
-.is-opening .env2-flare           { animation: envFlareGrow 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards; }
-.is-opening .env2-bloom           { animation: envBloom 0.55s ease 0.3s forwards; }
+   Matches the reference video's VERIFIED real timing (measured frame-by-frame against the
+   source video):
+     0.00 - 0.15s  the seal reacts almost instantly — a slight scale-up as its drop-shadow
+                    flares in (envIgnite).
+     0.15 - 0.75s  (~0.6s) RAMP — gold light bursts from behind the seal and races along the
+                    fold-line creases, with sparkly gem-like highlights, ramping from nothing to
+                    full brightness (envHaloBurst, envSealRise, envWave, envGlint, envFade,
+                    envLightIn, envFlareGrow, envBloom all finish by 0.75s).
+     0.75 - 1.70s  (~0.95s, essentially ~1s) HOLD — the glow stays at full brightness; the
+                    envelope is fully lit and sparkling but still visually CLOSED, no dissolving
+                    yet. This anticipation beat must not be compressed — that was the earlier bug.
+     1.70 - 2.10s  (~0.4s) DISSOLVE — a straightforward opacity crossfade of the whole envelope
+                    face (no panel hinge-rotation) reveals the arch, already rendering underneath
+                    (envStageOut, see .env2-stage.is-opening above).
+   Total tap-to-revealed is ~2.1s: 0.75s ramp + 1.0s hold + 0.4s dissolve. Keep T_REVEAL/T_DONE in
+   envelope.js in step with envStageOut's delay/duration below if you change these. */
+.is-opening .env2-seal img        { animation: envIgnite 0.15s ease forwards; }
+.is-opening .env2-seal-halo       { animation: envHaloBurst 0.6s ease 0.15s forwards; }
+.is-opening .env2-seal            { animation: envSealRise 0.5s cubic-bezier(0.55, 0, 0.25, 1) 0.2s forwards; }
+.is-opening .env2-waves i         { animation: envWave 0.5s cubic-bezier(0.16, 0.7, 0.25, 1) 0.15s forwards; }
+.is-opening .env2-waves i:nth-child(2) { animation-delay: 0.2s; }
+.is-opening .env2-waves i:nth-child(3) { animation-delay: 0.25s; }
+.is-opening .env2-glints          { animation: envGlint 0.6s ease-in-out 0.15s 1 forwards; }
+.is-opening .env2-creases         { animation: envFade 0.3s ease 0.45s forwards; }
+.is-opening .env2-light           { animation: envLightIn 0.6s ease 0.15s forwards; }
+.is-opening .env2-flare           { animation: envFlareGrow 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s forwards; }
+.is-opening .env2-bloom           { animation: envBloom 0.5s ease 0.25s forwards; }
 
 @keyframes envIgnite {
   0%   { transform: scale(1); filter: drop-shadow(0 16px 24px rgba(35, 18, 60, 0.5)) drop-shadow(0 0 8px rgba(226, 196, 110, 0.35)); }
@@ -240,7 +250,7 @@ html.env-lock, html.env-lock body { overflow: hidden; }
 .critter svg { display: block; overflow: visible; }
 .bf .wl, .bf .wr { transform-box: view-box; transform-origin: 50px 40px; animation: bfFlap var(--flap, 0.28s) ease-in-out infinite alternate; }
 @keyframes bfFlap { from { transform: scaleX(1); } to { transform: scaleX(0.16); } }
-.hb .hw1, .hb .hw2 { transform-box: view-box; transform-origin: 58px 44px; animation: hbFlap 0.085s ease-in-out infinite alternate; }
+.hb .hw1, .hb .hw2 { transform-box: view-box; transform-origin: 58px 44px; animation: hbFlap 0.13s ease-in-out infinite alternate; }
 .hb .hw2 { animation-delay: -0.04s; }
 @keyframes hbFlap { from { transform: rotate(-34deg) scaleY(1); } to { transform: rotate(14deg) scaleY(0.55); } }
 
