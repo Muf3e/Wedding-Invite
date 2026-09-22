@@ -97,7 +97,7 @@ html.env-lock, html.env-lock body { overflow: hidden; }
 .env2 { position: fixed; inset: 0; z-index: 1000; display: flex; justify-content: center; background: transparent; }
 .env2.hidden { display: none; }
 .env2-stage { position: relative; width: 100%; max-width: 440px; height: 100%; overflow: hidden; perspective: 1400px; background: #e9dff7; box-shadow: 0 0 60px rgba(90, 60, 150, 0.18); }
-.env2-stage.is-opening { pointer-events: none; animation: envStageOut 0.4s ease 1.7s forwards; }
+.env2-stage.is-opening { pointer-events: none; animation: envStageOut 1.3s ease 5.8s forwards; }
 
 .env2-interior { position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, #fff6d6 0%, #f5dc98 20%, #d6bcf2 52%, #a688df 100%); }
 .env2-light { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
@@ -162,33 +162,35 @@ html.env-lock, html.env-lock body { overflow: hidden; }
 .env2-bloom { position: absolute; inset: 0; opacity: 0; pointer-events: none; background: radial-gradient(circle at 50% 50%, #fffdf4 0%, #fbefc8 30%, #e8dbfb 68%, #d2c0f4 100%); }
 
 /* ----- the opening timeline (seconds after the tap) -----
-   Matches the reference video's VERIFIED real timing (measured frame-by-frame against the
-   source video):
-     0.00 - 0.15s  the seal reacts almost instantly — a slight scale-up as its drop-shadow
-                    flares in (envIgnite).
-     0.15 - 0.75s  (~0.6s) RAMP — gold light bursts from behind the seal and races along the
-                    fold-line creases, with sparkly gem-like highlights, ramping from nothing to
-                    full brightness (envHaloBurst, envSealRise, envWave, envGlint, envFade,
-                    envLightIn, envFlareGrow, envBloom all finish by 0.75s).
-     0.75 - 1.70s  (~0.95s, essentially ~1s) HOLD — the glow stays at full brightness; the
-                    envelope is fully lit and sparkling but still visually CLOSED, no dissolving
-                    yet. This anticipation beat must not be compressed — that was the earlier bug.
-     1.70 - 2.10s  (~0.4s) DISSOLVE — a straightforward opacity crossfade of the whole envelope
-                    face (no panel hinge-rotation) reveals the arch, already rendering underneath
-                    (envStageOut, see .env2-stage.is-opening above).
-   Total tap-to-revealed is ~2.1s: 0.75s ramp + 1.0s hold + 0.4s dissolve. Keep T_REVEAL/T_DONE in
-   envelope.js in step with envStageOut's delay/duration below if you change these. */
-.is-opening .env2-seal img        { animation: envIgnite 0.15s ease forwards; }
-.is-opening .env2-seal-halo       { animation: envHaloBurst 0.6s ease 0.15s forwards; }
-.is-opening .env2-seal            { animation: envSealRise 0.5s cubic-bezier(0.55, 0, 0.25, 1) 0.2s forwards; }
-.is-opening .env2-waves i         { animation: envWave 0.5s cubic-bezier(0.16, 0.7, 0.25, 1) 0.15s forwards; }
-.is-opening .env2-waves i:nth-child(2) { animation-delay: 0.2s; }
-.is-opening .env2-waves i:nth-child(3) { animation-delay: 0.25s; }
-.is-opening .env2-glints          { animation: envGlint 0.6s ease-in-out 0.15s 1 forwards; }
-.is-opening .env2-creases         { animation: envFade 0.3s ease 0.45s forwards; }
-.is-opening .env2-light           { animation: envLightIn 0.6s ease 0.15s forwards; }
-.is-opening .env2-flare           { animation: envFlareGrow 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s forwards; }
-.is-opening .env2-bloom           { animation: envBloom 0.5s ease 0.25s forwards; }
+   The mechanic is still what was verified against the source video — seal ignites, gold light
+   ramps up and races along the fold lines, holds at full brightness while still visually closed,
+   then the envelope DISSOLVES (a plain opacity crossfade, never a panel hinge-rotation) into the
+   arch underneath. But a fast, frame-accurate ~2.1s read as rushed in practice, so this is
+   stretched back out to a slow, unhurried ~7.1s — close to the original pacing — while keeping
+   that same shape:
+     0.00 - 0.50s  the seal reacts — a slow scale-up as its drop-shadow flares in (envIgnite).
+     0.50 - 2.70s  (~2.2s) RAMP — gold light builds from nothing to full brightness along the
+                    fold-line creases, gems sparkling in (envHaloBurst, envSealRise, envWave,
+                    envGlint, envFade, envLightIn, envFlareGrow, envBloom all finish by ~2.7s).
+     2.70 - 5.80s  (~3.1s) HOLD — the glow sits at full brightness, envelope fully lit and
+                    sparkling but still visually CLOSED. This is the long, steady anticipation
+                    beat — do not compress it.
+     5.80 - 7.10s  (~1.3s) DISSOLVE — a slow opacity crossfade of the whole envelope face reveals
+                    the arch, already rendering underneath (envStageOut, see
+                    .env2-stage.is-opening above).
+   Total tap-to-revealed is ~7.1s. Keep T_REVEAL/T_DONE in envelope.js in step with envStageOut's
+   delay/duration below if you change these. */
+.is-opening .env2-seal img        { animation: envIgnite 0.5s ease forwards; }
+.is-opening .env2-seal-halo       { animation: envHaloBurst 0.6s ease forwards; }
+.is-opening .env2-seal            { animation: envSealRise 2s cubic-bezier(0.55, 0, 0.25, 1) 0.6s forwards; }
+.is-opening .env2-waves i         { animation: envWave 1.8s cubic-bezier(0.16, 0.7, 0.25, 1) 0.5s forwards; }
+.is-opening .env2-waves i:nth-child(2) { animation-delay: 0.65s; }
+.is-opening .env2-waves i:nth-child(3) { animation-delay: 0.8s; }
+.is-opening .env2-glints          { animation: envGlint 1.8s ease-in-out 0.1s 1 forwards; }
+.is-opening .env2-creases         { animation: envFade 1s ease 1.6s forwards; }
+.is-opening .env2-light           { animation: envLightIn 1.8s ease 0.5s forwards; }
+.is-opening .env2-flare           { animation: envFlareGrow 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards; }
+.is-opening .env2-bloom           { animation: envBloom 1.8s ease 0.6s forwards; }
 
 @keyframes envIgnite {
   0%   { transform: scale(1); filter: drop-shadow(0 16px 24px rgba(35, 18, 60, 0.5)) drop-shadow(0 0 8px rgba(226, 196, 110, 0.35)); }

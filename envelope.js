@@ -3,14 +3,15 @@
  * Mustafa & Tasneem wedding invitation.
  *
  * Envelope: tapping the seal starts a CSS timeline (see the "opening timeline" block in
- * lavender.css) that matches the reference video's verified real timing — the seal reacts
- * almost instantly (0-0.15s), then gold light ramps up from nothing to full brightness as it
- * races along the fold lines and blooms across the whole face (0.15-0.75s), then HOLDS there
- * fully lit and sparkling — still visually closed — for close to a full second (0.75-1.70s,
- * the anticipation beat: do not compress it), then the envelope DISSOLVES as a straight opacity
- * crossfade (no flap hinge-rotation) into the arch, which is already rendering underneath
- * (1.70-2.10s). ~2.1s tap-to-revealed total (0.75s ramp + 1.0s hold + 0.4s dissolve). This file
- * only starts that timeline and reveals the invitation at the right moment.
+ * lavender.css). The mechanic is verified against the reference video — the seal reacts, gold
+ * light ramps up from nothing to full brightness as it races along the fold lines and blooms
+ * across the whole face, then HOLDS there fully lit and sparkling — still visually closed — for
+ * a long, steady beat, then the envelope DISSOLVES as a slow opacity crossfade (no flap
+ * hinge-rotation) into the arch, which is already rendering underneath. A fast, frame-accurate
+ * ~2.1s version of this read as rushed in practice, so it's stretched back out to a slow,
+ * unhurried ~7.1s tap-to-revealed (0.5s ignite + ~2.2s ramp + ~3.1s hold + ~1.3s dissolve),
+ * close to the original pacing. This file only starts that timeline and reveals the invitation
+ * at the right moment.
  *
  * Music: a single bars-only button. Its state is always read from the <audio> element
  * (play / pause / ended events), so the bars can never disagree with what you hear.
@@ -67,9 +68,9 @@
   if (!envScreen || !stage || !seal || !invite) { showMusicBtn(); return; }
 
   // milliseconds after the tap; keep in step with the timeline in lavender.css
-  // (.env2-stage.is-opening's envStageOut runs delay 1.7s, duration 0.4s -> 1.7s-2.1s)
-  var T_REVEAL = 1650; // just before the stage starts to dissolve, so the arch is already there to show through
-  var T_DONE = 2150;   // just after the stage has finished fading out (1.7s + 0.4s = 2.1s)
+  // (.env2-stage.is-opening's envStageOut runs delay 5.8s, duration 1.3s -> 5.8s-7.1s)
+  var T_REVEAL = 5600; // just before the stage starts to dissolve, so the arch is already there to show through
+  var T_DONE = 7150;   // just after the stage has finished fading out (5.8s + 1.3s = 7.1s)
 
   function reveal() {
     invite.classList.remove('hidden'); // enhancements.js sees this and plays the arch reveal
